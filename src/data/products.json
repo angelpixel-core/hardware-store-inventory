@@ -1,0 +1,318 @@
+[
+  {
+    "id": "prod-001",
+    "name": "Tornillo hexagonal 8 × 40 mm",
+    "brand": "Fischer",
+    "category": "Fijaciones",
+    "sku": "FIS-HEX-0840",
+    "barcode": "7791234500011",
+    "unit": "unidad",
+    "stock": 128,
+    "minimumStock": 20,
+    "price": 1250,
+    "cost": 720,
+    "location": {
+      "store": "Principal",
+      "aisle": "A",
+      "rack": "03",
+      "shelf": "B12"
+    },
+    "description": "Tornillo de fijación para uso general en mampostería y estructuras livianas.",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-002",
+    "name": "Tarugo nylon 8 mm",
+    "brand": "Tigre",
+    "category": "Fijaciones",
+    "sku": "TIG-TAR-08",
+    "barcode": "7791234500028",
+    "unit": "unidad",
+    "stock": 16,
+    "minimumStock": 30,
+    "price": 380,
+    "cost": 210,
+    "location": {
+      "store": "Principal",
+      "aisle": "A",
+      "rack": "03",
+      "shelf": "B14"
+    },
+    "description": "Tarugo de nylon de expansión para mampostería.",
+    "image": "https://images.unsplash.com/photo-1609205807107-3f1f5e8f4f8a?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-003",
+    "name": "Sierra circular 7 1/4 pulgadas",
+    "brand": "Bosch",
+    "category": "Herramientas eléctricas",
+    "sku": "BOS-SC-714",
+    "barcode": "7791234500035",
+    "unit": "unidad",
+    "stock": 7,
+    "minimumStock": 3,
+    "price": 185000,
+    "cost": 128000,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "02",
+      "shelf": "A04"
+    },
+    "description": "Sierra circular compacta para cortes rectos en madera y tableros.",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-004",
+    "name": "Caño PVC presión 20 mm × 4 m",
+    "brand": "Tigre",
+    "category": "Plomería",
+    "sku": "TIG-PVC-20-4",
+    "barcode": "7791234500042",
+    "unit": "unidad",
+    "stock": 42,
+    "minimumStock": 10,
+    "price": 8400,
+    "cost": 5100,
+    "location": {
+      "store": "Depósito",
+      "aisle": "C",
+      "rack": "01",
+      "shelf": "C02"
+    },
+    "description": "Caño de PVC para instalaciones de agua fría a presión.",
+    "image": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-005",
+    "name": "Martillo de uña 16 oz",
+    "brand": "Stanley",
+    "category": "Herramientas manuales",
+    "sku": "STA-MAR-16",
+    "barcode": "7791234500059",
+    "unit": "unidad",
+    "stock": 12,
+    "minimumStock": 8,
+    "price": 32500,
+    "cost": 21500,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "01",
+      "shelf": "A02"
+    },
+    "description": "Martillo de uña con mango ergonómico para trabajos generales.",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-006",
+    "name": "Taladro percutor 650 W",
+    "brand": "DeWalt",
+    "category": "Herramientas eléctricas",
+    "sku": "DEW-TAL-650",
+    "barcode": "7791234500066",
+    "unit": "unidad",
+    "stock": 5,
+    "minimumStock": 4,
+    "price": 149000,
+    "cost": 103000,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "02",
+      "shelf": "A07"
+    },
+    "description": "Taladro percutor de velocidad variable para mampostería y madera.",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-007",
+    "name": "Llave francesa 10 pulgadas",
+    "brand": "Bahco",
+    "category": "Herramientas manuales",
+    "sku": "BAH-LF-10",
+    "barcode": "7791234500073",
+    "unit": "unidad",
+    "stock": 21,
+    "minimumStock": 6,
+    "price": 28400,
+    "cost": 18700,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "01",
+      "shelf": "C05"
+    },
+    "description": "Llave ajustable de acero templado para trabajos de mantenimiento.",
+    "image": "https://images.unsplash.com/photo-1581147036324-c1c4cd4f2b2d?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-008",
+    "name": "Disco de corte metal 115 mm",
+    "brand": "Makita",
+    "category": "Abrasivos",
+    "sku": "MAK-DIS-115",
+    "barcode": "7791234500080",
+    "unit": "unidad",
+    "stock": 9,
+    "minimumStock": 25,
+    "price": 1750,
+    "cost": 980,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "04",
+      "shelf": "B03"
+    },
+    "description": "Disco abrasivo para corte de acero y metales ferrosos.",
+    "image": "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-009",
+    "name": "Pintura látex interior blanco 4 L",
+    "brand": "Alba",
+    "category": "Pinturas",
+    "sku": "ALB-LAT-BLA-4",
+    "barcode": "7791234500097",
+    "unit": "lata",
+    "stock": 18,
+    "minimumStock": 8,
+    "price": 29500,
+    "cost": 20100,
+    "location": {
+      "store": "Depósito",
+      "aisle": "D",
+      "rack": "02",
+      "shelf": "A01"
+    },
+    "description": "Pintura látex lavable para interiores, terminación mate.",
+    "image": "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-010",
+    "name": "Cinta métrica 5 m",
+    "brand": "Stanley",
+    "category": "Medición",
+    "sku": "STA-CIN-05",
+    "barcode": "7791234500103",
+    "unit": "unidad",
+    "stock": 34,
+    "minimumStock": 10,
+    "price": 9200,
+    "cost": 5900,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "01",
+      "shelf": "A08"
+    },
+    "description": "Cinta métrica de 5 metros con traba y gancho reforzado.",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-011",
+    "name": "Guantes de protección talle L",
+    "brand": "Ansell",
+    "category": "Seguridad",
+    "sku": "ANS-GUA-L",
+    "barcode": "7791234500110",
+    "unit": "par",
+    "stock": 27,
+    "minimumStock": 12,
+    "price": 6800,
+    "cost": 3900,
+    "location": {
+      "store": "Principal",
+      "aisle": "E",
+      "rack": "01",
+      "shelf": "B06"
+    },
+    "description": "Guantes de protección para manipulación general y mantenimiento.",
+    "image": "https://images.unsplash.com/photo-1581147036324-c1c4cd4f2b2d?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-012",
+    "name": "Silicona neutra transparente 280 ml",
+    "brand": "Sika",
+    "category": "Adhesivos y selladores",
+    "sku": "SIK-SIL-280",
+    "barcode": "7791234500127",
+    "unit": "unidad",
+    "stock": 6,
+    "minimumStock": 10,
+    "price": 7900,
+    "cost": 4600,
+    "location": {
+      "store": "Principal",
+      "aisle": "C",
+      "rack": "03",
+      "shelf": "A09"
+    },
+    "description": "Sellador de silicona neutra para juntas y aplicaciones generales.",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-013",
+    "name": "Cable unipolar 2.5 mm² x 100 m",
+    "brand": "Prysmian",
+    "category": "Electricidad",
+    "sku": "PRY-CAB-25-100",
+    "barcode": "7791234500134",
+    "unit": "rollo",
+    "stock": 14,
+    "minimumStock": 5,
+    "price": 68500,
+    "cost": 47200,
+    "location": {
+      "store": "Depósito",
+      "aisle": "E",
+      "rack": "02",
+      "shelf": "C01"
+    },
+    "description": "Cable unipolar de cobre para instalaciones eléctricas domiciliarias.",
+    "image": "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-014",
+    "name": "Mecha para madera 10 mm",
+    "brand": "Irwin",
+    "category": "Accesorios",
+    "sku": "IRW-MAD-10",
+    "barcode": "7791234500141",
+    "unit": "unidad",
+    "stock": 0,
+    "minimumStock": 5,
+    "price": 4500,
+    "cost": 2600,
+    "location": {
+      "store": "Principal",
+      "aisle": "B",
+      "rack": "03",
+      "shelf": "C04"
+    },
+    "description": "Mecha helicoidal para perforaciones limpias en madera.",
+    "image": "https://images.unsplash.com/photo-1504148455328-c376907d081c?auto=format&fit=crop&w=900&q=80"
+  },
+  {
+    "id": "prod-015",
+    "name": "Candado laminado 50 mm",
+    "brand": "Master Lock",
+    "category": "Seguridad",
+    "sku": "MLK-CAN-50",
+    "barcode": "7791234500158",
+    "unit": "unidad",
+    "stock": 11,
+    "minimumStock": 4,
+    "price": 17800,
+    "cost": 11100,
+    "location": {
+      "store": "Principal",
+      "aisle": "E",
+      "rack": "02",
+      "shelf": "A03"
+    },
+    "description": "Candado laminado de alta resistencia para uso general.",
+    "image": "https://images.unsplash.com/photo-1586864387967-d02ef85d93e8?auto=format&fit=crop&w=900&q=80"
+  }
+]
+
