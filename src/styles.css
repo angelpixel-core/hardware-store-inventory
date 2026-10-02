@@ -9,8 +9,8 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  color: #242424;
-  background: #f7f7f5;
+  color: #172033;
+  background: #f5f6f8;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
 }
@@ -26,7 +26,8 @@ body {
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
 }
 
@@ -34,7 +35,12 @@ button {
   cursor: pointer;
 }
 
-::selection {
-  background: #d9e8df;
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
+::-webkit-scrollbar-thumb {
+  background: #c9ced8;
+  border-radius: 999px;
+}

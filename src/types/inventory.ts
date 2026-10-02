@@ -1,6 +1,4 @@
-export type StockStatus = "in-stock" | "low-stock" | "out-of-stock";
-
-export interface Location {
+export interface ProductLocation {
   store: string;
   aisle: string;
   rack: string;
@@ -19,17 +17,20 @@ export interface Product {
   minimumStock: number;
   price: number;
   cost: number;
-  location: Location;
+  location: ProductLocation;
   description: string;
-  image: string;
+  image?: string;
 }
+
+export type StockMovementType = "PURCHASE" | "SALE" | "RETURN" | "ADJUSTMENT";
 
 export interface StockMovement {
   id: string;
   productId: string;
-  type: "receive" | "sale" | "adjustment";
+  type: StockMovementType;
   quantity: number;
-  note: string;
-  date: string;
+  unitCost?: number;
+  location: ProductLocation;
+  note?: string;
+  createdAt: string;
 }
-

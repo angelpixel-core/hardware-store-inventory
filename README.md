@@ -1,55 +1,34 @@
-# Hardware Store Inventory
+# Hardware Store Inventory — Inventory Movements + Receive Stock
 
-Tauri 2 + React + TypeScript + Tailwind CSS v4 starter for the inventory desktop application.
+Iteration 2 of the desktop inventory prototype.
 
-## Current slice
+## Included
 
-- Products screen
-- Search across product name, brand, category, SKU and barcode
-- Product detail
-- Stock status
-- Physical location
-- Mock data loaded from `src/data/products.json`
-- Placeholder navigation for Overview, Inventory, Locations and Alerts
+- Inventory section with stock summary cards.
+- Recent stock movements table.
+- `PURCHASE`, `SALE`, `RETURN`, and `ADJUSTMENT` movement types.
+- Receive Stock workflow with product, quantity, unit cost, location and note.
+- Stock is updated immediately in local React state when receiving inventory.
+- Product detail drawer shows recent movements and a Receive Stock action.
+- Optional product image upload.
+- Optional desktop camera capture using `navigator.mediaDevices.getUserMedia()`.
+- TypeScript fix for section metadata indexing.
 
-The 15 sample products are intentionally stored as JSON and rendered by React components rather than hard-coded in the UI.
-
-## Requirements
-
-- Node.js
-- npm
-- Rust toolchain
-- Tauri desktop prerequisites for your operating system
-
-## Run the web UI
+## Run
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Run the Tauri desktop app
+For Tauri:
 
 ```bash
-npm install
 npm run tauri dev
 ```
 
-## Build
+The camera requests permission only after clicking **Take photo**. Browser/webview camera support and platform permissions should be tested on the target OS before treating it as production-ready.
 
-```bash
-npm run build
-npm run tauri build
-```
+## Scope
 
-## Data
-
-Edit `src/data/products.json` to change the mock inventory. The UI consumes it through:
-
-`src/data/index.ts` → `mockProducts` → React components.
-
-## Next slice
-
-The intended next implementation is the inventory movement workflow:
-
-`barcode → product → quantity → cost → location → receive stock → movement history`
+This iteration intentionally keeps persistence in React state. The next backend step can replace the mock state with Rails API calls and persist `StockMovement` as the source of truth.

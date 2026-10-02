@@ -1431,9 +1431,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "hardware_store_inventory"
-version = "0.1.0"
+name = "hardware-store-inventory"
+version = "0.2.0"
 dependencies = [
+ "serde",
+ "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-opener",
