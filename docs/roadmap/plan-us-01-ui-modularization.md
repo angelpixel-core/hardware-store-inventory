@@ -23,13 +23,13 @@ Deconstruct the monolithic `src/app/App.tsx` (+1,100 lines) into modular, single
 
 Extract all pure helper functions and styling dictionaries out of `App.tsx`.
 
-- [ ] **Task 1.1: Create `src/utils/formatters.ts`**
-  - [ ] Implement `formatCurrency(value: number): string` (ARS currency format).
-  - [ ] Implement `formatDate(value: string): string` (locale-aware date-time formatter).
-  - [ ] Implement `locationLabel(location: ProductLocation): string` (`Store · Aisle · Rack · Shelf`).
-  - [ ] Implement `movementDelta(type: StockMovementType, quantity: number): number`.
-  - [ ] Export `movementLabels: Record<StockMovementType, string>`.
-  - [ ] Export `movementClasses: Record<StockMovementType, string>` (Tailwind badge styles).
+- [x] **Task 1.1: Create `src/utils/formatters.ts`**
+  - [x] Implement `formatCurrency(value: number): string` (ARS currency format).
+  - [x] Implement `formatDate(value: string): string` (locale-aware date-time formatter).
+  - [x] Implement `locationLabel(location: ProductLocation): string` (`Store · Aisle · Rack · Shelf`).
+  - [x] Implement `movementDelta(type: StockMovementType, quantity: number): number`.
+  - [x] Export `movementLabels: Record<StockMovementType, string>`.
+  - [x] Export `movementClasses: Record<StockMovementType, string>` (Tailwind badge styles).
 
 ---
 
