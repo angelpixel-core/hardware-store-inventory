@@ -1,6 +1,6 @@
 # 📋 Architecture Assessment & Delivery Plan
 
-> **Document Class:** Technical & Delivery Architecture Blueprint  
+> **Document Classification:** Technical & Delivery Architecture Blueprint  
 > **Target Audience:** Engineering Manager (EM), Delivery Manager (DM), Delivery Lead (DL), Product Owner (PO)  
 > **System:** Hardware Store Inventory — Native Desktop Application (Tauri v2 + React 19)  
 > **Current Version:** 0.2.0 (Prototype Iteration 2)  
@@ -11,24 +11,24 @@
 ## 1. Executive Summary & Business Context
 
 ### 1.1 Problem Statement
-Hardware stores and retail builders\' supply hubs (*ferreterías y corralones*) operate in high-density, physical-first retail environments. Key operational pain points include:
-1. **Stock Discrepancies & Stockouts:** Slow manual counts cause sudden inventory depletion of fast-moving SKUs (screws, tools, paint, plumbing fittings).
-2. **Physical Warehouse Disorganization:** Products are misplaced across warehouses, aisles, racks, and shelves without recorded coordinates, leading to staff search fatigue.
+Hardware retail hubs, builders\' supply depots, and tool stores (*ferreterías y corralones*) operate in high-density, physical-first retail environments. Key operational pain points include:
+1. **Stock Discrepancies & Stockouts:** Slow manual inventory counts cause sudden stockouts of high-velocity SKUs (fasteners, power tools, specialized coatings, plumbing connectors).
+2. **Physical Warehouse Disorganization:** Items are misplaced across secondary warehouses, aisles, racks, and shelves without recorded physical coordinates, leading to staff search fatigue and order delays.
 3. **Unverified Shipments Intake:** Incoming supplier goods are frequently unloaded without photographic proof or immediate stock reconciliation.
 4. **Network Unreliability in Warehouse Bays:** Many warehouse basements or yard areas experience spotty Wi-Fi, making purely cloud-dependent web apps unstable.
 
 ### 1.2 Strategic Solution
-A lightweight, offline-first **Native Desktop Application** built with **Tauri v2 (Rust shell)** and **React 19 + TypeScript**:
-- **Offline Resilience:** Zero latency; operates locally even when internet drops.
+A lightweight, offline-first **Native Desktop Application** built with **Tauri v2 (Rust engine shell)** and **React 19 + TypeScript**:
+- **Offline Resilience:** Sub-millisecond latency; operates completely locally even when internet connection drops.
 - **Physical Coordinates:** First-class store coordinates (*Store · Aisle · Rack · Shelf*) for instant physical locating.
-- **Auditable Stock Movements:** Double-entry-style logs categorizing every unit change (`PURCHASE`, `SALE`, `RETURN`, `ADJUSTMENT`).
-- **Hardware Integration:** Direct desktop camera capture for shipment photographic proof, plus USB barcode scanning.
+- **Auditable Stock Movements:** Double-entry-style ledger categorizing every unit change (`PURCHASE`, `SALE`, `RETURN`, `ADJUSTMENT`).
+- **Hardware Integration:** Direct desktop camera capture for shipment photographic proof, plus USB barcode scanner listeners.
 
 ---
 
 ## 2. Technical Debt & "Toy Project" Assessment (Engineering Manager View)
 
-While Iteration 2 achieves functional prototype completeness for demo purposes, the codebase currently suffers from significant architectural shortcuts that prevent it from being production-ready:
+While Iteration 2 achieves functional prototype completeness for demo purposes, the codebase currently suffers from architectural shortcuts that prevent it from being production-ready:
 
 ```mermaid
 pie title Technical Debt Severity Breakdown
@@ -43,7 +43,7 @@ pie title Technical Debt Severity Breakdown
 
 | Area | Current State ("Toy Project") | Target State (Production Architecture) | Severity | Refactor Epic |
 | :--- | :--- | :--- | :---: | :--- |
-| **Monolithic UI Component** | [App.tsx](file:///src/app/App.tsx) has **1,100+ lines**. It mixes routing, layout, modals, drawers, camera streaming, and business calculations in a single component. | Modular feature-based directory structure (`src/features/*`), presentation components (`src/components/ui/*`), and custom hooks. | **CRITICAL** | Epic 1 |
+| **Monolithic UI Component** | [App.tsx](file:///src/app/App.tsx) has **1,100+ lines**. It bundles routing, layout, modals, drawers, camera streaming, and business calculations in a single component. | Modular feature-based directory structure (`src/features/*`), presentation components (`src/components/ui/*`), and custom domain hooks. | **CRITICAL** | Epic 1 |
 | **State & Persistence** | State is held strictly in memory via React `useState(mockProducts)` and `useState(mockMovements)`. Reloading or closing the application loses all data. | Local relational database using `tauri-plugin-sql` (SQLite) with migrations, WAL mode, and ACID transactions. | **BLOCKER** | Epic 2 |
 | **Test Automation** | **0% coverage**. No testing framework installed (no Vitest, React Testing Library, or Playwright). | Vitest unit test suite for domain calculations + React Testing Library for feature flows + Playwright/Tauri WebDriver for desktop E2E. | **HIGH** | Epic 1 |
 | **Tauri Core Utilization** | Tauri v2 functions solely as a Webview window shell; no Rust commands or plugins are registered. | Rust layer handles SQLite database connection, system file storage for captured photos, and hardware event listeners. | **HIGH** | Epic 2 & 3 |
@@ -200,155 +200,155 @@ gantt
 
 ### 4.1 Detailed User Stories & Story Point Estimations
 
-Estimations follow the **Fibonacci Sequence (1, 2, 3, 5, 8, 13)** based on complexity, uncertainty, and effort.
+Estimations follow the **Fibonacci Sequence (1, 2, 3, 5, 8, 13)** based on complexity, uncertainty, and engineering effort.
 
 #### Epic 1: Architectural Refactoring & Test Automation (Sprint 1 — 11 SP)
 
-##### US-01: Modularización de UI y Desacoplamiento de Componentes
+##### US-01: UI Modularization & Component Decoupling
 - **ID:** US-01
 - **Story Points:** **5 SP**
-- **Persona:** Como *Desarrollador del equipo*, quiero descomponer `App.tsx` en módulos autocontenidos para poder implementar nuevas features sin riesgo de colisiones de merge ni efectos secundarios.
-- **Criterios de Aceptación (Gherkin):**
-  - **Given** el archivo `src/app/App.tsx` con más de 1.100 líneas.
-  - **When** se modulariza la aplicación bajo `src/features/*` y `src/components/ui/*`.
-  - **Then** `App.tsx` no supera las 100 líneas y se limita a montar providers y el layout base.
-  - **And** ninguna funcionalidad visual o interactiva sufre regresión visual o de comportamiento.
+- **Persona:** As a *Core Software Engineer*, I want to decompose the monolithic `App.tsx` into self-contained feature modules so that multiple team members can develop features concurrently without merge conflicts or unexpected side-effects.
+- **Acceptance Criteria (Gherkin):**
+  - **Given** the file `src/app/App.tsx` with over 1,100 lines of code.
+  - **When** the application is restructured into `src/features/*` and `src/components/ui/*`.
+  - **Then** `App.tsx` contains fewer than 100 lines and is limited to mounting root layout and state providers.
+  - **And** no visual styling, interactions, or user workflows experience behavioral regressions.
 
-##### US-02: State Management Centralizado con Zustand
+##### US-02: Centralized State Management with Zustand
 - **ID:** US-02
 - **Story Points:** **3 SP**
-- **Persona:** Como *Ingeniero Frontend*, quiero mover la lógica de productos y movimientos a un store de Zustand para evitar el prop-drilling y aislar la lógica de cálculo de stock.
-- **Criterios de Aceptación:**
-  - Todo cambio de stock y registro de movimiento se despacha mediante acciones tipadas (`receiveStock()`, `filterProducts()`).
-  - Los cálculos de stock remanente y alertas de seguridad se computan mediante selectores memorizados.
+- **Persona:** As a *Frontend Engineer*, I want to move product and stock movement logic into a typed Zustand store to prevent prop-drilling and isolate business logic from UI rendering.
+- **Acceptance Criteria:**
+  - All stock adjustments and movement audit records are dispatched via typed actions (`receiveStock()`, `filterProducts()`).
+  - Stock remaining balances and threshold alerts are computed using memoized store selectors.
 
-##### US-03: Setup de Testing Automatizado con Vitest y Testing Library
+##### US-03: Automated Testing Setup with Vitest & Testing Library
 - **ID:** US-03
 - **Story Points:** **3 SP**
-- **Persona:** Como *Engineering Manager*, quiero una suite de tests automatizados para validar que las fórmulas de inventario no fallen ante cambios de código.
-- **Criterios de Aceptación:**
-  - `npm test` ejecuta Vitest y produce un informe de cobertura.
-  - Se cubren al 100% las funciones puras de cálculo de stock, formateo de moneda y validación de coordenadas de estantería.
-  - Se añade un test de integración para el flujo de recepción de stock.
+- **Persona:** As an *Engineering Manager*, I want an automated test suite verifying domain formulas and inventory state mutations to prevent regressions during refactoring.
+- **Acceptance Criteria:**
+  - Running `npm test` executes Vitest and outputs test results and code coverage metrics.
+  - 100% test coverage for pure functions: stock calculations, currency formatting, and warehouse shelf validation.
+  - Integration tests for the stock reception and drawer inspector workflows.
 
 ---
 
-#### Epic 2: Persistencia Local y Confiabilidad Offline-First (Sprint 2 — 16 SP)
+#### Epic 2: Local Persistence & Offline-First Reliability (Sprint 2 — 16 SP)
 
-##### US-04: Implementación de Base de Datos Local SQLite con Tauri
+##### US-04: Local SQLite Database Integration via Tauri Plugin
 - **ID:** US-04
 - **Story Points:** **8 SP**
-- **Persona:** Como *Encargado de Depósito*, quiero que los productos y movimientos se guarden permanentemente en mi máquina para que los datos nunca se pierdan al reiniciar la computadora.
-- **Criterios de Aceptación:**
-  - Tauri inicializa una base SQLite local (`hardware_store.db`) al iniciar la aplicación.
-  - El esquema incluye llaves foráneas e índices sobre `sku`, `barcode` y `created_at`.
-  - Los seed data se insertan únicamente si la base de datos se encuentra vacía.
+- **Persona:** As a *Warehouse Clerk*, I want my stock numbers and movement history to persist locally on disk so that data is never lost when closing the laptop or restarting the app.
+- **Acceptance Criteria:**
+  - Tauri initializes a local SQLite database (`hardware_store.db`) in the user data directory on startup.
+  - Relational schema includes foreign keys, timestamps, and indexes on `sku`, `barcode`, and `created_at`.
+  - Seed catalog data is automatically populated only if the database is initially empty.
 
-##### US-05: Transacciones Atómicas en Recepción de Stock
+##### US-05: ACID Atomic Transactions in Stock Receiving
 - **ID:** US-05
 - **Story Points:** **5 SP**
-- **Persona:** Como *Auditor de Inventario*, quiero que el ingreso de mercadería actualice el stock y registre el movimiento de auditoría en una transacción atómica para evitar desincronizaciones de balance.
-- **Criterios de Aceptación:**
-  - La inserción en `stock_movements` y el `UPDATE` en `products.stock` ocurren dentro de una transacción `BEGIN...COMMIT`.
-  - Si ocurre un fallo en cualquier paso, la base de datos ejecuta `ROLLBACK` y la UI notifica el error sin alterar los contadores.
+- **Persona:** As an *Inventory Auditor*, I want inbound supplier shipments to update on-hand stock and insert audit movements within a single atomic transaction to avoid balance desynchronization.
+- **Acceptance Criteria:**
+  - Inserting into `stock_movements` and executing `UPDATE` on `products.stock` occurs within a `BEGIN...COMMIT` block.
+  - In the event of any query failure, the transaction executes `ROLLBACK` and notifies the UI with an error toast without altering balance counters.
 
-##### US-06: Exportación de Auditoría y Reportes (CSV / Excel)
+##### US-06: Inventory & Audit Report Export (CSV / Excel)
 - **ID:** US-06
 - **Story Points:** **3 SP**
-- **Persona:** Como *Delivery Lead / Store Manager*, quiero exportar la tabla de movimientos y el balance de stock a formato CSV para compartirlo con contabilidad.
-- **Criterios de Aceptación:**
-  - Botón de exportación en la vista de Inventario.
-  - Generación instantánea de archivo CSV con codificación UTF-8 compatible con Microsoft Excel.
+- **Persona:** As a *Store Manager / Delivery Lead*, I want to export movement audit history and current catalog valuations to CSV format for financial accounting.
+- **Acceptance Criteria:**
+  - Direct "Export CSV" button available in the Inventory view.
+  - Generates UTF-8 encoded CSV files compatible with Microsoft Excel and Google Sheets.
 
 ---
 
-#### Epic 3: Periféricos de Tienda y Hardening Operativo (Sprint 3 — 13 SP)
+#### Epic 3: Retail Hardware Integration & Hardening (Sprint 3 — 13 SP)
 
-##### US-07: Listener Global de Código de Barras USB (HID)
+##### US-07: Global USB Barcode Scanner (HID) Listener
 - **ID:** US-07
 - **Story Points:** **5 SP**
-- **Persona:** Como *Cajero / Recepcionista*, quiero escanear productos con mi pistola lectora USB sin tener que hacer click previamente en el campo de búsqueda.
-- **Criterios de Aceptación:**
-  - La app escucha ráfagas rápidas de pulsaciones de teclado finalizadas con tecla `Enter` (< 50ms entre caracteres).
-  - Si coincide con un código de barras existente, abre automáticamente el drawer del producto o lo selecciona en el modal de recepción.
+- **Persona:** As a *Store Cashier / Intake Clerk*, I want to scan items with a USB laser barcode scanner without having to manually focus the search input first.
+- **Acceptance Criteria:**
+  - Global event listener detects high-speed keyboard input bursts terminated by an `Enter` keystroke (< 50ms between characters).
+  - Automatically matches SKU/barcode, opening the corresponding product drawer or pre-filling the intake modal.
 
-##### US-08: Persistencia de Fotografías de Envío en Disco Nativo
+##### US-08: Shipment Verification Photo Disk Storage
 - **ID:** US-08
 - **Story Points:** **5 SP**
-- **Persona:** Como *Gerente de Compras*, quiero que las fotos de remitos y mercadería se guarden como archivos en el disco para no saturar la base de datos con cadenas Base64.
-- **Criterios de Aceptación:**
-  - La captura de cámara se envía al backend Tauri en Rust y se escribe en el directorio seguro `$APP_DATA/shipment_photos/{uuid}.webp`.
-  - La base de datos almacena únicamente la ruta local del archivo.
+- **Persona:** As a *Purchasing Manager*, I want shipment verification photos to be stored as compressed WebP image files on disk rather than Base64 blobs in the database to prevent database bloat.
+- **Acceptance Criteria:**
+  - Camera snapshots are saved to `$APP_DATA/shipment_photos/{uuid}.webp` via Tauri Rust file API.
+  - The database records the relative file path to the stored photo.
 
-##### US-09: Resiliencia de Permisos de Cámara y Manejo de Errores de Hardware
+##### US-09: Camera Permission Handling & Hardware Fallbacks
 - **ID:** US-09
 - **Story Points:** **3 SP**
-- **Persona:** Como *Usuario de Mostrador*, quiero recibir mensajes claros si la cámara web no está conectada o no tiene permisos de sistema, pudiendo continuar la operación mediante adjunto de archivo.
-- **Criterios de Aceptación:**
-  - Captura de excepciones de `NotAllowedError` y `NotFoundError` de WebRTC.
-  - Fallback automático hacia explorador de archivos nativo sin bloquear la recepción de stock.
+- **Persona:** As an *Intake Worker*, I want clear guidance when the webcam is unavailable or permissions are denied, with a seamless fallback to manual file upload.
+- **Acceptance Criteria:**
+  - Graceful handling of `NotAllowedError` and `NotFoundError` WebRTC exceptions.
+  - Fallback to native system file picker without interrupting the stock receipt workflow.
 
 ---
 
-#### Epic 4: Sincronización Cloud y Multi-Sucursal (Sprint 4 — 21 SP)
+#### Epic 4: Cloud Synchronization & Multi-Store Enterprise (Sprint 4 — 21 SP)
 
-##### US-10: Cliente de Sincronización Cloud Offline-First
+##### US-10: Offline-First Cloud Synchronization Engine
 - **ID:** US-10
 - **Story Points:** **13 SP**
-- **Persona:** Como *Director de Operaciones*, quiero que las sucursales sincronicen sus stocks con una API central (Rails/Postgres) cuando haya conexión a internet disponible.
-- **Criterios de Aceptación:**
-  - Cola de sincronización local que encola eventos cuando no hay conexión.
-  - Sincronización en segundo plano con estrategia de resolución de conflictos *Last-Write-Wins* o reconciliación de deltas basada en timestamps UTC.
+- **Persona:** As an *Operations Director*, I want store computers to synchronize stock movements with a central cloud backend (Rails/Postgres) whenever internet is connected.
+- **Acceptance Criteria:**
+  - Local background sync queue that records outbound mutations when offline.
+  - Bidirectional sync using delta reconciliation and UTC timestamps with conflict resolution.
 
-##### US-11: Control de Acceso y Perfiles (RBAC)
+##### US-11: Role-Based Access Control (RBAC)
 - **ID:** US-11
 - **Story Points:** **8 SP**
-- **Persona:** Como *Delivery Manager*, quiero restringir la edición de precios y costos a usuarios con rol Manager, permitiendo a los empleados de depósito únicamente recibir mercadería.
-- **Criterios de Aceptación:**
-  - Roles definidos: `ADMIN`, `STORE_MANAGER`, `WAREHOUSE_CLERK`, `CASHIER`.
-  - Ocultamiento y protección a nivel componente de acciones no autorizadas.
+- **Persona:** As a *Delivery Manager*, I want to restrict pricing, cost edits, and deletion privileges to Manager roles, allowing floor staff only stock inspection and intake.
+- **Acceptance Criteria:**
+  - Standardized roles: `ADMIN`, `STORE_MANAGER`, `WAREHOUSE_CLERK`, `CASHIER`.
+  - UI components and underlying actions enforce role permissions.
 
 ---
 
-## 5. Resumen de Capacidad y Estimaciones
+## 5. Capacity & Velocity Summary
 
-| Sprint | Enfoque Principal | Total SP | Esfuerzo Estimado |
+| Sprint | Primary Focus | Total SP | Estimated Duration |
 | :--- | :--- | :---: | :---: |
-| **Sprint 1** | Refactor Arquitectural, Desacoplamiento de `App.tsx`, Vitest & Linter | **11 SP** | 2 Semanas (1 Dev Senior) |
-| **Sprint 2** | Persistencia Local SQLite, Transaccionalidad ACID y Exportación CSV | **16 SP** | 2 Semanas (1 Dev Fullstack) |
-| **Sprint 3** | Integración de Hardware (USB Scanner, Webcam a disco, Fallbacks) | **13 SP** | 2 Semanas (1 Dev Fullstack) |
-| **Sprint 4** | Sincronización Cloud Offline-First (Rails/Postgres) y Roles RBAC | **21 SP** | 3 Semanas (2 Devs) |
-| **Total** | **Roadmap Completo de Producción** | **61 SP** | **~9 Semanas** |
+| **Sprint 1** | Architectural Refactor, `App.tsx` Decoupling, Vitest Suite & Linter | **11 SP** | 2 Weeks (1 Senior Frontend Dev) |
+| **Sprint 2** | Local SQLite Persistence, ACID Transactions & CSV Export | **16 SP** | 2 Weeks (1 Fullstack Dev) |
+| **Sprint 3** | Retail Hardware (USB HID Scanner, Photo Disk Storage, Fallbacks) | **13 SP** | 2 Weeks (1 Fullstack Dev) |
+| **Sprint 4** | Offline-First Cloud Sync (Rails/Postgres) & Enterprise RBAC | **21 SP** | 3 Weeks (2 Developers) |
+| **Total** | **Full Production Roadmap** | **61 SP** | **~9 Weeks** |
 
 ---
 
 ## 6. Definition of Ready (DoR) & Definition of Done (DoD)
 
 ### Definition of Ready (DoR)
-1. Historia especificada en formato *User Story* con criterios de aceptación claros (Gherkin).
-2. Wireframes o capturas de referencia disponibles (e.g. `docs/screenshots/*`).
-3. Dependencias de hardware o backend identificadas y mockeadas si fuera necesario.
-4. Estimación en Story Points asignada por el equipo técnico.
+1. User story formulated with standard persona, business rationale, and Gherkin acceptance criteria.
+2. UI reference screenshots available (in `docs/screenshots/*`).
+3. External hardware/API dependencies defined and mocked if not available.
+4. Story point estimate consensus achieved.
 
 ### Definition of Done (DoD)
-1. Código cumple con estándares de linting y formateo automático sin warnings.
-2. Cobertura de tests unitarios/integración añadida para la nueva lógica (>= 80%).
-3. Verificación de compilación exitosa tanto en modo web (`npm run build`) como en Tauri desktop (`npm run tauri dev`).
-4. Documentación o CHANGELOG actualizado.
-5. Pull Request revisado y aprobado por al menos un par técnico antes de merge a `main`.
+1. Code adheres to linter and formatting rules without errors or warnings.
+2. Unit and integration tests written and passing (>= 80% coverage on new domain logic).
+3. Verified compilation in both web mode (`npm run build`) and Tauri desktop mode (`npm run tauri dev`).
+4. Documentation or CHANGELOG updated.
+5. Pull Request reviewed and approved by peer engineer prior to merging to `main`.
 
 ---
 
-## 7. Matriz Integral de Riesgos y Mitigación
+## 7. Risk Management & Operational Mitigation Matrix
 
-| ID | Riesgo Operativo / Técnico | Prob. | Impacto | Estrategia de Mitigación Preventiva | Plan de Contingencia |
+| ID | Operational / Technical Risk | Likelihood | Impact | Preventive Mitigation Strategy | Contingency Plan |
 | :---: | :--- | :---: | :---: | :--- | :--- |
-| **R-01** | **Pérdida de datos por crash o cierre abrupto de la app** | Alta | Crítico | Migración inmediata a SQLite con transacciones atómicas (Sprint 2). | Backup diario automático del archivo `.sqlite`. |
-| **R-02** | **Regresiones funcionales al partir `App.tsx`** | Alta | Alto | Escribir tests de integración de componentes antes de extraer subcomponentes. | Refactor paso a paso por componentes aislados en ramas dedicadas. |
-| **R-03** | **Fallo o retraso en lectura de scanners USB de modelos antiguos** | Media | Medio | Utilizar event listener agnóstico al SO midiendo el delta temporal entre keydowns. | Permitir tipeo manual asistido con foco rápido (tecla rápida `F2`). |
-| **R-04** | **Permisos de cámara bloqueados por políticas de OS (macOS/Windows)** | Media | Bajo | Desacoplar la foto como paso obligatorio; permitir adjuntar fotos por archivo. | Modal de ayuda guiado con instrucciones de permisos de privacidad del sistema. |
-| **R-05** | **Conflictos de concurrencia en stock multi-sucursal** | Media | Crítico | Diseñar el modelo de datos basado en **Deltas de Movimiento** (Append-Only Log) en lugar de sobrescribir el valor absoluto de stock. | Algoritmo de reconciliación determinista en backend. |
+| **R-01** | **Data loss due to application crash or sudden power loss** | High | Critical | Prioritize SQLite embedded database with ACID transactions in Sprint 2. | Daily automated backup of local `.sqlite` database file. |
+| **R-02** | **Functional regressions while refactoring `App.tsx`** | High | High | Write component integration tests with Vitest before extracting subcomponents. | Incremental feature-by-feature refactoring in dedicated branch. |
+| **R-03** | **Unreliable USB barcode scanners on older point-of-sale hardware** | Medium | Medium | Implement an OS-agnostic timing heuristic measuring millisecond gaps between keystrokes. | Quick-access manual barcode search input hotkey (`F2`). |
+| **R-04** | **Camera permission restrictions in corporate desktop environments** | Medium | Low | Ensure photo upload is never a blocking gate; allow native file picker attachment. | In-app visual troubleshooting guide for OS privacy settings. |
+| **R-05** | **Stock inventory desynchronization across multiple store terminals** | Medium | Critical | Model data as an **Append-Only Movement Log** (deltas) rather than overwriting absolute balances. | Deterministic timestamp-based conflict resolution in cloud sync backend. |
 
 ---
 
-*Documento preparado para revisión y aprobación por el equipo de Delivery y Engineering.*
+*Document prepared for review and execution by Delivery and Engineering leadership.*
