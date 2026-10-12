@@ -119,21 +119,31 @@ hardware-store-inventory/
 │       └── 08-low-stock-alerts.png
 ├── src/
 │   ├── app/
-│   │   └── App.tsx                         # Main layout orchestrator (906 LOC, refactored in Phase 2)
-│   ├── components/
+│   │   └── App.tsx                         # Thin layout orchestrator (167 LOC, fully decoupled)
+│   ├── features/                           # Domain feature modules (Extracted in Phase 3)
+│   │   ├── catalog/
+│   │   │   └── ProductsView.tsx            # Product catalog table, live search & quick actions
+│   │   ├── inventory-movements/
+│   │   │   └── InventoryView.tsx           # Audit movement ledger & inventory KPI cards
+│   │   ├── product-detail/
+│   │   │   └── ProductDrawer.tsx           # Slide-over product inspector with movement log
+│   │   └── receive-stock/
+│   │       ├── ReceiveStockModal.tsx       # Stock intake modal with shelf placement & notes
+│   │       └── CameraCapture.tsx           # WebRTC camera capture & photo snapshot
+│   ├── components/                         # Shared UI & layout elements (Extracted in Phase 2)
 │   │   ├── layout/
-│   │   │   └── Sidebar.tsx                 # Desktop sidebar navigation (Extracted in Phase 2)
+│   │   │   └── Sidebar.tsx                 # Desktop sidebar navigation
 │   │   └── ui/
-│   │       ├── StockBadge.tsx              # Stock status & low threshold badge (Extracted in Phase 2)
-│   │       ├── SummaryCard.tsx             # Inventory KPI metric card (Extracted in Phase 2)
-│   │       ├── Field.tsx                   # Form input wrapper with label (Extracted in Phase 2)
-│   │       ├── Info.tsx                    # Key-value inspector display (Extracted in Phase 2)
-│   │       └── Placeholder.tsx             # Empty state for pending views (Extracted in Phase 2)
+│   │       ├── StockBadge.tsx              # Stock status & safety threshold badge
+│   │       ├── SummaryCard.tsx             # Metric KPI card
+│   │       ├── Field.tsx                   # Form input wrapper with label
+│   │       ├── Info.tsx                    # Key-value inspector display
+│   │       └── Placeholder.tsx             # Empty state for pending views
 │   ├── utils/
 │   │   └── formatters.ts                   # Domain formatters & helper functions (Extracted in Phase 1)
 │   ├── types/
 │   │   ├── inventory.ts                    # Domain models (Product, StockMovement, Location)
-│   │   └── navigation.ts                   # Section navigation type definition (Phase 2)
+│   │   └── navigation.ts                   # Section navigation type definition
 │   ├── data/
 │   │   ├── index.ts                        # Mock seed dataset & initial movements
 │   │   └── products.json                   # Sample hardware inventory catalog
@@ -199,11 +209,11 @@ See the full [Engineering & Delivery Plan](docs/ARCHITECTURE_AND_DELIVERY_PLAN.m
   - Physical warehouse coordinate tracking (*Store · Aisle · Rack · Shelf*).
   - Desktop camera capture and image upload support.
 - [ ] **Iteration 3 (Sprint 1 & 2 — Architecture & Persistence)**:
-  - 🟡 **US-01: UI Modularization & Component Decoupling** (In Progress — Phase 1 completed):
+  - 🟢 **US-01: UI Modularization & Component Decoupling** (Completed ✅ — 5 SP):
     - [x] Phase 1: Pure domain formatters extracted to `src/utils/formatters.ts`.
     - [x] Phase 2: Atomic UI & layout components (`StockBadge`, `SummaryCard`, `Field`, `Info`, `Placeholder`, `Sidebar`).
-    - [ ] Phase 3: Feature views (`ProductsView`, `ProductDrawer`, `InventoryView`, `ReceiveStockModal`).
-    - [ ] Phase 4: App root orchestrator reduced to < 90 LOC.
+    - [x] Phase 3: Domain feature views (`ProductsView`, `ProductDrawer`, `InventoryView`, `ReceiveStockModal`, `CameraCapture`).
+    - [x] Phase 4: App root orchestrator reduced from 1,100+ LOC to 167 LOC.
     - *Full traceability checklist: [docs/roadmap/plan-us-01-ui-modularization.md](docs/roadmap/plan-us-01-ui-modularization.md)*
   - [ ] **US-02: State Management with Zustand** (Centralized typed store).
   - [ ] **US-03: Automated Testing with Vitest** (Unit & component coverage gates).
