@@ -2,7 +2,9 @@
 
 A modern, cross-platform desktop inventory management system tailored for retail and hardware stores (*ferreterías / corralones*). Built with **Tauri v2**, **React 19**, **TypeScript**, and **Tailwind CSS**.
 
-> **Note for Delivery & Product Managers:** This document provides a complete visual walkthrough and architectural overview so you can review functionality, UI workflows, and technical scope without needing to install or run the code locally.
+> 📌 **Executive Documentation for Delivery Managers, Delivery Leads & Engineering Managers:**  
+> A comprehensive architectural assessment, C4 diagrams, technical debt audit, user stories with Story Point estimations (Fibonacci), and risk matrix are documented in:  
+> 👉 [**docs/ARCHITECTURE_AND_DELIVERY_PLAN.md**](docs/ARCHITECTURE_AND_DELIVERY_PLAN.md)
 
 ---
 
@@ -13,6 +15,16 @@ This prototype (Iteration 2) demonstrates a native desktop solution designed to 
 - **Stock Movement Traceability**: Full audit trail tracking inventory changes with categorized movements (`PURCHASE`, `SALE`, `RETURN`, `ADJUSTMENT`).
 - **Receive Stock Workflow**: Guided operational modal for receiving incoming supplier shipments, updating stock quantities immediately, setting storage locations, and attaching product photos via file upload or **desktop camera capture**.
 - **Low-Stock Alerting**: Instant badge indicators and summary cards identifying products below their minimum safety threshold.
+
+---
+
+## 🎯 Stakeholder Matrix & Status Overview
+
+| Stakeholder Role | Primary Value Delivered | Key Technical / Delivery Deliverable | Status |
+| :--- | :--- | :--- | :---: |
+| **Delivery Manager (DM)** | Traceability of inventory intake, shrinkage prevention, and clear release milestones. | [Architecture & Delivery Plan](docs/ARCHITECTURE_AND_DELIVERY_PLAN.md) | 🟢 Approved Plan |
+| **Delivery Lead (DL)** | User stories with Fibonacci estimations (61 SP total across 4 Sprints), DoR/DoD. | [WBS & User Story Backlog](docs/ARCHITECTURE_AND_DELIVERY_PLAN.md#4-delivery-roadmap--user-stories-delivery-lead--dm-view) | 🟡 Ready for Sprint 1 |
+| **Engineering Manager (EM)** | Technical debt analysis, C4 Architecture models, SQLite persistence strategy. | [C4 Architecture & Debt Audit](docs/ARCHITECTURE_AND_DELIVERY_PLAN.md#3-c4-architecture-specification) | 🟡 Refactor In Progress |
 
 ---
 
@@ -63,6 +75,7 @@ Instant live search by product name, brand, SKU, category, or barcode across all
 | **Bundler / Tooling** | [Vite 8](https://vite.dev/) | Sub-second HMR and optimized production bundling |
 | **Iconography** | [Lucide React](https://lucide.dev/) | Clean, consistent icons |
 | **Hardware Access** | WebRTC / `getUserMedia()` | Camera capture permissions requested on-demand |
+| **Local Persistence (Next)** | SQLite via `tauri-plugin-sql` | Embedded ACID relational persistence for offline-first reliability |
 
 ---
 
@@ -71,7 +84,8 @@ Instant live search by product name, brand, SKU, category, or barcode across all
 ```text
 hardware-store-inventory/
 ├── docs/
-│   └── screenshots/         # High-resolution screenshots for review
+│   ├── ARCHITECTURE_AND_DELIVERY_PLAN.md   # Comprehensive Technical & Delivery Blueprint
+│   └── screenshots/                        # High-resolution screenshots for review
 │       ├── 01-products-catalog.png
 │       ├── 02-product-detail.png
 │       ├── 03-inventory-movements.png
@@ -79,20 +93,20 @@ hardware-store-inventory/
 │       └── 05-product-search-filter.png
 ├── src/
 │   ├── app/
-│   │   └── App.tsx          # Main layout, sidebar, catalog, drawer & modals
+│   │   └── App.tsx                         # Main layout, sidebar, catalog, drawer & modals
 │   ├── data/
-│   │   ├── index.ts         # Mock seed dataset & initial movements
-│   │   └── products.json    # Sample hardware inventory catalog
+│   │   ├── index.ts                        # Mock seed dataset & initial movements
+│   │   └── products.json                   # Sample hardware inventory catalog
 │   ├── types/
-│   │   └── inventory.ts     # Domain models (Product, StockMovement, Location)
-│   ├── main.tsx             # React entry point
-│   └── styles.css           # Global typography & Tailwind styles
-├── src-tauri/               # Tauri v2 native configuration and Rust harness
+│   │   └── inventory.ts                    # Domain models (Product, StockMovement, Location)
+│   ├── main.tsx                            # React entry point
+│   └── styles.css                          # Global typography & Tailwind styles
+├── src-tauri/                              # Tauri v2 native configuration and Rust harness
 │   ├── Cargo.toml
-│   └── tauri.conf.json      # Window sizes, permissions, build hooks
+│   └── tauri.conf.json                     # Window sizes, permissions, build hooks
 ├── package.json
 ├── tsconfig.json
-└── vite.config.ts           # Vite + Tailwind configuration
+└── vite.config.ts                          # Vite + Tailwind configuration
 ```
 
 ---
@@ -137,15 +151,22 @@ npm run tauri build
 
 ## 🗺️ Scope & Roadmap (Delivery Plan)
 
+See the full [Engineering & Delivery Plan](docs/ARCHITECTURE_AND_DELIVERY_PLAN.md) for detailed user stories and Story Point estimates.
+
 - [x] **Iteration 1**: Initial catalog view, product data models, and basic layout.
-- [x] **Iteration 2 (Current)**:
+- [x] **Iteration 2 (Current Prototype)**:
   - Inventory movements log (`PURCHASE`, `SALE`, `RETURN`, `ADJUSTMENT`).
   - Receive Stock workflow with immediate state updates.
   - Product details drawer with movement audit trail.
   - Physical warehouse coordinate tracking (*Store · Aisle · Rack · Shelf*).
   - Desktop camera capture and image upload support.
-- [ ] **Iteration 3 (Next Steps / Backend Integration)**:
-  - Connect to backend API (e.g. Ruby on Rails / PostgreSQL) replacing in-memory state with persistent database transactions.
-  - Barcode scanner integration (USB HID and camera-based barcode decoding).
-  - Multi-store inventory transfers.
+- [ ] **Iteration 3 (Sprint 1 & 2 — Architecture & Persistence)**:
+  - Modularize `App.tsx` into clean feature components (`src/features/*`).
+  - Centralize state management with Zustand store.
+  - Set up Vitest test suite and testing coverage gates.
+  - Implement offline-first SQLite database via `tauri-plugin-sql` with ACID transactions.
+- [ ] **Iteration 4 (Sprint 3 & 4 — Hardware & Cloud Integration)**:
+  - Global USB barcode scanner (HID listener).
+  - Persist captured photos to local disk storage (`$APP_DATA/product_photos/`).
+  - Connect to backend API (e.g. Ruby on Rails / PostgreSQL) for multi-branch sync.
   - User roles & authentication (Cashier, Store Manager, Warehouse Clerk).
