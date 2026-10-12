@@ -106,6 +106,8 @@ Automated reorder view isolating products currently at or below their safety sto
 hardware-store-inventory/
 ├── docs/
 │   ├── ARCHITECTURE_AND_DELIVERY_PLAN.md   # Comprehensive Technical & Delivery Blueprint
+│   ├── roadmap/
+│   │   └── plan-us-01-ui-modularization.md  # Detailed execution & traceability checklist for US-01
 │   └── screenshots/                        # High-resolution screenshots for review
 │       ├── 01-products-catalog.png
 │       ├── 02-product-detail.png
@@ -117,7 +119,9 @@ hardware-store-inventory/
 │       └── 08-low-stock-alerts.png
 ├── src/
 │   ├── app/
-│   │   └── App.tsx                         # Main layout, sidebar, catalog, drawer & modals
+│   │   └── App.tsx                         # Main layout orchestrator (under refactor)
+│   ├── utils/
+│   │   └── formatters.ts                   # Domain formatters & helper functions (Extracted in Phase 1)
 │   ├── data/
 │   │   ├── index.ts                        # Mock seed dataset & initial movements
 │   │   └── products.json                   # Sample hardware inventory catalog
@@ -185,10 +189,15 @@ See the full [Engineering & Delivery Plan](docs/ARCHITECTURE_AND_DELIVERY_PLAN.m
   - Physical warehouse coordinate tracking (*Store · Aisle · Rack · Shelf*).
   - Desktop camera capture and image upload support.
 - [ ] **Iteration 3 (Sprint 1 & 2 — Architecture & Persistence)**:
-  - Modularize `App.tsx` into clean feature components (`src/features/*`).
-  - Centralize state management with Zustand store.
-  - Set up Vitest test suite and testing coverage gates.
-  - Implement offline-first SQLite database via `tauri-plugin-sql` with ACID transactions.
+  - 🟡 **US-01: UI Modularization & Component Decoupling** (In Progress — Phase 1 completed):
+    - [x] Phase 1: Pure domain formatters extracted to `src/utils/formatters.ts`.
+    - [ ] Phase 2: Atomic UI & layout components (`StockBadge`, `SummaryCard`, `Field`, `Info`, `Sidebar`).
+    - [ ] Phase 3: Feature views (`ProductsView`, `ProductDrawer`, `InventoryView`, `ReceiveStockModal`).
+    - [ ] Phase 4: App root orchestrator reduced to < 90 LOC.
+    - *Full traceability checklist: [docs/roadmap/plan-us-01-ui-modularization.md](docs/roadmap/plan-us-01-ui-modularization.md)*
+  - [ ] **US-02: State Management with Zustand** (Centralized typed store).
+  - [ ] **US-03: Automated Testing with Vitest** (Unit & component coverage gates).
+  - [ ] **US-04 & US-05: SQLite Local Persistence** via `tauri-plugin-sql` (ACID transactions).
 - [ ] **Iteration 4 (Sprint 3 & 4 — Hardware & Cloud Integration)**:
   - Global USB barcode scanner (HID listener).
   - Persist captured photos to local disk storage (`$APP_DATA/product_photos/`).
