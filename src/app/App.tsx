@@ -80,14 +80,26 @@ function movementDelta(type: StockMovementType, quantity: number) {
 }
 
 function App() {
-  const [section, setSection] = useState<Section>("products");
+  const searchParams = useMemo(() => {
+    return typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search)
+      : new URLSearchParams();
+  }, []);
+
+  const [section, setSection] = useState<Section>(
+    () => (searchParams.get("section") as Section) || "products",
+  );
   const [products, setProducts] = useState<Product[]>(mockProducts);
   const [movements, setMovements] = useState<StockMovement[]>(mockMovements);
-  const [search, setSearch] = useState("");
-  const [selectedProductId, setSelectedProductId] = useState<string | null>(
-    null,
+  const [search, setSearch] = useState(
+    () => searchParams.get("search") || "",
   );
-  const [showReceive, setShowReceive] = useState(false);
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(
+    () => searchParams.get("product"),
+  );
+  const [showReceive, setShowReceive] = useState<boolean>(
+    () => searchParams.get("receive") === "true",
+  );
   const [notice, setNotice] = useState<string | null>(null);
 
   const filteredProducts = useMemo(() => {
