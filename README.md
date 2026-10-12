@@ -119,14 +119,24 @@ hardware-store-inventory/
 │       └── 08-low-stock-alerts.png
 ├── src/
 │   ├── app/
-│   │   └── App.tsx                         # Main layout orchestrator (under refactor)
+│   │   └── App.tsx                         # Main layout orchestrator (906 LOC, refactored in Phase 2)
+│   ├── components/
+│   │   ├── layout/
+│   │   │   └── Sidebar.tsx                 # Desktop sidebar navigation (Extracted in Phase 2)
+│   │   └── ui/
+│   │       ├── StockBadge.tsx              # Stock status & low threshold badge (Extracted in Phase 2)
+│   │       ├── SummaryCard.tsx             # Inventory KPI metric card (Extracted in Phase 2)
+│   │       ├── Field.tsx                   # Form input wrapper with label (Extracted in Phase 2)
+│   │       ├── Info.tsx                    # Key-value inspector display (Extracted in Phase 2)
+│   │       └── Placeholder.tsx             # Empty state for pending views (Extracted in Phase 2)
 │   ├── utils/
 │   │   └── formatters.ts                   # Domain formatters & helper functions (Extracted in Phase 1)
+│   ├── types/
+│   │   ├── inventory.ts                    # Domain models (Product, StockMovement, Location)
+│   │   └── navigation.ts                   # Section navigation type definition (Phase 2)
 │   ├── data/
 │   │   ├── index.ts                        # Mock seed dataset & initial movements
 │   │   └── products.json                   # Sample hardware inventory catalog
-│   ├── types/
-│   │   └── inventory.ts                    # Domain models (Product, StockMovement, Location)
 │   ├── main.tsx                            # React entry point
 │   └── styles.css                          # Global typography & Tailwind styles
 ├── src-tauri/                              # Tauri v2 native configuration and Rust harness
@@ -191,7 +201,7 @@ See the full [Engineering & Delivery Plan](docs/ARCHITECTURE_AND_DELIVERY_PLAN.m
 - [ ] **Iteration 3 (Sprint 1 & 2 — Architecture & Persistence)**:
   - 🟡 **US-01: UI Modularization & Component Decoupling** (In Progress — Phase 1 completed):
     - [x] Phase 1: Pure domain formatters extracted to `src/utils/formatters.ts`.
-    - [ ] Phase 2: Atomic UI & layout components (`StockBadge`, `SummaryCard`, `Field`, `Info`, `Sidebar`).
+    - [x] Phase 2: Atomic UI & layout components (`StockBadge`, `SummaryCard`, `Field`, `Info`, `Placeholder`, `Sidebar`).
     - [ ] Phase 3: Feature views (`ProductsView`, `ProductDrawer`, `InventoryView`, `ReceiveStockModal`).
     - [ ] Phase 4: App root orchestrator reduced to < 90 LOC.
     - *Full traceability checklist: [docs/roadmap/plan-us-01-ui-modularization.md](docs/roadmap/plan-us-01-ui-modularization.md)*

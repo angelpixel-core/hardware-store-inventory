@@ -3,21 +3,15 @@ import type { ReactNode } from "react";
 import {
   AlertTriangle,
   ArrowDownToLine,
-  ArrowLeft,
   ArrowRight,
-  BarChart3,
   Camera,
   Check,
   ChevronDown,
-  CircleAlert,
-  ClipboardList,
   ImagePlus,
-  LayoutDashboard,
   MapPin,
   Package,
   Plus,
   Search,
-  Settings,
   ShoppingCart,
   Store,
   X,
@@ -30,7 +24,15 @@ import type {
   StockMovementType,
 } from "../types/inventory";
 
-type Section = "overview" | "products" | "inventory" | "locations" | "alerts";
+import type { Section } from "../types/navigation";
+import { Sidebar } from "../components/layout";
+import {
+  Field,
+  Info,
+  Placeholder,
+  StockBadge,
+  SummaryCard,
+} from "../components/ui";
 
 type ReceiveForm = {
   productId: string;
@@ -204,54 +206,6 @@ function App() {
         />
       )}
     </div>
-  );
-}
-
-function Sidebar({
-  section,
-  onChange,
-}: {
-  section: Section;
-  onChange: (section: Section) => void;
-}) {
-  const items: { id: Section; label: string; icon: typeof LayoutDashboard }[] =
-    [
-      { id: "overview", label: "Overview", icon: LayoutDashboard },
-      { id: "products", label: "Products", icon: Package },
-      { id: "inventory", label: "Inventory", icon: ClipboardList },
-      { id: "locations", label: "Locations", icon: MapPin },
-      { id: "alerts", label: "Alerts", icon: CircleAlert },
-    ];
-  return (
-    <aside className="flex w-[232px] shrink-0 flex-col border-r border-slate-200 bg-white">
-      <div className="flex h-[72px] items-center gap-3 border-b border-slate-100 px-6">
-        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-900 text-white">
-          <Package size={19} />
-        </div>
-        <div>
-          <div className="text-sm font-semibold">Inventory</div>
-          <div className="text-[11px] text-slate-400">Hardware Store</div>
-        </div>
-      </div>
-      <nav className="flex-1 px-3 py-5">
-        {items.map(({ id, label, icon: Icon }) => (
-          <button
-            key={id}
-            onClick={() => onChange(id)}
-            className={`mb-1 flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition ${section === id ? "bg-slate-100 font-medium text-slate-900" : "text-slate-500 hover:bg-slate-50 hover:text-slate-800"}`}
-          >
-            <Icon size={17} />
-            {label}
-          </button>
-        ))}
-      </nav>
-      <div className="border-t border-slate-100 p-3">
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-500 hover:bg-slate-50">
-          <Settings size={17} />
-          Settings
-        </button>
-      </div>
-    </aside>
   );
 }
 
@@ -443,54 +397,6 @@ function InventoryView({
   );
 }
 
-function SummaryCard({
-  label,
-  value,
-  icon,
-  warning,
-}: {
-  label: string;
-  value: string;
-  icon: ReactNode;
-  warning?: boolean;
-}) {
-  return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="mb-3 flex items-center justify-between">
-        <span className="text-sm text-slate-500">{label}</span>
-        <span
-          className={`flex h-8 w-8 items-center justify-center rounded-lg ${warning ? "bg-amber-50 text-amber-600" : "bg-slate-100 text-slate-500"}`}
-        >
-          {icon}
-        </span>
-      </div>
-      <div className="text-2xl font-semibold tracking-tight text-slate-900">
-        {value}
-      </div>
-    </div>
-  );
-}
-
-function StockBadge({
-  stock,
-  minimum,
-  unit,
-}: {
-  stock: number;
-  minimum: number;
-  unit: string;
-}) {
-  const low = stock <= minimum;
-  return (
-    <span
-      className={`inline-flex w-fit rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${low ? "bg-amber-50 text-amber-700 ring-amber-200" : "bg-emerald-50 text-emerald-700 ring-emerald-200"}`}
-    >
-      {stock} {unit}
-      {low ? " · Low" : ""}
-    </span>
-  );
-}
-
 function ProductDrawer({
   product,
   movements,
@@ -610,19 +516,6 @@ function ProductDrawer({
           )}
         </div>
       </aside>
-    </div>
-  );
-}
-
-function Info({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-lg bg-slate-50 p-3">
-      <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
-        {label}
-      </div>
-      <div className="mt-1 truncate text-sm font-medium text-slate-700">
-        {value}
-      </div>
     </div>
   );
 }
@@ -884,33 +777,6 @@ function ReceiveStockModal({
   );
 }
 
-function Field({
-  label,
-  value,
-  onChange,
-  type = "text",
-  min,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-  type?: string;
-  min?: string;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1.5 block text-xs text-slate-500">{label}</span>
-      <input
-        type={type}
-        min={min}
-        value={value}
-        onChange={(event) => onChange(event.target.value)}
-        className="h-10 w-full rounded-lg border border-slate-200 px-3 text-sm outline-none focus:border-slate-400"
-      />
-    </label>
-  );
-}
-
 function CameraCapture({
   onClose,
   onCapture,
@@ -1026,42 +892,6 @@ function CameraCapture({
             <Camera size={17} /> Capture
           </button>
         </div>
-      </div>
-    </div>
-  );
-}
-
-function Placeholder({
-  section,
-}: {
-  section: Exclude<Section, "products" | "inventory">;
-}) {
-  const copy: Record<typeof section, { title: string; body: string }> = {
-    overview: {
-      title: "Overview",
-      body: "Dashboard metrics will be connected to inventory data in the next iteration.",
-    },
-    locations: {
-      title: "Locations",
-      body: "Physical store mapping will be added after the receiving workflow.",
-    },
-    alerts: {
-      title: "Alerts",
-      body: "Low-stock rules are represented in the inventory summary for now.",
-    },
-  };
-  return (
-    <div className="mx-auto flex max-w-[900px] items-center justify-center py-28">
-      <div className="max-w-md text-center">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm ring-1 ring-slate-200">
-          <BarChart3 size={22} />
-        </div>
-        <h1 className="text-xl font-semibold text-slate-900">
-          {copy[section].title}
-        </h1>
-        <p className="mt-2 text-sm leading-6 text-slate-500">
-          {copy[section].body}
-        </p>
       </div>
     </div>
   );
