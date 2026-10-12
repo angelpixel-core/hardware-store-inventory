@@ -72,18 +72,18 @@ Extract reusable atomic UI elements (`StockBadge`, `SummaryCard`, `Field`, `Info
   - [x] Run `tsc -b` with zero errors.
 - [x] **Task 5.2: Production Build**
   - [x] Run `npm run build` and verify bundle generation in `dist/`.
-- [ ] **Task 5.3: Manual UI Verification**
-  - [ ] Test sidebar section switching.
-  - [ ] Test stock badges on products table.
-  - [ ] Test summary cards on inventory view.
-  - [ ] Test form fields on receive stock modal.
-  - [ ] Test placeholder views on overview, locations, alerts.
+- [x] **Task 5.3: Manual UI Verification**
+  - [x] Test sidebar section switching.
+  - [x] Test stock badges on products table.
+  - [x] Test summary cards on inventory view.
+  - [x] Test form fields on receive stock modal.
+  - [x] Test placeholder views on overview, locations, alerts.
 
 ---
 
 ### 6. Git Flow & PR
-- [ ] Commit all extracted components on `feat/02-atomic-ui-and-layout`.
-- [ ] Push to `origin/feat/02-atomic-ui-and-layout`.
-- [ ] Create Pull Request into `development`.
-- [ ] Merge into `development` without deleting branches.
-- [ ] Create Pull Request from `development` into `main` and merge without deleting branches.
+- [x] Commit all extracted components on `feat/02-atomic-ui-and-layout`.
+- [x] Push to `origin/feat/02-atomic-ui-and-layout`.
+- [x] Create Pull Request into `development`.
+- [x] Merge into `development` without deleting branches.
+- [x] Create Pull Request from `development` into `main` and merge without deleting branches.
