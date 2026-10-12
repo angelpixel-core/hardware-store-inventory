@@ -24,54 +24,54 @@ Extract reusable atomic UI elements (`StockBadge`, `SummaryCard`, `Field`, `Info
 ## 🧩 Tasks & Step-by-Step Checklist
 
 ### 1. Navigation Types
-- [ ] **Task 1.1: Create `src/types/navigation.ts`**
-  - [ ] Define and export `Section = "overview" | "products" | "inventory" | "locations" | "alerts"`.
+- [x] **Task 1.1: Create `src/types/navigation.ts`**
+  - [x] Define and export `Section = "overview" | "products" | "inventory" | "locations" | "alerts"`.
 
 ---
 
 ### 2. Atomic UI Elements (`src/components/ui/`)
-- [ ] **Task 2.1: Create `src/components/ui/StockBadge.tsx`**
-  - [ ] Implement `StockBadgeProps`: `{ stock: number; minimum: number; unit: string }`.
-  - [ ] Render pill badge with low-stock amber warning vs in-stock emerald styling.
-- [ ] **Task 2.2: Create `src/components/ui/SummaryCard.tsx`**
-  - [ ] Implement `SummaryCardProps`: `{ label: string; value: string; icon: ReactNode; warning?: boolean }`.
-  - [ ] Render KPI metric card with container icon and prominent typography.
-- [ ] **Task 2.3: Create `src/components/ui/Field.tsx`**
-  - [ ] Implement `FieldProps`: `{ label: string; value: string; onChange: (value: string) => void; type?: string; min?: string }`.
-  - [ ] Render accessible label and styled input element.
-- [ ] **Task 2.4: Create `src/components/ui/Info.tsx`**
-  - [ ] Implement `InfoProps`: `{ label: string; value: string }`.
-  - [ ] Render uppercase muted label with bold key value.
-- [ ] **Task 2.5: Create `src/components/ui/Placeholder.tsx`**
-  - [ ] Implement `PlaceholderProps`: `{ section: Exclude<Section, "products" | "inventory"> }`.
-  - [ ] Render centered empty state card with `BarChart3` icon and contextual copy.
+- [x] **Task 2.1: Create `src/components/ui/StockBadge.tsx`**
+  - [x] Implement `StockBadgeProps`: `{ stock: number; minimum: number; unit: string }`.
+  - [x] Render pill badge with low-stock amber warning vs in-stock emerald styling.
+- [x] **Task 2.2: Create `src/components/ui/SummaryCard.tsx`**
+  - [x] Implement `SummaryCardProps`: `{ label: string; value: string; icon: ReactNode; warning?: boolean }`.
+  - [x] Render KPI metric card with container icon and prominent typography.
+- [x] **Task 2.3: Create `src/components/ui/Field.tsx`**
+  - [x] Implement `FieldProps`: `{ label: string; value: string; onChange: (value: string) => void; type?: string; min?: string }`.
+  - [x] Render accessible label and styled input element.
+- [x] **Task 2.4: Create `src/components/ui/Info.tsx`**
+  - [x] Implement `InfoProps`: `{ label: string; value: string }`.
+  - [x] Render uppercase muted label with bold key value.
+- [x] **Task 2.5: Create `src/components/ui/Placeholder.tsx`**
+  - [x] Implement `PlaceholderProps`: `{ section: Exclude<Section, "products" | "inventory"> }`.
+  - [x] Render centered empty state card with `BarChart3` icon and contextual copy.
 
 ---
 
 ### 3. Layout Components (`src/components/layout/`)
-- [ ] **Task 3.1: Create `src/components/layout/Sidebar.tsx`**
-  - [ ] Implement `SidebarProps`: `{ section: Section; onChange: (section: Section) => void }`.
-  - [ ] Render brand header with icon (*Ferretería Central / Inventory*).
-  - [ ] Render navigation buttons for all 5 sections with active tab styling.
-  - [ ] Render footer settings button.
+- [x] **Task 3.1: Create `src/components/layout/Sidebar.tsx`**
+  - [x] Implement `SidebarProps`: `{ section: Section; onChange: (section: Section) => void }`.
+  - [x] Render brand header with icon (*Ferretería Central / Inventory*).
+  - [x] Render navigation buttons for all 5 sections with active tab styling.
+  - [x] Render footer settings button.
 
 ---
 
 ### 4. Integration into App.tsx
-- [ ] **Task 4.1: Update `src/app/App.tsx`**
-  - [ ] Import `Section` from `../types/navigation`.
-  - [ ] Import `StockBadge`, `SummaryCard`, `Field`, `Info`, `Placeholder` from `../components/ui/*`.
-  - [ ] Import `Sidebar` from `../components/layout/Sidebar`.
-  - [ ] Remove inline function declarations for extracted components.
-  - [ ] Clean up unused imports from `lucide-react` in `App.tsx`.
+- [x] **Task 4.1: Update `src/app/App.tsx`**
+  - [x] Import `Section` from `../types/navigation`.
+  - [x] Import `StockBadge`, `SummaryCard`, `Field`, `Info`, `Placeholder` from `../components/ui/*`.
+  - [x] Import `Sidebar` from `../components/layout/Sidebar`.
+  - [x] Remove inline function declarations for extracted components.
+  - [x] Clean up unused imports from `lucide-react` in `App.tsx`.
 
 ---
 
 ### 5. Verification & Quality Gates
-- [ ] **Task 5.1: Static Typecheck**
-  - [ ] Run `tsc -b` with zero errors.
-- [ ] **Task 5.2: Production Build**
-  - [ ] Run `npm run build` and verify bundle generation in `dist/`.
+- [x] **Task 5.1: Static Typecheck**
+  - [x] Run `tsc -b` with zero errors.
+- [x] **Task 5.2: Production Build**
+  - [x] Run `npm run build` and verify bundle generation in `dist/`.
 - [ ] **Task 5.3: Manual UI Verification**
   - [ ] Test sidebar section switching.
   - [ ] Test stock badges on products table.
