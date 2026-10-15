@@ -29,19 +29,19 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ## 📦 Desglose de los 4 Frentes a Atacar
 
-### 1. `Overview` (Executive Dashboard & Business Metrics)
-- [ ] **Métricas y KPIs Ejecutivos:**
-  - [ ] Valor monetario total del inventario (`Σ stock * cost` y `Σ stock * price`).
-  - [ ] Volumen total de unidades físicas en custodia.
-  - [ ] Estado de SKUs activos vs. agotados vs. en stock óptimo.
-  - [ ] Índice de rotación o salud de stock.
-- [ ] **Gráficos y Tendencias:**
-  - [ ] Flujo de movimientos en los últimos 7/30 días (Entradas vs Salidas vs Ajustes).
-  - [ ] Distribución de inventario por Categoría comercial.
-- [ ] **Widgets de Acción Rápida:**
-  - [ ] Top productos con stock crítico con botón directo de reposición.
-  - [ ] Últimas transacciones registradas (feed de actividad reciente).
-  - [ ] Atajos de navegación operativa.
+### 1. `Overview` (Executive Dashboard & Business Metrics) - [COMPLETADO ✅]
+- [x] **Métricas y KPIs Ejecutivos:**
+  - [x] Valor monetario total del inventario (`Σ stock * cost` y `Σ stock * price`).
+  - [x] Volumen total de unidades físicas en custodia.
+  - [x] Estado de SKUs activos vs. agotados vs. en stock óptimo.
+  - [x] Índice de rotación o salud de stock.
+- [x] **Gráficos y Tendencias:**
+  - [x] Flujo de movimientos en los últimos 7/30 días (Entradas vs Salidas vs Ajustes).
+  - [x] Distribución de inventario por Categoría comercial.
+- [x] **Widgets de Acción Rápida:**
+  - [x] Top productos con stock crítico con botón directo de reposición.
+  - [x] Últimas transacciones registradas (feed de actividad reciente).
+  - [x] Atajos de navegación operativa.
 
 ---
 
