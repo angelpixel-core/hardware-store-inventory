@@ -2,7 +2,7 @@ import { BarChart3 } from "lucide-react";
 import type { Section } from "../../../types/navigation";
 
 export interface PlaceholderProps {
-  section: Exclude<Section, "overview" | "products" | "inventory">;
+  section: Exclude<Section, "overview" | "products" | "inventory" | "alerts">;
 }
 
 export function Placeholder({ section }: PlaceholderProps) {
@@ -10,10 +10,6 @@ export function Placeholder({ section }: PlaceholderProps) {
     locations: {
       title: "Locations",
       body: "Physical store mapping will be added after the receiving workflow.",
-    },
-    alerts: {
-      title: "Alerts",
-      body: "Low-stock rules are represented in the inventory summary for now.",
     },
   };
   return (
