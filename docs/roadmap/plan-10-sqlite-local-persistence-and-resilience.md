@@ -119,11 +119,11 @@ graph TD
   - `getMovementsByProductId(productId: string): Promise<StockMovement[]>`
 
 
-### Fase 4: Integración en `useInventoryState.ts` & UI
-- [ ] **Tarea 4.1:** Añadir bandera `isDbLoading: boolean` y mensaje de carga suave en la interfaz.
-- [ ] **Tarea 4.2:** Reemplazar el estado inicial sincrónico `useState(mockProducts)` por carga asíncrona desde SQLite.
-- [ ] **Tarea 4.3:** Actualizar `createProduct`, `adjustStock`, `receiveStock` y `relocateProduct` para persistir en SQLite mediante llamadas a repositorios con manejo de errores y rollback en caso de fallo.
-- [ ] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base `.db`.
+### Fase 4: Integración en `useInventoryState.ts` & UI - [COMPLETADO ✅]
+- [x] **Tarea 4.1:** Añadir bandera `isDbLoading: boolean` y pantalla de carga con feedback reactivo en `App.tsx`.
+- [x] **Tarea 4.2:** Reemplazar el estado inicial sincrónico `useState(mockProducts)` por carga asíncrona desde SQLite vía `productRepository` y `movementRepository`.
+- [x] **Tarea 4.3:** Actualizar `createProduct`, `adjustStock`, `receiveStock` y `relocateProduct` para persistir en SQLite mediante llamadas a repositorios con manejo de errores y rollback en caso de fallo.
+- [x] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base (`exportDatabaseBackup` en `backup.ts` y botón en `Sidebar.tsx`).
 
 ### Fase 5: Verificación de Calidad, Resiliencia & Gitflow
 - [ ] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check`.
