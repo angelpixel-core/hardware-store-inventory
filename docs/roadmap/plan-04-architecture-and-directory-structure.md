@@ -84,3 +84,18 @@
 ### 📝 Phase 5: Documentation & Traceability Updates
 - [x] **Task 5.1: Update `README.md`** with the new directory tree and architectural pattern description.
 - [x] **Task 5.2: Update `docs/ARCHITECTURE_AND_DELIVERY_PLAN.md`** with completed tasks and Sprint 1 progress.
+
+---
+
+### 🚀 Phase 6: Continuous Integration & Branch Stabilization
+- [x] **Task 6.1: Setup GitHub Actions CI Pipeline**
+  - [x] Create `.github/workflows/ci.yml` (parallel frontend check & Tauri Rust check).
+  - [x] Create `.github/workflows/release.yml` (multi-platform desktop release bundler).
+- [ ] **Task 6.2: Open Pull Request to `development`**
+  - [ ] Open PR from `epic/04-architecture-and-directory-structure` to `development`.
+  - [ ] Await green CI Quality Gate check.
+  - [ ] Merge PR into `development`.
+- [ ] **Task 6.3: Open Release Pull Request to `main`**
+  - [ ] Open PR from `development` to `main`.
+  - [ ] Await green CI Quality Gate check.
+  - [ ] Merge PR into `main` and synchronize local tracking branches.
