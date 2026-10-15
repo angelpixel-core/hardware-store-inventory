@@ -107,7 +107,10 @@ hardware-store-inventory/
 ├── docs/
 │   ├── ARCHITECTURE_AND_DELIVERY_PLAN.md   # Comprehensive Technical & Delivery Blueprint
 │   ├── roadmap/
-│   │   └── plan-us-01-ui-modularization.md  # Detailed execution & traceability checklist for US-01
+│   │   ├── plan-us-01-ui-modularization.md  # Detailed execution & traceability checklist for US-01
+│   │   ├── plan-02-atomic-ui-and-layout.md  # UI primitives and layout breakdown
+│   │   ├── plan-03-feature-views.md         # Domain feature views specification
+│   │   └── plan-04-architecture-and-directory-structure.md # Architectural audit & modularization roadmap
 │   └── screenshots/                        # High-resolution screenshots for review
 │       ├── 01-products-catalog.png
 │       ├── 02-product-detail.png
@@ -119,28 +122,41 @@ hardware-store-inventory/
 │       └── 08-low-stock-alerts.png
 ├── src/
 │   ├── app/
-│   │   └── App.tsx                         # Thin layout orchestrator (167 LOC, fully decoupled)
-│   ├── features/                           # Domain feature modules (Extracted in Phase 3)
-│   │   ├── catalog/
-│   │   │   └── ProductsView.tsx            # Product catalog table, live search & quick actions
-│   │   ├── inventory-movements/
-│   │   │   └── InventoryView.tsx           # Audit movement ledger & inventory KPI cards
-│   │   ├── product-detail/
-│   │   │   └── ProductDrawer.tsx           # Slide-over product inspector with movement log
-│   │   └── receive-stock/
-│   │       ├── ReceiveStockModal.tsx       # Stock intake modal with shelf placement & notes
-│   │       └── CameraCapture.tsx           # WebRTC camera capture & photo snapshot
-│   ├── components/                         # Shared UI & layout elements (Extracted in Phase 2)
+│   │   └── App.tsx                         # Declarative layout orchestrator (105 LOC)
+│   ├── features/                           # Domain Vertical Slices
+│   │   ├── catalog/                        # Product catalog & live filtering
+│   │   │   ├── components/                 # ProductTable, CatalogSearchBar
+│   │   │   ├── ProductsView.tsx
+│   │   │   └── index.ts
+│   │   ├── inventory/                      # Movement ledger & KPI summary cards
+│   │   │   ├── components/                 # MovementLedger, MetricsCards
+│   │   │   ├── InventoryView.tsx
+│   │   │   └── index.ts
+│   │   ├── product-detail/                 # Slide-over inspector & historical ledger
+│   │   │   ├── components/                 # ProductInfoGrid, MovementTimeline
+│   │   │   ├── ProductDrawer.tsx
+│   │   │   └── index.ts
+│   │   └── stock-intake/                   # Guided intake workflow (Domain Process)
+│   │       ├── components/                 # PlacementFields, PhotoAttachment
+│   │       ├── hooks/                      # useStockIntakeForm
+│   │       ├── types.ts                    # StockIntakeFormData, SubmitParams
+│   │       ├── ReceiveStockModal.tsx
+│   │       └── index.ts
+│   ├── components/                         # Cross-cutting UI Components
 │   │   ├── layout/
-│   │   │   └── Sidebar.tsx                 # Desktop sidebar navigation
-│   │   └── ui/
-│   │       ├── StockBadge.tsx              # Stock status & safety threshold badge
-│   │       ├── SummaryCard.tsx             # Metric KPI card
-│   │       ├── Field.tsx                   # Form input wrapper with label
-│   │       ├── Info.tsx                    # Key-value inspector display
-│   │       └── Placeholder.tsx             # Empty state for pending views
+│   │   │   ├── Sidebar.tsx                 # Desktop sidebar navigation
+│   │   │   └── index.ts
+│   │   ├── media/                          # Hardware / Device Components
+│   │   │   └── CameraCapture/              # CameraCapture modal & useCameraStream hook
+│   │   └── ui/                             # Design System & Display Primitives
+│   │       ├── primitives/                 # Field, generic form wrappers
+│   │       ├── display/                    # StockBadge, SummaryCard, Info, Placeholder
+│   │       └── index.ts
+│   ├── hooks/                              # Global Domain Hooks
+│   │   ├── useInventoryState.ts            # Centralized stock mutations, ledger, search & notices
+│   │   └── index.ts
 │   ├── utils/
-│   │   └── formatters.ts                   # Domain formatters & helper functions (Extracted in Phase 1)
+│   │   └── formatters.ts                   # Domain formatters & currency helpers
 │   ├── types/
 │   │   ├── inventory.ts                    # Domain models (Product, StockMovement, Location)
 │   │   └── navigation.ts                   # Section navigation type definition
@@ -149,8 +165,14 @@ hardware-store-inventory/
 │   │   └── products.json                   # Sample hardware inventory catalog
 │   ├── main.tsx                            # React entry point
 │   └── styles.css                          # Global typography & Tailwind styles
-├── src-tauri/                              # Tauri v2 native configuration and Rust harness
+├── src-tauri/                              # Tauri v2 Native Core (Rust)
 │   ├── Cargo.toml
+│   ├── src/
+│   │   ├── commands/                       # IPC Command Handlers (ping_system, get_system_info)
+│   │   ├── models/                         # Serde Domain Models (Product, Location, Movement)
+│   │   ├── error.rs                        # Unified AppError enum
+│   │   ├── lib.rs                          # Builder & IPC handler registration
+│   │   └── main.rs                         # Native entry point
 │   └── tauri.conf.json                     # Window sizes, permissions, build hooks
 ├── package.json
 ├── tsconfig.json
