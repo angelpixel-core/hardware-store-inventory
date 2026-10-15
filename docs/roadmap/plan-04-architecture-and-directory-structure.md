@@ -71,13 +71,13 @@
 ---
 
 ### 🦀 Phase 4: Tauri / Rust Layer Scaffolding
-- [ ] **Task 4.1: Rust Module Architecture**
-  - [ ] Create `src-tauri/src/commands/mod.rs` and `src-tauri/src/commands/inventory.rs`.
-  - [ ] Create `src-tauri/src/models/mod.rs` and `src-tauri/src/models/product.rs`.
-  - [ ] Create `src-tauri/src/error.rs` for unified error handling.
-  - [ ] Register modular commands in `src-tauri/src/lib.rs`.
-- [ ] **Task 4.2: Rust Build Verification**
-  - [ ] Run `cargo check` in `src-tauri/` to verify zero Rust compilation errors.
+- [x] **Task 4.1: Rust Module Architecture**
+  - [x] Create `src-tauri/src/commands/mod.rs` and `src-tauri/src/commands/inventory.rs`.
+  - [x] Create `src-tauri/src/models/mod.rs` and `src-tauri/src/models/product.rs`.
+  - [x] Create `src-tauri/src/error.rs` for unified error handling.
+  - [x] Register modular commands in `src-tauri/src/lib.rs`.
+- [x] **Task 4.2: Rust Build Verification**
+  - [x] Run `cargo check` in `src-tauri/` to verify zero Rust compilation errors.
 
 ---
 
