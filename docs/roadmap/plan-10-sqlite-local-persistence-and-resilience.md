@@ -126,6 +126,7 @@ graph TD
 - [x] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base (`exportDatabaseBackup` en `backup.ts` y botón en `Sidebar.tsx`).
 
 ### Fase 5: Verificación de Calidad, Resiliencia & Gitflow
-- [ ] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check`.
+- [x] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check` (0 errores).
 - [ ] **Tarea 5.2:** Probar persistencia real cerrando completamente la app nativa y reabriéndola tras crear productos y realizar ajustes.
 - [ ] **Tarea 5.3:** Abrir PR hacia `development`, verificar Quality Gates de CI y fusionar.
+
