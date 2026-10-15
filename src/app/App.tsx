@@ -2,9 +2,9 @@ import { useMemo, useState } from "react";
 import { Sidebar } from "../components/layout";
 import { Placeholder } from "../components/ui";
 import { ProductsView } from "../features/catalog";
-import { InventoryView } from "../features/inventory-movements";
+import { InventoryView } from "../features/inventory";
 import { ProductDrawer } from "../features/product-detail";
-import { ReceiveStockModal } from "../features/receive-stock";
+import { ReceiveStockModal } from "../features/stock-intake";
 import { useInventoryState } from "../hooks";
 import type { Section } from "../types/navigation";
 
