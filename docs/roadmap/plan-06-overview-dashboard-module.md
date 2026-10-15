@@ -46,4 +46,4 @@ Reemplazar la vista vacía (`Placeholder`) de la sección **Overview** por un **
 
 ### 6. Verificación de Calidad y Gitflow
 - [x] **Tarea 6.1:** Ejecutar `tsc -b` y `npm run build`.
-- [ ] **Tarea 6.2:** Fusionar `feat/05-feature-overview` en `development` y verificar CI.
+- [x] **Tarea 6.2:** Fusionar `feat/05-feature-overview` en `development` y verificar CI.
