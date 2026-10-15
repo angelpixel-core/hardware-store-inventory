@@ -27,8 +27,8 @@ Reemplazar el último `Placeholder` del sistema (`Locations`) por un **Módulo d
 - [x] **Tarea 1.1:** Definir interfaces `AisleNode`, `RackNode`, `ShelfNode`, `LocationStats`, y props de componentes.
 
 ### 2. Hook de Análisis Espacial y Picking (`src/features/locations/hooks/`)
-- [ ] **Tarea 2.1:** Implementar `useLocationsState(products, onRelocate)`: indexación de pasillos, racks, estantes, buscador de mostrador y selección de zona.
-- [ ] **Tarea 2.2:** Crear barrel export `src/features/locations/hooks/index.ts`.
+- [x] **Tarea 2.1:** Implementar `useLocationsState(products, onRelocate)`: indexación de pasillos, racks, estantes, buscador de mostrador y selección de zona.
+- [x] **Tarea 2.2:** Crear barrel export `src/features/locations/hooks/index.ts`.
 
 ### 3. Componentes del Módulo (`src/features/locations/components/`)
 - [ ] **Tarea 3.1:** Implementar `LocationsSummaryCards.tsx` (KPIs de pasillos activos, estantes ocupados, SKUs asignados).
