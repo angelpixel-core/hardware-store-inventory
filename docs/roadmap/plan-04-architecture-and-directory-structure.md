@@ -36,28 +36,28 @@
 ---
 
 ### 📦 Phase 2: Domain Feature Sub-structuring & Renaming (`stock-intake`)
-- [ ] **Task 2.1: Migrate `receive-stock` -> `stock-intake`**
-  - [ ] Create `src/features/stock-intake/types.ts` for form definitions (`ReceiveStockFormData`).
-  - [ ] Create `src/features/stock-intake/hooks/useStockIntakeForm.ts` for intake form state, validation, and photo handling.
-  - [ ] Create `src/features/stock-intake/components/PlacementFields.tsx` for warehouse coordinate inputs.
-  - [ ] Create `src/features/stock-intake/components/PhotoAttachment.tsx` for photo preview & upload triggers.
-  - [ ] Refactor `src/features/stock-intake/ReceiveStockModal.tsx` into a clean orchestrator using the sub-components and hook.
-  - [ ] Update `src/features/stock-intake/index.ts` and remove old `receive-stock` directory.
-- [ ] **Task 2.2: Sub-structure `catalog` Feature**
-  - [ ] Create `src/features/catalog/components/ProductTable.tsx`.
-  - [ ] Create `src/features/catalog/components/CatalogSearchBar.tsx`.
-  - [ ] Refactor `src/features/catalog/ProductsView.tsx` and update `src/features/catalog/index.ts`.
-- [ ] **Task 2.3: Sub-structure `inventory` Feature**
-  - [ ] Rename / standardize directory to `src/features/inventory/` (or preserve `inventory-movements` alias with internal `components/`).
-  - [ ] Create `src/features/inventory/components/MovementLedger.tsx`.
-  - [ ] Create `src/features/inventory/components/MetricsCards.tsx`.
-  - [ ] Refactor `src/features/inventory/InventoryView.tsx` and update `index.ts`.
-- [ ] **Task 2.4: Sub-structure `product-detail` Feature**
-  - [ ] Create `src/features/product-detail/components/ProductInfoGrid.tsx`.
-  - [ ] Create `src/features/product-detail/components/MovementTimeline.tsx`.
-  - [ ] Refactor `src/features/product-detail/ProductDrawer.tsx` and update `index.ts`.
-- [ ] **Task 2.5: Phase 2 Build Verification**
-  - [ ] Run `npx tsc --noEmit` and `npm run build`.
+- [x] **Task 2.1: Migrate `receive-stock` -> `stock-intake`**
+  - [x] Create `src/features/stock-intake/types.ts` for form definitions (`ReceiveStockFormData`).
+  - [x] Create `src/features/stock-intake/hooks/useStockIntakeForm.ts` for intake form state, validation, and photo handling.
+  - [x] Create `src/features/stock-intake/components/PlacementFields.tsx` for warehouse coordinate inputs.
+  - [x] Create `src/features/stock-intake/components/PhotoAttachment.tsx` for photo preview & upload triggers.
+  - [x] Refactor `src/features/stock-intake/ReceiveStockModal.tsx` into a clean orchestrator using the sub-components and hook.
+  - [x] Update `src/features/stock-intake/index.ts` and remove old `receive-stock` directory.
+- [x] **Task 2.2: Sub-structure `catalog` Feature**
+  - [x] Create `src/features/catalog/components/ProductTable.tsx`.
+  - [x] Create `src/features/catalog/components/CatalogSearchBar.tsx`.
+  - [x] Refactor `src/features/catalog/ProductsView.tsx` and update `src/features/catalog/index.ts`.
+- [x] **Task 2.3: Sub-structure `inventory` Feature**
+  - [x] Rename / standardize directory to `src/features/inventory/` (or preserve `inventory-movements` alias with internal `components/`).
+  - [x] Create `src/features/inventory/components/MovementLedger.tsx`.
+  - [x] Create `src/features/inventory/components/MetricsCards.tsx`.
+  - [x] Refactor `src/features/inventory/InventoryView.tsx` and update `index.ts`.
+- [x] **Task 2.4: Sub-structure `product-detail` Feature**
+  - [x] Create `src/features/product-detail/components/ProductInfoGrid.tsx`.
+  - [x] Create `src/features/product-detail/components/MovementTimeline.tsx`.
+  - [x] Refactor `src/features/product-detail/ProductDrawer.tsx` and update `index.ts`.
+- [x] **Task 2.5: Phase 2 Build Verification**
+  - [x] Run `npx tsc --noEmit` and `npm run build`.
 
 ---
 
