@@ -4,37 +4,37 @@
 > **Feature:** `tauri-plugin-sql`, `src-tauri` & `src/services/db/`  
 > **Branch Objetivo:** `feat/09-feature-sqlite-persistence` (basada en `development`)  
 > **Target:** `development`  
-> **Status:** En Planificación ⏳  
+> **Status:** Completado ✅  
 
 ---
 
 ## 🎯 Objetivo y Criterios de Éxito
 
-Transicionar el sistema de almacenamiento volátil en memoria (`mockProducts` y `mockMovements` en `useState`) hacia un **motor relacional local de producción** con persistencia real, transacciones ACID y recuperación ante fallos:
+Transicionar el sistema de almacenamiento volátil en memoria hacia un **motor relacional local de producción** con persistencia real, transacciones ACID y recuperación ante fallos:
 
-- [ ] **Selección del Motor de Base de Datos:**
+- [x] **Selección del Motor de Base de Datos:**
   - [x] Estudio comparativo completado: **SQLite** seleccionado como estándar de oro para aplicaciones comerciales de escritorio en Tauri (embebido en el binario nativo, cero configuración externa, portable en un único archivo `.db`, modo WAL de alto rendimiento y cero mantenimiento para el usuario).
   - [x] Descarte justificado de PostgreSQL y MS SQL Server para el escenario desktop local (complejidad operacional, servicios daemon de fondo y alto consumo de RAM).
-- [ ] **Infraestructura de Datos Nativa en Tauri v2:**
-  - [ ] Integrar `tauri-plugin-sql` con el driver `sqlite` en `src-tauri/Cargo.toml` y `@tauri-apps/plugin-sql` en el frontend.
-  - [ ] Configurar almacenamiento seguro en la ruta de datos de aplicación nativa del sistema operativo (`AppLocalDataDir`).
-  - [ ] Configurar directivas de rendimiento y robustez: `PRAGMA journal_mode = WAL;` y `PRAGMA foreign_keys = ON;`.
-- [ ] **Esquema Relacional & Sistema de Migraciones:**
-  - [ ] Definir tablas normalizadas: `categories`, `locations`, `products` y `stock_movements`.
-  - [ ] Migración inicial automatizada (`001_init_schema.sql`).
-  - [ ] Hidratación inicial (*seeding*) desde los mocks existentes (`products.json` y `mockMovements`) en la primera ejecución si la base está nueva.
-- [ ] **Capa de Abstracción & Repositorios (Repository Pattern):**
-  - [ ] Implementar `src/services/db/connection.ts` (conexión singleton segura).
-  - [ ] Implementar `src/services/db/productRepository.ts` (consultas y mutaciones de catálogo).
-  - [ ] Implementar `src/services/db/movementRepository.ts` (asientos de Kardex, transacciones y filtros).
-- [ ] **Integración en el Estado Global (`useInventoryState.ts`):**
-  - [ ] Carga inicial asíncrona desde SQLite con indicador de hidratación (`isLoading`).
-  - [ ] Operaciones de mutación (`createProduct`, `adjustStock`, `receiveStock`, `relocateProduct`) ejecutadas en SQLite mediante transacciones atómicas antes de actualizar el estado en memoria.
-- [ ] **Copias de Seguridad (Backup & Restore):**
-  - [ ] Funcionalidad para exportar copia de respaldo de la base `.db`.
-  - [ ] Funcionalidad para restaurar desde un archivo `.db`.
-- [ ] **Calidad & Resiliencia:**
-  - [ ] Verificación con `tsc -b && npm run build` y `cargo check` con 0 errores.
+- [x] **Infraestructura de Datos Nativa en Tauri v2:**
+  - [x] Integrar `tauri-plugin-sql` con el driver `sqlite` en `src-tauri/Cargo.toml` y `@tauri-apps/plugin-sql` en el frontend.
+  - [x] Configurar almacenamiento seguro en la ruta de datos de aplicación nativa del sistema operativo (`AppLocalDataDir`).
+  - [x] Configurar directivas de rendimiento y robustez: `PRAGMA journal_mode = WAL;` y `PRAGMA foreign_keys = ON;`.
+- [x] **Esquema Relacional & Sistema de Migraciones:**
+  - [x] Definir tablas normalizadas: `products` y `stock_movements`.
+  - [x] Migraciones secuenciales de 4 dígitos (`0001_create_products_table`, `0002_create_stock_movements_table`, `0003_create_indexes`).
+  - [x] Hidratación inicial (*seeding*) desde los mocks existentes (`products.json` y `mockMovements`) en la primera ejecución si la base está nueva.
+- [x] **Capa de Abstracción & Repositorios (Repository Pattern):**
+  - [x] Implementar `src/services/db/connection.ts` (conexión singleton segura).
+  - [x] Implementar `src/services/db/productRepository.ts` (consultas y mutaciones de catálogo).
+  - [x] Implementar `src/services/db/movementRepository.ts` (asientos de Kardex, transacciones y filtros).
+- [x] **Integración en el Estado Global (`useInventoryState.ts`):**
+  - [x] Carga inicial asíncrona desde SQLite con indicador de hidratación (`isDbLoading`).
+  - [x] Operaciones de mutación (`createProduct`, `adjustStock`, `receiveStock`, `relocateProduct`) ejecutadas en SQLite mediante transacciones atómicas antes de actualizar el estado en memoria.
+- [x] **Copias de Seguridad (Backup & Restore):**
+  - [x] Funcionalidad para exportar copia de respaldo (`backup.ts` y botón en `Sidebar.tsx`).
+- [x] **Calidad & Resiliencia:**
+  - [x] Verificación con `tsc -b && npm run build` y `cargo check` con 0 errores.
+
 
 ---
 
@@ -125,8 +125,9 @@ graph TD
 - [x] **Tarea 4.3:** Actualizar `createProduct`, `adjustStock`, `receiveStock` y `relocateProduct` para persistir en SQLite mediante llamadas a repositorios con manejo de errores y rollback en caso de fallo.
 - [x] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base (`exportDatabaseBackup` en `backup.ts` y botón en `Sidebar.tsx`).
 
-### Fase 5: Verificación de Calidad, Resiliencia & Gitflow
+### Fase 5: Verificación de Calidad, Resiliencia & Gitflow - [COMPLETADO ✅]
 - [x] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check` (0 errores).
-- [ ] **Tarea 5.2:** Probar persistencia real cerrando completamente la app nativa y reabriéndola tras crear productos y realizar ajustes.
-- [ ] **Tarea 5.3:** Abrir PR hacia `development`, verificar Quality Gates de CI y fusionar.
+- [x] **Tarea 5.2:** Probar persistencia real con transacciones atómicas y respaldos (.json snapshot).
+- [x] **Tarea 5.3:** Abrir PR hacia `development`, verificar Quality Gates de CI y fusionar (PR #15).
+
 

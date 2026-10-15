@@ -84,9 +84,11 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ---
 
-### 5. `Persistence & Production Readiness` (Persistencia Local SQLite & Resiliencia) - [PLANIFICADO ⏳]
-- [ ] Implementación de persistencia relacional embebida con **SQLite** (`tauri-plugin-sql`).
-- [ ] Detalle técnico y checklist disponible en: [`plan-10-sqlite-local-persistence-and-resilience.md`](./plan-10-sqlite-local-persistence-and-resilience.md).
+### 5. `Persistence & Production Readiness` (Persistencia Local SQLite & Resiliencia) - [COMPLETADO ✅]
+- [x] Implementación de persistencia relacional embebida con **SQLite** (`tauri-plugin-sql`).
+- [x] Migraciones secuenciales de 4 dígitos estilo Rails/Drizzle y tabla de auditoría `schema_migrations`.
+- [x] Repositorios desacoplados (`productRepository`, `movementRepository`) con transacciones atómicas.
+- [x] Detalle técnico y checklist disponible en: [`plan-10-sqlite-local-persistence-and-resilience.md`](./plan-10-sqlite-local-persistence-and-resilience.md).
 
 ---
 
@@ -94,6 +96,7 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 1. **Ruta A (Visualización & Métricas Ejecutivas - Completada ✅):**
    1. `Overview` ➔ 2. `Alerts` ➔ 3. `Locations` ➔ 4. `Products vs Inventory`
-2. **Siguiente Gran Hito Técnico:**
+2. **Hito de Persistencia & Resiliencia de Datos (Completado ✅):**
    - ➔ 5. `Local SQLite Persistence & Resilience` ([Plan 10](./plan-10-sqlite-local-persistence-and-resilience.md))
+
 
