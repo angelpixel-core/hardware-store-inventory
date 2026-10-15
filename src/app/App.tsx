@@ -8,6 +8,7 @@ import { InventoryView } from "../features/inventory";
 import { ProductDrawer } from "../features/product-detail";
 import { ReceiveStockModal } from "../features/stock-intake";
 import { useInventoryState } from "../hooks";
+import { exportDatabaseBackup } from "../services/db";
 import type { Section } from "../types/navigation";
 
 export function App() {
@@ -21,6 +22,7 @@ export function App() {
   );
 
   const {
+    isDbLoading,
     products,
     movements,
     filteredProducts,
@@ -43,9 +45,31 @@ export function App() {
     initialReceiveOpen: searchParams.get("receive") === "true",
   });
 
+  if (isDbLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center bg-slate-900 text-white">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 animate-spin rounded-full border-3 border-amber-400 border-t-transparent" />
+          <p className="text-sm font-semibold tracking-wide text-slate-100">
+            Conectando a base de datos SQLite y verificando migraciones...
+          </p>
+          <p className="text-xs text-slate-400">
+            Cargando inventario persistente y libro mayor de existencias.
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-slate-50 font-sans text-slate-900 antialiased">
-      <Sidebar section={section} onChange={setSection} />
+      <Sidebar
+        section={section}
+        onChange={setSection}
+        onExportBackup={() => {
+          exportDatabaseBackup();
+        }}
+      />
 
       <main className="flex-1 overflow-y-auto">
         {notice && (

@@ -91,39 +91,42 @@ graph TD
 
 ## 🧩 Checklist de Tareas por Fases
 
-### Fase 1: Infraestructura de Plugin & Dependencias
-- [ ] **Tarea 1.1:** Añadir `tauri-plugin-sql = { version = "2", features = ["sqlite"] }` en `src-tauri/Cargo.toml`.
-- [ ] **Tarea 1.2:** Registrar el plugin en `src-tauri/src/lib.rs`.
-- [ ] **Tarea 1.3:** Instalar `@tauri-apps/plugin-sql` en `package.json`.
-- [ ] **Tarea 1.4:** Validar compilación nativa con `cargo check` y `npm run build`.
+### Fase 1: Infraestructura de Plugin & Dependencias - [COMPLETADO ✅]
+- [x] **Tarea 1.1:** Añadir `tauri-plugin-sql = { version = "2", features = ["sqlite"] }` en `src-tauri/Cargo.toml`.
+- [x] **Tarea 1.2:** Registrar el plugin en `src-tauri/src/lib.rs`.
+- [x] **Tarea 1.3:** Instalar `@tauri-apps/plugin-sql` en `package.json`.
+- [x] **Tarea 1.4:** Validar compilación nativa con `cargo check` y `npm run build`.
 
-### Fase 2: Esquema Relacional, Migraciones & Seeding
-- [ ] **Tarea 2.1:** Diseñar script de migración `001_initial_schema.sql`:
-  - `categories` (id, name, description).
-  - `locations` (id, store, aisle, rack, shelf).
-  - `products` (id, sku, barcode, name, brand, category, unit, price, cost, stock, minimum_stock, aisle, rack, shelf, description, photo_path, created_at, updated_at).
-  - `stock_movements` (id, product_id, type, quantity, unit_cost, aisle, rack, shelf, note, created_at).
-- [ ] **Tarea 2.2:** Crear servicio de inicialización y migración automática al arrancar la app.
-- [ ] **Tarea 2.3:** Crear script de *seeding* que inserte los datos actuales de `products.json` y `mockMovements` únicamente si la base SQLite está recién creada.
+### Fase 2: Esquema Relacional, Migraciones & Seeding - [COMPLETADO ✅]
+- [x] **Tarea 2.1:** Diseñar script de migración DDL (`schema.ts`):
+  - `products` (id, sku, barcode, name, brand, category, unit, price, cost, stock, minimum_stock, location_store, location_aisle, location_rack, location_shelf, description, image, created_at, updated_at).
+  - `stock_movements` (id, product_id, type, quantity, unit_cost, location_store, location_aisle, location_rack, location_shelf, note, created_at).
+  - Índices automáticos para SKU, Categoría, Pasillo y Kardex (`created_at DESC`).
+- [x] **Tarea 2.2:** Crear servicio de inicialización y migración automática al arrancar la app (`connection.ts`).
+- [x] **Tarea 2.3:** Crear script de *seeding* que inserte los datos actuales de `products.json` y `mockMovements` únicamente si la base SQLite está recién creada (`seeder.ts`).
 
-### Fase 3: Capa de Repositorios (Repository Pattern)
-- [ ] **Tarea 3.1:** Crear `src/services/db/connection.ts` con manejo de conexión única y reintentos.
-- [ ] **Tarea 3.2:** Crear `src/services/db/productRepository.ts` con métodos tipados:
+### Fase 3: Capa de Repositorios (Repository Pattern) - [COMPLETADO ✅]
+- [x] **Tarea 3.1:** Crear `src/services/db/connection.ts` con manejo de conexión única y reintentos.
+- [x] **Tarea 3.2:** Crear `src/services/db/productRepository.ts` con métodos tipados:
   - `loadAllProducts(): Promise<Product[]>`
   - `insertProduct(product: Product): Promise<void>`
   - `updateProductStock(productId: string, newStock: number): Promise<void>`
   - `updateProductLocation(productId: string, location: ProductLocation): Promise<void>`
-- [ ] **Tarea 3.3:** Crear `src/services/db/movementRepository.ts` con métodos tipados:
+  - `getProductById(productId: string): Promise<Product | null>`
+- [x] **Tarea 3.3:** Crear `src/services/db/movementRepository.ts` con métodos tipados:
   - `loadAllMovements(): Promise<StockMovement[]>`
   - `insertMovement(movement: StockMovement): Promise<void>`
+  - `getMovementsByProductId(productId: string): Promise<StockMovement[]>`
 
-### Fase 4: Integración en `useInventoryState.ts` & UI
-- [ ] **Tarea 4.1:** Añadir bandera `isDbLoading: boolean` y mensaje de carga suave en la interfaz.
-- [ ] **Tarea 4.2:** Reemplazar el estado inicial sincrónico `useState(mockProducts)` por carga asíncrona desde SQLite.
-- [ ] **Tarea 4.3:** Actualizar `createProduct`, `adjustStock`, `receiveStock` y `relocateProduct` para persistir en SQLite mediante llamadas a repositorios con manejo de errores y rollback en caso de fallo.
-- [ ] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base `.db`.
+
+### Fase 4: Integración en `useInventoryState.ts` & UI - [COMPLETADO ✅]
+- [x] **Tarea 4.1:** Añadir bandera `isDbLoading: boolean` y pantalla de carga con feedback reactivo en `App.tsx`.
+- [x] **Tarea 4.2:** Reemplazar el estado inicial sincrónico `useState(mockProducts)` por carga asíncrona desde SQLite vía `productRepository` y `movementRepository`.
+- [x] **Tarea 4.3:** Actualizar `createProduct`, `adjustStock`, `receiveStock` y `relocateProduct` para persistir en SQLite mediante llamadas a repositorios con manejo de errores y rollback en caso de fallo.
+- [x] **Tarea 4.4:** Añadir utilidad de exportación y respaldo de la base (`exportDatabaseBackup` en `backup.ts` y botón en `Sidebar.tsx`).
 
 ### Fase 5: Verificación de Calidad, Resiliencia & Gitflow
-- [ ] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check`.
+- [x] **Tarea 5.1:** Ejecutar `tsc -b`, `npm run build` y `cargo check` (0 errores).
 - [ ] **Tarea 5.2:** Probar persistencia real cerrando completamente la app nativa y reabriéndola tras crear productos y realizar ajustes.
 - [ ] **Tarea 5.3:** Abrir PR hacia `development`, verificar Quality Gates de CI y fusionar.
+
