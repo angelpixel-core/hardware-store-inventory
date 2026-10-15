@@ -105,16 +105,19 @@ graph TD
 - [x] **Tarea 2.2:** Crear servicio de inicialización y migración automática al arrancar la app (`connection.ts`).
 - [x] **Tarea 2.3:** Crear script de *seeding* que inserte los datos actuales de `products.json` y `mockMovements` únicamente si la base SQLite está recién creada (`seeder.ts`).
 
-### Fase 3: Capa de Repositorios (Repository Pattern)
-- [ ] **Tarea 3.1:** Crear `src/services/db/connection.ts` con manejo de conexión única y reintentos.
-- [ ] **Tarea 3.2:** Crear `src/services/db/productRepository.ts` con métodos tipados:
+### Fase 3: Capa de Repositorios (Repository Pattern) - [COMPLETADO ✅]
+- [x] **Tarea 3.1:** Crear `src/services/db/connection.ts` con manejo de conexión única y reintentos.
+- [x] **Tarea 3.2:** Crear `src/services/db/productRepository.ts` con métodos tipados:
   - `loadAllProducts(): Promise<Product[]>`
   - `insertProduct(product: Product): Promise<void>`
   - `updateProductStock(productId: string, newStock: number): Promise<void>`
   - `updateProductLocation(productId: string, location: ProductLocation): Promise<void>`
-- [ ] **Tarea 3.3:** Crear `src/services/db/movementRepository.ts` con métodos tipados:
+  - `getProductById(productId: string): Promise<Product | null>`
+- [x] **Tarea 3.3:** Crear `src/services/db/movementRepository.ts` con métodos tipados:
   - `loadAllMovements(): Promise<StockMovement[]>`
   - `insertMovement(movement: StockMovement): Promise<void>`
+  - `getMovementsByProductId(productId: string): Promise<StockMovement[]>`
+
 
 ### Fase 4: Integración en `useInventoryState.ts` & UI
 - [ ] **Tarea 4.1:** Añadir bandera `isDbLoading: boolean` y mensaje de carga suave en la interfaz.
