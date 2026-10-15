@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Sidebar } from "../components/layout";
 import { Placeholder } from "../components/ui";
+import { AlertsView } from "../features/alerts";
 import { OverviewView } from "../features/overview";
 import { ProductsView } from "../features/catalog";
 import { InventoryView } from "../features/inventory";
@@ -78,9 +79,18 @@ export function App() {
           />
         )}
 
+        {section === "alerts" && (
+          <AlertsView
+            products={products}
+            onSelectProduct={selectProduct}
+            onReceive={openReceive}
+          />
+        )}
+
         {section !== "overview" &&
           section !== "products" &&
-          section !== "inventory" && <Placeholder section={section} />}
+          section !== "inventory" &&
+          section !== "alerts" && <Placeholder section={section} />}
       </main>
 
       {selectedProduct && (
