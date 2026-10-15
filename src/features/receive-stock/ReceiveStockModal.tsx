@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Camera, Check, ChevronDown, ImagePlus, X } from "lucide-react";
 import { Field } from "../../components/ui";
-import { CameraCapture } from "./CameraCapture";
+import { CameraCapture } from "../../components/media";
 import type { Product, ProductLocation } from "../../types/inventory";
 
 export interface ReceiveForm {
