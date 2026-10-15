@@ -97,14 +97,13 @@ graph TD
 - [x] **Tarea 1.3:** Instalar `@tauri-apps/plugin-sql` en `package.json`.
 - [x] **Tarea 1.4:** Validar compilación nativa con `cargo check` y `npm run build`.
 
-### Fase 2: Esquema Relacional, Migraciones & Seeding
-- [ ] **Tarea 2.1:** Diseñar script de migración `001_initial_schema.sql`:
-  - `categories` (id, name, description).
-  - `locations` (id, store, aisle, rack, shelf).
-  - `products` (id, sku, barcode, name, brand, category, unit, price, cost, stock, minimum_stock, aisle, rack, shelf, description, photo_path, created_at, updated_at).
-  - `stock_movements` (id, product_id, type, quantity, unit_cost, aisle, rack, shelf, note, created_at).
-- [ ] **Tarea 2.2:** Crear servicio de inicialización y migración automática al arrancar la app.
-- [ ] **Tarea 2.3:** Crear script de *seeding* que inserte los datos actuales de `products.json` y `mockMovements` únicamente si la base SQLite está recién creada.
+### Fase 2: Esquema Relacional, Migraciones & Seeding - [COMPLETADO ✅]
+- [x] **Tarea 2.1:** Diseñar script de migración DDL (`schema.ts`):
+  - `products` (id, sku, barcode, name, brand, category, unit, price, cost, stock, minimum_stock, location_store, location_aisle, location_rack, location_shelf, description, image, created_at, updated_at).
+  - `stock_movements` (id, product_id, type, quantity, unit_cost, location_store, location_aisle, location_rack, location_shelf, note, created_at).
+  - Índices automáticos para SKU, Categoría, Pasillo y Kardex (`created_at DESC`).
+- [x] **Tarea 2.2:** Crear servicio de inicialización y migración automática al arrancar la app (`connection.ts`).
+- [x] **Tarea 2.3:** Crear script de *seeding* que inserte los datos actuales de `products.json` y `mockMovements` únicamente si la base SQLite está recién creada (`seeder.ts`).
 
 ### Fase 3: Capa de Repositorios (Repository Pattern)
 - [ ] **Tarea 3.1:** Crear `src/services/db/connection.ts` con manejo de conexión única y reintentos.
