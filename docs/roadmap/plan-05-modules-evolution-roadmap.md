@@ -84,9 +84,16 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ---
 
+### 5. `Persistence & Production Readiness` (Persistencia Local SQLite & Resiliencia) - [PLANIFICADO ⏳]
+- [ ] Implementación de persistencia relacional embebida con **SQLite** (`tauri-plugin-sql`).
+- [ ] Detalle técnico y checklist disponible en: [`plan-10-sqlite-local-persistence-and-resilience.md`](./plan-10-sqlite-local-persistence-and-resilience.md).
+
+---
+
 ## 🎯 Rutas de Implementación
 
-1. **Ruta A (Visualización & Métricas Ejecutivas - Recomendada):**
+1. **Ruta A (Visualización & Métricas Ejecutivas - Completada ✅):**
    1. `Overview` ➔ 2. `Alerts` ➔ 3. `Locations` ➔ 4. `Products vs Inventory`
-2. **Ruta B (Control Operativo de Existencias):**
-   1. `Products vs Inventory` ➔ 2. `Alerts` ➔ 3. `Overview` ➔ 4. `Locations`
+2. **Siguiente Gran Hito Técnico:**
+   - ➔ 5. `Local SQLite Persistence & Resilience` ([Plan 10](./plan-10-sqlite-local-persistence-and-resilience.md))
+
