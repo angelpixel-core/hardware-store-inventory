@@ -15,6 +15,28 @@ export interface ReceiveStockInput {
   photo?: string;
 }
 
+export interface CreateProductInput {
+  name: string;
+  brand: string;
+  category: string;
+  sku: string;
+  barcode: string;
+  unit: string;
+  stock: number;
+  minimumStock: number;
+  price: number;
+  cost: number;
+  location: ProductLocation;
+  description: string;
+  image?: string;
+}
+
+export interface AdjustStockInput {
+  productId: string;
+  delta: number;
+  reason: string;
+}
+
 export interface UseInventoryStateReturn {
   // Data
   products: Product[];
@@ -41,6 +63,8 @@ export interface UseInventoryStateReturn {
   // Actions
   receiveStock: (input: ReceiveStockInput) => void;
   relocateProduct: (productId: string, newLocation: ProductLocation) => void;
+  createProduct: (input: CreateProductInput) => void;
+  adjustStock: (input: AdjustStockInput) => void;
 
   // Feedback notifications
   notice: string | null;
@@ -170,6 +194,61 @@ export function useInventoryState(
     );
   }
 
+  function createProduct(input: CreateProductInput) {
+    const newId = `p-${Date.now().toString().slice(-4)}`;
+    const newProduct: Product = {
+      ...input,
+      id: newId,
+    };
+
+    setProducts((prev) => [newProduct, ...prev]);
+
+    if (input.stock > 0) {
+      const initialMovement: StockMovement = {
+        id: `mov-${Date.now()}`,
+        productId: newId,
+        type: "PURCHASE",
+        quantity: input.stock,
+        unitCost: input.cost,
+        location: input.location,
+        note: "Stock inicial de alta de producto",
+        createdAt: new Date().toISOString(),
+      };
+      setMovements((prev) => [initialMovement, ...prev]);
+    }
+
+    setNotice(`Producto "${input.name}" creado con SKU ${input.sku}.`);
+  }
+
+  function adjustStock(input: AdjustStockInput) {
+    const targetProduct = products.find((item) => item.id === input.productId);
+    if (!targetProduct) return;
+
+    const newStock = Math.max(0, targetProduct.stock + input.delta);
+
+    setProducts((prev) =>
+      prev.map((item) =>
+        item.id === input.productId ? { ...item, stock: newStock } : item,
+      ),
+    );
+
+    const movement: StockMovement = {
+      id: `mov-${Date.now()}`,
+      productId: input.productId,
+      type: "ADJUSTMENT",
+      quantity: input.delta,
+      unitCost: targetProduct.cost,
+      location: targetProduct.location,
+      note: input.reason,
+      createdAt: new Date().toISOString(),
+    };
+
+    setMovements((prev) => [movement, ...prev]);
+    setNotice(
+      `Ajuste registrado para "${targetProduct.name}": ${input.delta > 0 ? `+${input.delta}` : input.delta} ${targetProduct.unit} (${input.reason}).`,
+    );
+  }
+
   return {
     products,
     movements,
@@ -187,6 +266,8 @@ export function useInventoryState(
     closeReceive,
     receiveStock,
     relocateProduct,
+    createProduct,
+    adjustStock,
     notice,
     clearNotice: () => setNotice(null),
   };

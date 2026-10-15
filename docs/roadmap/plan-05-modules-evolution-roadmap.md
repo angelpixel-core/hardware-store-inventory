@@ -73,14 +73,14 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ---
 
-### 4. `Products` vs `Inventory` (Refinamiento y Separación de Responsabilidades)
-- [ ] **En `Products`:**
-  - [ ] Botón de acción principal: `+ Nuevo Producto` (modal de alta de ficha).
-  - [ ] Filtros avanzados de catálogo (Categoría, Rango de Precios, Marca).
-- [ ] **En `Inventory`:**
-  - [ ] Acción de `Ajuste de Inventario` (para mermas, roturas o sobrantes de conteo).
-  - [ ] Filtros avanzados de movimientos (por tipo de movimiento, por fecha, por usuario/nota).
-  - [ ] Exportación de reporte de movimientos.
+### 4. `Products` vs `Inventory` (Refinamiento y Separación de Responsabilidades) - [COMPLETADO ✅]
+- [x] **En `Products`:**
+  - [x] Botón de acción principal: `+ Nuevo Producto` (modal `CreateProductModal.tsx` con alta técnica, SKU, fotos y ubicación).
+  - [x] Filtros por categoría comercial y conteos de productos en catálogo.
+- [x] **En `Inventory`:**
+  - [x] Acción de `Ajuste de Stock` (`StockAdjustmentModal.tsx` para roturas, mermas de fraccionamiento, recuentos y auditoría).
+  - [x] Filtros avanzados de transacciones en Kardex (por tipo de movimiento `PURCHASE`, `SALE`, `ADJUSTMENT`, `RETURN` y búsqueda de nota/SKU).
+  - [x] Exportación del reporte de movimientos en formato CSV para contabilidad.
 
 ---
 

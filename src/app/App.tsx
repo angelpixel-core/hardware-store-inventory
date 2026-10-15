@@ -34,6 +34,8 @@ export function App() {
     closeReceive,
     receiveStock,
     relocateProduct,
+    createProduct,
+    adjustStock,
     notice,
   } = useInventoryState({
     initialSearch: searchParams.get("search") || "",
@@ -69,6 +71,7 @@ export function App() {
             onSearch={setSearch}
             onSelectProduct={selectProduct}
             onReceive={openReceive}
+            onCreateProduct={createProduct}
           />
         )}
 
@@ -77,6 +80,7 @@ export function App() {
             products={products}
             movements={movements}
             onReceive={() => openReceive()}
+            onAdjustStock={adjustStock}
           />
         )}
 
