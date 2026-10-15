@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Sidebar } from "../components/layout";
 import { Placeholder } from "../components/ui";
+import { OverviewView } from "../features/overview";
 import { ProductsView } from "../features/catalog";
 import { InventoryView } from "../features/inventory";
 import { ProductDrawer } from "../features/product-detail";
@@ -15,7 +16,7 @@ export function App() {
   );
 
   const [section, setSection] = useState<Section>(
-    () => (searchParams.get("section") as Section) || "products",
+    () => (searchParams.get("section") as Section) || "overview",
   );
 
   const {
@@ -49,6 +50,16 @@ export function App() {
           </div>
         )}
 
+        {section === "overview" && (
+          <OverviewView
+            products={products}
+            movements={movements}
+            onNavigateSection={setSection}
+            onSelectProduct={selectProduct}
+            onReceive={openReceive}
+          />
+        )}
+
         {section === "products" && (
           <ProductsView
             products={filteredProducts}
@@ -67,9 +78,9 @@ export function App() {
           />
         )}
 
-        {section !== "products" && section !== "inventory" && (
-          <Placeholder section={section} />
-        )}
+        {section !== "overview" &&
+          section !== "products" &&
+          section !== "inventory" && <Placeholder section={section} />}
       </main>
 
       {selectedProduct && (

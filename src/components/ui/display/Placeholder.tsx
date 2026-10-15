@@ -2,15 +2,11 @@ import { BarChart3 } from "lucide-react";
 import type { Section } from "../../../types/navigation";
 
 export interface PlaceholderProps {
-  section: Exclude<Section, "products" | "inventory">;
+  section: Exclude<Section, "overview" | "products" | "inventory">;
 }
 
 export function Placeholder({ section }: PlaceholderProps) {
   const copy: Record<typeof section, { title: string; body: string }> = {
-    overview: {
-      title: "Overview",
-      body: "Dashboard metrics will be connected to inventory data in the next iteration.",
-    },
     locations: {
       title: "Locations",
       body: "Physical store mapping will be added after the receiving workflow.",
