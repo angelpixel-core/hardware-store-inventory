@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Sidebar } from "../components/layout";
-import { Placeholder } from "../components/ui";
 import { AlertsView } from "../features/alerts";
+import { LocationsView } from "../features/locations";
 import { OverviewView } from "../features/overview";
 import { ProductsView } from "../features/catalog";
 import { InventoryView } from "../features/inventory";
@@ -33,6 +33,7 @@ export function App() {
     openReceive,
     closeReceive,
     receiveStock,
+    relocateProduct,
     notice,
   } = useInventoryState({
     initialSearch: searchParams.get("search") || "",
@@ -87,10 +88,14 @@ export function App() {
           />
         )}
 
-        {section !== "overview" &&
-          section !== "products" &&
-          section !== "inventory" &&
-          section !== "alerts" && <Placeholder section={section} />}
+        {section === "locations" && (
+          <LocationsView
+            products={products}
+            onSelectProduct={selectProduct}
+            onReceive={openReceive}
+            onRelocateProduct={relocateProduct}
+          />
+        )}
       </main>
 
       {selectedProduct && (
