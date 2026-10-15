@@ -91,11 +91,11 @@ graph TD
 
 ## 🧩 Checklist de Tareas por Fases
 
-### Fase 1: Infraestructura de Plugin & Dependencias
-- [ ] **Tarea 1.1:** Añadir `tauri-plugin-sql = { version = "2", features = ["sqlite"] }` en `src-tauri/Cargo.toml`.
-- [ ] **Tarea 1.2:** Registrar el plugin en `src-tauri/src/lib.rs`.
-- [ ] **Tarea 1.3:** Instalar `@tauri-apps/plugin-sql` en `package.json`.
-- [ ] **Tarea 1.4:** Validar compilación nativa con `cargo check` y `npm run build`.
+### Fase 1: Infraestructura de Plugin & Dependencias - [COMPLETADO ✅]
+- [x] **Tarea 1.1:** Añadir `tauri-plugin-sql = { version = "2", features = ["sqlite"] }` en `src-tauri/Cargo.toml`.
+- [x] **Tarea 1.2:** Registrar el plugin en `src-tauri/src/lib.rs`.
+- [x] **Tarea 1.3:** Instalar `@tauri-apps/plugin-sql` en `package.json`.
+- [x] **Tarea 1.4:** Validar compilación nativa con `cargo check` y `npm run build`.
 
 ### Fase 2: Esquema Relacional, Migraciones & Seeding
 - [ ] **Tarea 2.1:** Diseñar script de migración `001_initial_schema.sql`:
