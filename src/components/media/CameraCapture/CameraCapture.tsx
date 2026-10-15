@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
 import { Camera, X } from "lucide-react";
+import { useCameraStream } from "./useCameraStream";
 
 export interface CameraCaptureProps {
   onClose: () => void;
@@ -7,62 +7,13 @@ export interface CameraCaptureProps {
 }
 
 export function CameraCapture({ onClose, onCapture }: CameraCaptureProps) {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const streamRef = useRef<MediaStream | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [ready, setReady] = useState(false);
+  const { videoRef, ready, error, capturePhoto } = useCameraStream();
 
-  useEffect(() => {
-    let active = true;
-    async function start() {
-      if (!navigator.mediaDevices?.getUserMedia) {
-        setError("Camera access is not available in this webview.");
-        return;
-      }
-      try {
-        const stream = await navigator.mediaDevices.getUserMedia({
-          video: { width: { ideal: 1280 }, height: { ideal: 720 } },
-          audio: false,
-        });
-        if (!active) {
-          stream.getTracks().forEach((track) => track.stop());
-          return;
-        }
-        streamRef.current = stream;
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.onloadedmetadata = () => {
-            videoRef.current?.play().catch(() => {});
-            setReady(true);
-          };
-        }
-      } catch (err) {
-        setError(
-          err instanceof Error
-            ? err.message
-            : "Could not open camera. Please grant system permissions.",
-        );
-      }
+  function handleCapture() {
+    const photo = capturePhoto();
+    if (photo) {
+      onCapture(photo);
     }
-    start();
-    return () => {
-      active = false;
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
-      }
-    };
-  }, []);
-
-  function capture() {
-    if (!videoRef.current) return;
-    const canvas = document.createElement("canvas");
-    canvas.width = videoRef.current.videoWidth || 640;
-    canvas.height = videoRef.current.videoHeight || 480;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-    ctx.drawImage(videoRef.current, 0, 0);
-    const data = canvas.toDataURL("image/jpeg", 0.85);
-    onCapture(data);
   }
 
   return (
@@ -105,7 +56,7 @@ export function CameraCapture({ onClose, onCapture }: CameraCaptureProps) {
             Cancel
           </button>
           <button
-            onClick={capture}
+            onClick={handleCapture}
             disabled={!ready}
             className="flex items-center gap-1.5 rounded-lg bg-slate-900 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-slate-800 disabled:opacity-50"
           >
