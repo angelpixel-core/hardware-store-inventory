@@ -40,6 +40,7 @@ export interface UseInventoryStateReturn {
 
   // Actions
   receiveStock: (input: ReceiveStockInput) => void;
+  relocateProduct: (productId: string, newLocation: ProductLocation) => void;
 
   // Feedback notifications
   notice: string | null;
@@ -157,6 +158,18 @@ export function useInventoryState(
     );
   }
 
+  function relocateProduct(productId: string, newLocation: ProductLocation) {
+    const targetProduct = products.find((item) => item.id === productId);
+    setProducts((prev) =>
+      prev.map((item) =>
+        item.id === productId ? { ...item, location: newLocation } : item,
+      ),
+    );
+    setNotice(
+      `Reubicado "${targetProduct?.name ?? productId}" a ${newLocation.aisle} · ${newLocation.rack} · ${newLocation.shelf}.`,
+    );
+  }
+
   return {
     products,
     movements,
@@ -173,6 +186,7 @@ export function useInventoryState(
     openReceive,
     closeReceive,
     receiveStock,
+    relocateProduct,
     notice,
     clearNotice: () => setNotice(null),
   };
