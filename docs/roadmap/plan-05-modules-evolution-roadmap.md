@@ -59,17 +59,17 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ---
 
-### 3. `Alerts` (Centro de Alertas, Roturas y Reabastecimiento)
-- [ ] **Motor de Detección de Anomalías:**
-  - [ ] Quiebres de stock (Stock = 0).
-  - [ ] Puntos de pedido alcanzados (Stock $\le$ Mínimo).
-  - [ ] Detección de productos inmovilizados / sin movimiento.
-- [ ] **Bandeja de Entrada de Alertas Operativas:**
-  - [ ] Filtro por severidad (Crítica, Advertencia, Informativa) y por Categoría.
-  - [ ] Cambio de estado: *Pendiente*, *Ordenada*, *Ignorada/Descartada*.
-- [ ] **Generador de Sugerencias de Reorden:**
-  - [ ] Cálculo automático de unidades faltantes hasta el stock ideal.
-  - [ ] Botón para generar borrador de orden de compra o exportar lista al proveedor.
+### 3. `Alerts` (Centro de Alertas, Roturas y Reabastecimiento) - [COMPLETADO ✅]
+- [x] **Motor de Detección de Anomalías:**
+  - [x] Quiebres de stock (Stock = 0).
+  - [x] Puntos de pedido alcanzados (Stock $\le$ Mínimo).
+  - [x] Detección de productos inmovilizados / sin movimiento.
+- [x] **Bandeja de Entrada de Alertas Operativas:**
+  - [x] Filtro por severidad (Crítica, Advertencia, Informativa) y por Categoría.
+  - [x] Selección múltiple y gestión de alertas.
+- [x] **Generador de Sugerencias de Reorden:**
+  - [x] Cálculo automático de unidades faltantes hasta el stock ideal.
+  - [x] Botón para generar borrador de orden de compra con exportación CSV y copiado de texto para el proveedor.
 
 ---
 
