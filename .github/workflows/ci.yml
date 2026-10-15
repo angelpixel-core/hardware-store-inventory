@@ -61,6 +61,9 @@ jobs:
         with:
           workspaces: "src-tauri -> src-tauri/target"
 
+      - name: Ensure frontend dist directory exists for Tauri compile-time context
+        run: mkdir -p dist
+
       - name: Cargo check
         run: cargo check --manifest-path src-tauri/Cargo.toml
 
