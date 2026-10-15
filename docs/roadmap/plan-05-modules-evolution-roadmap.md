@@ -45,17 +45,17 @@ Actualmente, tanto en `Products` como en `Inventory` existe el botón **"Receive
 
 ---
 
-### 2. `Locations` (Mapeo Físico de Tienda y Depósito)
-- [ ] **Explorador Jerárquico de Espacios:**
-  - [ ] Navegación por `Sucursal` ➔ `Pasillo` ➔ `Rack/Gondola` ➔ `Estante/Gavetero`.
-- [ ] **Mapa / Layout de la Ferretería:**
-  - [ ] Representación visual/interactiva de los pasillos físicos del local.
-  - [ ] Desglose de artículos almacenados al hacer clic en un estante o pasillo.
-- [ ] **Gestión de Capacidad y Asignación:**
-  - [ ] Reubicación rápida de productos de una posición a otra.
-  - [ ] Detección de huecos disponibles o sobreocupación.
-- [ ] **Modo "Picking / Búsqueda en Mostrador":**
-  - [ ] Localizador visual rápido para el vendedor de mostrador ("¿Dónde está este tornillo o caño?").
+### 2. `Locations` (Mapeo Físico de Tienda y Depósito) - [COMPLETADO ✅]
+- [x] **Explorador Jerárquico de Espacios:**
+  - [x] Navegación por `Sucursal` ➔ `Pasillo` ➔ `Rack/Gondola` ➔ `Estante/Gavetero`.
+- [x] **Mapa / Layout de la Ferretería:**
+  - [x] Representación visual/interactiva de los pasillos físicos del local.
+  - [x] Desglose de artículos almacenados al hacer clic en un estante o pasillo.
+- [x] **Gestión de Capacidad y Asignación:**
+  - [x] Reubicación rápida de productos de una posición a otra (`relocateProduct`).
+  - [x] Detección de huecos disponibles o sobreocupación.
+- [x] **Modo "Picking / Búsqueda en Mostrador":**
+  - [x] Localizador visual rápido para el vendedor de mostrador ("¿Dónde está este tornillo o caño?").
 
 ---
 

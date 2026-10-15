@@ -49,4 +49,4 @@ Reemplazar el último `Placeholder` del sistema (`Locations`) por un **Módulo d
 
 ### 6. Verificación de Calidad y Gitflow
 - [x] **Tarea 6.1:** Ejecutar `tsc -b` y `npm run build`.
-- [ ] **Tarea 6.2:** Fusionar `feat/07-feature-locations` en `development` y verificar CI.
+- [x] **Tarea 6.2:** Fusionar `feat/07-feature-locations` en `development` y verificar CI.
