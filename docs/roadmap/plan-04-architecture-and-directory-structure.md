@@ -91,11 +91,11 @@
 - [x] **Task 6.1: Setup GitHub Actions CI Pipeline**
   - [x] Create `.github/workflows/ci.yml` (parallel frontend check & Tauri Rust check).
   - [x] Create `.github/workflows/release.yml` (multi-platform desktop release bundler).
-- [ ] **Task 6.2: Open Pull Request to `development`**
-  - [ ] Open PR from `epic/04-architecture-and-directory-structure` to `development`.
-  - [ ] Await green CI Quality Gate check.
-  - [ ] Merge PR into `development`.
-- [ ] **Task 6.3: Open Release Pull Request to `main`**
-  - [ ] Open PR from `development` to `main`.
-  - [ ] Await green CI Quality Gate check.
-  - [ ] Merge PR into `main` and synchronize local tracking branches.
+- [x] **Task 6.2: Open Pull Request to `development`**
+  - [x] Open PR from `epic/04-architecture-and-directory-structure` to `development`.
+  - [x] Await green CI Quality Gate check.
+  - [x] Merge PR into `development`.
+- [x] **Task 6.3: Open Release Pull Request to `main`**
+  - [x] Open PR from `development` to `main`.
+  - [x] Await green CI Quality Gate check.
+  - [x] Merge PR into `main` and synchronize local tracking branches.
