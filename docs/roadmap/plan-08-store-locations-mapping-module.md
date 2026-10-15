@@ -24,7 +24,7 @@ Reemplazar el último `Placeholder` del sistema (`Locations`) por un **Módulo d
 ## 🧩 Tareas y Checklist de Implementación
 
 ### 1. Modelos e Interfaces (`src/features/locations/types.ts`)
-- [ ] **Tarea 1.1:** Definir interfaces `AisleNode`, `RackNode`, `ShelfNode`, `LocationStats`, y props de componentes.
+- [x] **Tarea 1.1:** Definir interfaces `AisleNode`, `RackNode`, `ShelfNode`, `LocationStats`, y props de componentes.
 
 ### 2. Hook de Análisis Espacial y Picking (`src/features/locations/hooks/`)
 - [ ] **Tarea 2.1:** Implementar `useLocationsState(products, onRelocate)`: indexación de pasillos, racks, estantes, buscador de mostrador y selección de zona.
