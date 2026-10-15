@@ -31,12 +31,12 @@ Reemplazar el último `Placeholder` del sistema (`Locations`) por un **Módulo d
 - [x] **Tarea 2.2:** Crear barrel export `src/features/locations/hooks/index.ts`.
 
 ### 3. Componentes del Módulo (`src/features/locations/components/`)
-- [ ] **Tarea 3.1:** Implementar `LocationsSummaryCards.tsx` (KPIs de pasillos activos, estantes ocupados, SKUs asignados).
-- [ ] **Tarea 3.2:** Implementar `PickingSearchBar.tsx` (buscador rápido de mostrador con indicador de ubicación en vivo).
-- [ ] **Tarea 3.3:** Implementar `StoreLayoutMap.tsx` (grilla interactiva de pasillos con indicadores de ocupación y selección).
-- [ ] **Tarea 3.4:** Implementar `LocationInventoryDrawer.tsx` o `ShelfContentsList.tsx` (lista de productos en la posición seleccionada, con botón "Recibir" y "Reubicar").
-- [ ] **Tarea 3.5:** Implementar `RelocateModal.tsx` (modal para cambiar pasillo, rack y estante de un artículo).
-- [ ] **Tarea 3.6:** Crear barrel export `src/features/locations/components/index.ts`.
+- [x] **Tarea 3.1:** Implementar `LocationsSummaryCards.tsx` (KPIs de pasillos activos, estantes ocupados, SKUs asignados).
+- [x] **Tarea 3.2:** Implementar `PickingSearchBar.tsx` (buscador rápido de mostrador con indicador de ubicación en vivo).
+- [x] **Tarea 3.3:** Implementar `StoreLayoutMap.tsx` (grilla interactiva de pasillos con indicadores de ocupación y selección).
+- [x] **Tarea 3.4:** Implementar `LocationInventoryDrawer.tsx` o `ShelfContentsList.tsx` (lista de productos en la posición seleccionada, con botón "Recibir" y "Reubicar").
+- [x] **Tarea 3.5:** Implementar `RelocateModal.tsx` (modal para cambiar pasillo, rack y estante de un artículo).
+- [x] **Tarea 3.6:** Crear barrel export `src/features/locations/components/index.ts`.
 
 ### 4. Orquestación y Vista Principal (`src/features/locations/`)
 - [ ] **Tarea 4.1:** Implementar `LocationsView.tsx` orquestando el plano visual, buscador y contenido de estantes.
