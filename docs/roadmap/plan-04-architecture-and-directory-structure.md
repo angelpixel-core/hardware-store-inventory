@@ -62,11 +62,11 @@
 ---
 
 ### 🧱 Phase 3: UI Primitives & Design System Organization
-- [ ] **Task 3.1: Reorganize `src/components/ui/`**
-  - [ ] Categorize primitives: `src/components/ui/primitives/` (`Field`, buttons, dialog shells) vs. `src/components/ui/display/` (`StockBadge`, `SummaryCard`, `Info`, `Placeholder`).
-  - [ ] Update barrel exports in `src/components/ui/index.ts` with backward-compatible named exports.
-- [ ] **Task 3.2: Phase 3 Build Verification**
-  - [ ] Run `npx tsc --noEmit` and `npm run build`.
+- [x] **Task 3.1: Reorganize `src/components/ui/`**
+  - [x] Categorize primitives: `src/components/ui/primitives/` (`Field`, buttons, dialog shells) vs. `src/components/ui/display/` (`StockBadge`, `SummaryCard`, `Info`, `Placeholder`).
+  - [x] Update barrel exports in `src/components/ui/index.ts` with backward-compatible named exports.
+- [x] **Task 3.2: Phase 3 Build Verification**
+  - [x] Run `npx tsc --noEmit` and `npm run build`.
 
 ---
 

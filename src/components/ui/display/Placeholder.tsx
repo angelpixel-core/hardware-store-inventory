@@ -1,5 +1,5 @@
 import { BarChart3 } from "lucide-react";
-import type { Section } from "../../types/navigation";
+import type { Section } from "../../../types/navigation";
 
 export interface PlaceholderProps {
   section: Exclude<Section, "products" | "inventory">;
