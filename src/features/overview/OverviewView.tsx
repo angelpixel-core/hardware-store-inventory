@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+import { useTranslation } from "../../i18n";
 import {
   CategoryBreakdown,
   MovementTrendsChart,
@@ -16,6 +17,7 @@ export function OverviewView({
   onSelectProduct,
   onReceive,
 }: OverviewViewProps) {
+  const { t } = useTranslation();
   const {
     kpis,
     categoryDistribution,
@@ -30,17 +32,17 @@ export function OverviewView({
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-xl font-semibold text-slate-900">
-            Dashboard General
+            {t.overview.title}
           </h1>
           <p className="mt-0.5 text-xs text-slate-500">
-            Visión ejecutiva del inventario, valuación económica y salud de stock en tiempo real.
+            {t.overview.subtitle}
           </p>
         </div>
         <button
           onClick={() => onReceive()}
           className="flex items-center gap-2 self-start rounded-lg bg-slate-900 px-3.5 py-2 text-xs font-medium text-white transition hover:bg-slate-800"
         >
-          <Plus size={15} /> Receive stock
+          <Plus size={15} /> {t.catalog.receiveStockBtn}
         </button>
       </div>
 

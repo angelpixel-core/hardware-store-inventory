@@ -1,5 +1,6 @@
 import { Plus, Scale } from "lucide-react";
 import { useState, useMemo } from "react";
+import { useTranslation } from "../../i18n";
 import {
   MetricsCards,
   MovementLedger,
@@ -24,6 +25,7 @@ export function InventoryView({
   onReceive,
   onAdjustStock,
 }: InventoryViewProps) {
+  const { t } = useTranslation();
   const [isAdjustmentOpen, setIsAdjustmentOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [selectedType, setSelectedType] = useState<KardexFilterType>("ALL");
@@ -67,15 +69,15 @@ export function InventoryView({
     if (filteredMovements.length === 0) return;
 
     const headers = [
-      "ID Movimiento",
-      "Fecha",
-      "SKU",
-      "Producto",
-      "Tipo",
-      "Variación (Delta)",
-      "Unidad",
-      "Ubicación",
-      "Nota / Motivo",
+      t.inventory.table.id,
+      t.inventory.table.date,
+      t.common.sku,
+      t.catalog.table.product,
+      t.inventory.table.type,
+      t.inventory.table.variation,
+      t.common.units,
+      t.common.location,
+      t.inventory.table.note,
     ];
 
     const rows = filteredMovements.map((m) => {
@@ -86,9 +88,9 @@ export function InventoryView({
         `"${formatDate(m.createdAt)}"`,
         `"${prod?.sku || ""}"`,
         `"${(prod?.name || m.productId).replace(/"/g, '""')}"`,
-        `"${m.type}"`,
+        `"${t.movementTypes[m.type] || m.type}"`,
         delta > 0 ? `+${delta}` : delta,
-        `"${prod?.unit || "un"}"`,
+        `"${prod?.unit || t.common.units}"`,
         `"${locationLabel(m.location)}"`,
         `"${(m.note || "").replace(/"/g, '""')}"`,
       ];
@@ -115,10 +117,10 @@ export function InventoryView({
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="text-xl font-semibold text-slate-900">
-            Kardex e Inventario Físico
+            {t.inventory.title}
           </h1>
           <p className="mt-0.5 text-xs text-slate-500">
-            Libro mayor de transacciones, auditoría de existencias y registro de mermas.
+            {t.inventory.subtitle}
           </p>
         </div>
 
@@ -127,13 +129,13 @@ export function InventoryView({
             onClick={() => setIsAdjustmentOpen(true)}
             className="flex items-center gap-1.5 rounded-lg border border-amber-300 bg-amber-50 px-3.5 py-2 text-xs font-semibold text-amber-800 shadow-2xs transition hover:bg-amber-100 hover:border-amber-400"
           >
-            <Scale size={15} /> + Ajustar Stock (Auditoría/Mermas)
+            <Scale size={15} /> {t.inventory.adjustStockBtn}
           </button>
           <button
             onClick={onReceive}
             className="flex items-center gap-1.5 rounded-lg bg-slate-900 px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-slate-800"
           >
-            <Plus size={15} /> Recepción de stock
+            <Plus size={15} /> {t.inventory.receiveStockBtn}
           </button>
         </div>
       </div>
@@ -172,4 +174,3 @@ export function InventoryView({
     </div>
   );
 }
-

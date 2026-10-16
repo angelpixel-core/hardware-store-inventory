@@ -1,6 +1,7 @@
 import { Check, ChevronDown, X } from "lucide-react";
 import { CameraCapture } from "../../components/media";
 import { Field } from "../../components/ui";
+import { useTranslation } from "../../i18n";
 import { PhotoAttachment, PlacementFields } from "./components";
 import { useStockIntakeForm } from "./hooks";
 import type { ReceiveStockModalProps } from "./types";
@@ -11,6 +12,7 @@ export function ReceiveStockModal({
   onClose,
   onSubmit,
 }: ReceiveStockModalProps) {
+  const { t } = useTranslation();
   const {
     form,
     setForm,
@@ -34,10 +36,10 @@ export function ReceiveStockModal({
         <div className="flex items-center justify-between border-b border-slate-100 px-6 py-5">
           <div>
             <h2 className="text-base font-semibold text-slate-900">
-              Receive Stock
+              {t.stockIntake.title}
             </h2>
             <p className="mt-0.5 text-xs text-slate-400">
-              Record incoming shipment and update current store placement.
+              {t.stockIntake.subtitle}
             </p>
           </div>
           <button
@@ -50,7 +52,7 @@ export function ReceiveStockModal({
 
         <div className="flex-1 space-y-4 overflow-y-auto px-6 py-6">
           <label className="block">
-            <span className="mb-1.5 block text-xs text-slate-500">Product</span>
+            <span className="mb-1.5 block text-xs text-slate-500">{t.stockIntake.selectProduct}</span>
             <div className="relative">
               <select
                 value={form.productId}
@@ -72,7 +74,7 @@ export function ReceiveStockModal({
 
           <div className="grid grid-cols-2 gap-3">
             <Field
-              label={`Quantity (${activeProduct?.unit ?? "units"})`}
+              label={`${t.stockIntake.quantity} (${activeProduct?.unit ?? "units"})`}
               type="number"
               min="1"
               value={form.quantity}
@@ -81,7 +83,7 @@ export function ReceiveStockModal({
               }
             />
             <Field
-              label="Unit Cost (ARS)"
+              label={t.stockIntake.unitCost}
               type="number"
               value={form.unitCost}
               onChange={(value) =>
@@ -98,7 +100,7 @@ export function ReceiveStockModal({
           />
 
           <Field
-            label="Delivery / Supplier Note (optional)"
+            label={t.stockIntake.deliveryNote}
             value={form.note}
             onChange={(value) =>
               setForm((current) => ({ ...current, note: value }))
@@ -118,13 +120,13 @@ export function ReceiveStockModal({
             onClick={onClose}
             className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
           >
-            Cancel
+            {t.stockIntake.cancelBtn}
           </button>
           <button
             onClick={handleSubmit}
             className="flex items-center gap-1.5 rounded-lg bg-slate-900 px-4 py-2 text-xs font-medium text-white hover:bg-slate-800"
           >
-            <Check size={17} /> Receive stock
+            <Check size={17} /> {t.stockIntake.submitBtn}
           </button>
         </div>
       </div>

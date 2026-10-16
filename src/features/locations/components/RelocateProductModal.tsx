@@ -1,5 +1,6 @@
 import { ArrowRightLeft, MapPin, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import { useTranslation } from "../../../i18n";
 import type { Product, ProductLocation } from "../../../types/inventory";
 import { locationLabel } from "../../../utils/formatters";
 
@@ -16,6 +17,7 @@ export function RelocateProductModal({
   onClose,
   onConfirm,
 }: RelocateProductModalProps) {
+  const { t } = useTranslation();
   const [store, setStore] = useState("Principal");
   const [aisle, setAisle] = useState("A1");
   const [rack, setRack] = useState("R1");
@@ -53,10 +55,10 @@ export function RelocateProductModal({
             </div>
             <div>
               <h2 className="text-sm font-semibold text-slate-900">
-                Reubicar Producto
+                {t.relocateProduct.title}
               </h2>
               <p className="text-[11px] text-slate-500">
-                Modificar coordenadas de almacenamiento físico
+                {t.relocateProduct.subtitle}
               </p>
             </div>
           </div>
@@ -68,66 +70,66 @@ export function RelocateProductModal({
           </button>
         </div>
 
-        {/* Product Summary */}
-        <div className="border-b border-slate-100 bg-slate-50/60 px-6 py-3 text-xs">
-          <div className="font-semibold text-slate-900">{product.name}</div>
-          <div className="mt-1 flex items-center gap-2 text-slate-500">
-            <span className="font-mono text-[10px] text-slate-600">
-              {product.sku}
-            </span>
+        {/* Product Context */}
+        <div className="border-b border-slate-100 bg-slate-50/50 px-6 py-3">
+          <div className="text-xs font-semibold text-slate-900">
+            {product.name}
+          </div>
+          <div className="mt-0.5 flex items-center gap-2 text-[11px] text-slate-500">
+            <span className="font-mono text-slate-600">{product.sku}</span>
             <span>•</span>
-            <span className="flex items-center gap-1 text-slate-600">
-              <MapPin size={11} /> Ubicación actual: {locationLabel(product.location)}
+            <span className="flex items-center gap-1 font-medium text-slate-700">
+              <MapPin size={11} /> {t.relocateProduct.currentLocation} {locationLabel(product.location)}
             </span>
           </div>
         </div>
 
-        {/* Form */}
-        <form onSubmit={handleSubmit} className="space-y-4 px-6 py-5">
-          {/* Sucursal / Depósito */}
-          <div>
-            <label className="block text-xs font-medium text-slate-700">
-              Sucursal / Almacén
-            </label>
-            <input
-              type="text"
-              value={store}
-              onChange={(e) => setStore(e.target.value)}
-              className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-500 focus:outline-hidden"
-            />
-          </div>
-
-          <div className="grid grid-cols-3 gap-3">
-            {/* Pasillo */}
+        {/* Form Body */}
+        <form onSubmit={handleSubmit} className="px-6 py-5">
+          <div className="space-y-4">
+            {/* Store (Sucursal/Almacén) */}
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Pasillo
+                Almacén / Depósito
+              </label>
+              <input
+                type="text"
+                value={store}
+                onChange={(e) => setStore(e.target.value)}
+                placeholder="Principal"
+                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-indigo-500 focus:outline-hidden"
+                required
+              />
+            </div>
+
+            {/* Aisle */}
+            <div>
+              <label className="block text-xs font-medium text-slate-700">
+                {t.relocateProduct.aisle}
               </label>
               <select
                 value={aisle}
                 onChange={(e) => setAisle(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-900 focus:border-indigo-500 focus:outline-hidden"
+                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 focus:border-indigo-500 focus:outline-hidden"
               >
-                <option value="A1">A1 (Herramientas eléctricas)</option>
-                <option value="A2">A2 (Herramientas manuales)</option>
-                <option value="A3">A3 (Fijaciones y tornillos)</option>
-                <option value="A4">A4 (Plomería y grifería)</option>
-                <option value="A5">A5 (Electricidad)</option>
-                <option value="A6">A6 (Pinturas)</option>
-                <option value="A7">A7 (Construcción)</option>
+                {["A1", "A2", "A3", "A4", "A5", "A6", "A7"].map((a) => (
+                  <option key={a} value={a}>
+                    Pasillo {a}
+                  </option>
+                ))}
               </select>
             </div>
 
             {/* Rack */}
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Rack
+                {t.relocateProduct.shelf}
               </label>
               <input
                 type="text"
                 value={rack}
                 onChange={(e) => setRack(e.target.value)}
-                placeholder="Ej: R1"
+                placeholder="R1"
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs uppercase text-slate-900 focus:border-indigo-500 focus:outline-hidden"
                 required
               />
@@ -136,13 +138,13 @@ export function RelocateProductModal({
             {/* Shelf */}
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Estante
+                {t.relocateProduct.level}
               </label>
               <input
                 type="text"
                 value={shelf}
                 onChange={(e) => setShelf(e.target.value)}
-                placeholder="Ej: S2"
+                placeholder="S1"
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs uppercase text-slate-900 focus:border-indigo-500 focus:outline-hidden"
                 required
               />
@@ -156,13 +158,13 @@ export function RelocateProductModal({
               onClick={onClose}
               className="rounded-lg border border-slate-200 px-3.5 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
             >
-              Cancelar
+              {t.relocateProduct.cancelBtn}
             </button>
             <button
               type="submit"
               className="rounded-lg bg-indigo-600 px-4 py-2 text-xs font-semibold text-white shadow-xs hover:bg-indigo-700"
             >
-              Confirmar Reubicación
+              {t.relocateProduct.submitBtn}
             </button>
           </div>
         </form>

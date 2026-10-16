@@ -4,6 +4,7 @@ import {
   CircleDollarSign,
   PackageCheck,
 } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import { formatCurrency } from "../../../utils/formatters";
 import type { AlertsKPIs } from "../types";
 
@@ -16,6 +17,8 @@ export function AlertsSummaryCards({
   kpis,
   onFilterSeverity,
 }: AlertsSummaryCardsProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
       {/* 1. Quiebres de Stock (Crítico) */}
@@ -25,7 +28,7 @@ export function AlertsSummaryCards({
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-rose-700">
-            Quiebres de Stock
+            {t.alerts.kpis.critical}
           </span>
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-rose-100 text-rose-600">
             <AlertOctagon size={18} />
@@ -34,10 +37,12 @@ export function AlertsSummaryCards({
         <div className="mt-3">
           <div className="text-2xl font-bold tracking-tight text-rose-950">
             {kpis.criticalCount}{" "}
-            <span className="text-sm font-normal text-rose-600">artículos</span>
+            <span className="text-sm font-normal text-rose-600">
+              {t.alerts.kpis.itemsUnit}
+            </span>
           </div>
           <div className="mt-1 text-xs text-rose-600">
-            Existencias en cero • Ventas perdidas
+            {t.alerts.kpis.criticalSub}
           </div>
         </div>
       </div>
@@ -49,7 +54,7 @@ export function AlertsSummaryCards({
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-amber-700">
-            Bajo Stock de Seguridad
+            {t.alerts.kpis.warning}
           </span>
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-100 text-amber-600">
             <AlertTriangle size={18} />
@@ -58,10 +63,12 @@ export function AlertsSummaryCards({
         <div className="mt-3">
           <div className="text-2xl font-bold tracking-tight text-amber-950">
             {kpis.warningCount}{" "}
-            <span className="text-sm font-normal text-amber-600">artículos</span>
+            <span className="text-sm font-normal text-amber-600">
+              {t.alerts.kpis.itemsUnit}
+            </span>
           </div>
           <div className="mt-1 text-xs text-amber-600">
-            Por debajo o en el umbral mínimo
+            {t.alerts.kpis.warningSub}
           </div>
         </div>
       </div>
@@ -73,7 +80,7 @@ export function AlertsSummaryCards({
       >
         <div className="flex items-center justify-between">
           <span className="text-xs font-semibold text-blue-700">
-            Sobrestock / Inmovilizado
+            {t.alerts.kpis.overstock}
           </span>
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-100 text-blue-600">
             <PackageCheck size={18} />
@@ -82,10 +89,12 @@ export function AlertsSummaryCards({
         <div className="mt-3">
           <div className="text-2xl font-bold tracking-tight text-blue-950">
             {kpis.overstockCount}{" "}
-            <span className="text-sm font-normal text-blue-600">artículos</span>
+            <span className="text-sm font-normal text-blue-600">
+              {t.alerts.kpis.itemsUnit}
+            </span>
           </div>
           <div className="mt-1 text-xs text-blue-600">
-            Exceso 4x sobre mínimo de seguridad
+            {t.alerts.kpis.overstockSub}
           </div>
         </div>
       </div>
@@ -94,7 +103,7 @@ export function AlertsSummaryCards({
       <div className="flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
         <div className="flex items-center justify-between">
           <span className="text-xs font-medium text-slate-500">
-            Presupuesto de Reposición
+            {t.alerts.kpis.restockInvestment}
           </span>
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-50 text-emerald-600">
             <CircleDollarSign size={18} />
@@ -105,7 +114,7 @@ export function AlertsSummaryCards({
             {formatCurrency(kpis.totalReplenishmentCost)}
           </div>
           <div className="mt-1 text-xs text-slate-500">
-            Inversión calculada al costo unitario
+            {t.alerts.kpis.restockInvestmentSub}
           </div>
         </div>
       </div>

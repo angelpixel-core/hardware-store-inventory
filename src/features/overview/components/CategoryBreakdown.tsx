@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../../utils/formatters";
+import { useTranslation } from "../../../i18n";
 import type { CategoryDistribution } from "../types";
 
 export interface CategoryBreakdownProps {
@@ -16,23 +16,25 @@ const CATEGORY_COLORS = [
 ];
 
 export function CategoryBreakdown({ categories }: CategoryBreakdownProps) {
+  const { t, formatCurrency } = useTranslation();
+
   return (
     <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">
-            Distribución por Rubro Comercial
+            {t.overview.charts.categoryTitle}
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
-            Volumen físico y valuación monetaria por categoría
+            {t.overview.charts.categorySubtitle}
           </p>
         </div>
         <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
-          {categories.length} rubros
+          {categories.length} {t.common.category.toLowerCase()}s
         </span>
       </div>
 
-      {/* Barra cromática continua superior */}
+      {/* Continuous color bar */}
       <div className="mb-4 flex h-2.5 w-full overflow-hidden rounded-full bg-slate-100">
         {categories.map((cat, idx) => (
           <div
@@ -46,7 +48,7 @@ export function CategoryBreakdown({ categories }: CategoryBreakdownProps) {
         ))}
       </div>
 
-      {/* Lista detallada de categorías */}
+      {/* Detailed category list */}
       <div className="space-y-3">
         {categories.map((cat, idx) => {
           const colorClass = CATEGORY_COLORS[idx % CATEGORY_COLORS.length];
@@ -59,7 +61,7 @@ export function CategoryBreakdown({ categories }: CategoryBreakdownProps) {
                   <span className="text-slate-400">({cat.productCount} SKUs)</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <span className="text-slate-500">{cat.totalUnits} un.</span>
+                  <span className="text-slate-500">{cat.totalUnits} {t.common.units}</span>
                   <span className="font-semibold text-slate-700">
                     {formatCurrency(cat.totalCost)}
                   </span>

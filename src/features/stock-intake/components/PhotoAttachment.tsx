@@ -1,4 +1,5 @@
 import { Camera, ImagePlus, X } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 
 export interface PhotoAttachmentProps {
   photo?: string;
@@ -13,10 +14,12 @@ export function PhotoAttachment({
   onFileChange,
   onRequestCamera,
 }: PhotoAttachmentProps) {
+  const { t } = useTranslation();
+
   return (
     <div>
       <span className="mb-1.5 block text-xs text-slate-500">
-        Product / Shipment Photo (optional)
+        {t.stockIntake.photoProof}
       </span>
       {photo ? (
         <div className="relative aspect-video overflow-hidden rounded-xl border border-slate-200">
@@ -36,7 +39,7 @@ export function PhotoAttachment({
       ) : (
         <div className="flex gap-2">
           <label className="flex flex-1 cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-slate-300 py-3 text-xs font-medium text-slate-600 transition hover:bg-slate-50">
-            <ImagePlus size={16} /> Upload photo
+            <ImagePlus size={16} /> {t.stockIntake.uploadPhotoBtn}
             <input
               type="file"
               accept="image/*"
@@ -49,7 +52,7 @@ export function PhotoAttachment({
             onClick={onRequestCamera}
             className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-slate-200 py-3 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
           >
-            <Camera size={16} /> Take photo
+            <Camera size={16} /> {t.stockIntake.takePhotoBtn}
           </button>
         </div>
       )}

@@ -1,5 +1,6 @@
 import { Check, Copy, Download, FileSpreadsheet, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "../../../i18n";
 import { formatCurrency } from "../../../utils/formatters";
 import type { PurchaseOrderDraft } from "../types";
 
@@ -18,6 +19,7 @@ export function PurchaseOrderModal({
   onExportCsv,
   onCopyText,
 }: PurchaseOrderModalProps) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
@@ -41,10 +43,10 @@ export function PurchaseOrderModal({
             </div>
             <div>
               <h2 className="text-base font-semibold text-slate-900">
-                Borrador de Orden de Reposición
+                {t.purchaseOrder.title}
               </h2>
               <p className="text-xs text-slate-500">
-                Planilla de compra sugerida para proveedores y distribuidores
+                {t.purchaseOrder.subtitle}
               </p>
             </div>
           </div>
@@ -60,7 +62,7 @@ export function PurchaseOrderModal({
         <div className="grid grid-cols-3 gap-4 border-b border-slate-100 bg-slate-50/50 px-6 py-3.5">
           <div>
             <span className="text-[11px] font-medium text-slate-500">
-              Artículos / SKUs
+              {t.purchaseOrder.itemsCount}
             </span>
             <div className="text-lg font-bold text-slate-900">
               {draft.totalItems}
@@ -68,7 +70,7 @@ export function PurchaseOrderModal({
           </div>
           <div>
             <span className="text-[11px] font-medium text-slate-500">
-              Unidades Solicitadas
+              {t.purchaseOrder.totalUnits}
             </span>
             <div className="text-lg font-bold text-slate-900">
               {draft.totalUnits} un.
@@ -76,7 +78,7 @@ export function PurchaseOrderModal({
           </div>
           <div>
             <span className="text-[11px] font-medium text-slate-500">
-              Presupuesto Estimado
+              {t.purchaseOrder.totalInvestment}
             </span>
             <div className="text-lg font-bold text-emerald-700">
               {formatCurrency(draft.totalEstimatedCost)}
@@ -88,18 +90,18 @@ export function PurchaseOrderModal({
         <div className="flex-1 overflow-y-auto px-6 py-4">
           {draft.items.length === 0 ? (
             <div className="py-12 text-center text-xs text-slate-400">
-              No hay artículos seleccionados para generar la orden.
+              {t.purchaseOrder.emptyDraft}
             </div>
           ) : (
             <table className="w-full text-left text-xs">
               <thead className="border-b border-slate-200 text-[11px] font-semibold text-slate-500">
                 <tr>
-                  <th className="pb-2">SKU</th>
-                  <th className="pb-2">Producto</th>
-                  <th className="pb-2">Marca</th>
-                  <th className="pb-2 text-right">Cantidad</th>
-                  <th className="pb-2 text-right">Costo Unit.</th>
-                  <th className="pb-2 text-right">Total Est.</th>
+                  <th className="pb-2">{t.purchaseOrder.sku}</th>
+                  <th className="pb-2">{t.purchaseOrder.product}</th>
+                  <th className="pb-2">{t.purchaseOrder.brand}</th>
+                  <th className="pb-2 text-right">{t.purchaseOrder.quantity}</th>
+                  <th className="pb-2 text-right">{t.purchaseOrder.unitCost}</th>
+                  <th className="pb-2 text-right">{t.purchaseOrder.estimatedTotal}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -129,7 +131,7 @@ export function PurchaseOrderModal({
         {/* Actions Footer */}
         <div className="flex items-center justify-between border-t border-slate-200 bg-slate-50 px-6 py-4">
           <span className="text-[11px] text-slate-500">
-            Valores calculados en base al último costo registrado en el catálogo.
+            {t.purchaseOrder.disclaimer}
           </span>
           <div className="flex items-center gap-2">
             <button
@@ -139,11 +141,11 @@ export function PurchaseOrderModal({
             >
               {copied ? (
                 <>
-                  <Check size={14} className="text-emerald-600" /> ¡Copiado!
+                  <Check size={14} className="text-emerald-600" /> {t.purchaseOrder.copiedSuccess}
                 </>
               ) : (
                 <>
-                  <Copy size={14} /> Copiar texto
+                  <Copy size={14} /> {t.purchaseOrder.copyClipboardBtn}
                 </>
               )}
             </button>
@@ -153,7 +155,7 @@ export function PurchaseOrderModal({
               disabled={draft.items.length === 0}
               className="flex items-center gap-1.5 rounded-lg bg-emerald-700 px-4 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-emerald-800 disabled:opacity-50"
             >
-              <Download size={14} /> Descargar CSV
+              <Download size={14} /> {t.purchaseOrder.downloadCsvBtn}
             </button>
           </div>
         </div>

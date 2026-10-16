@@ -5,6 +5,7 @@ import {
   PackageOpen,
   Plus,
 } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import type { Product } from "../../../types/inventory";
 import { formatCurrency, locationLabel } from "../../../utils/formatters";
 
@@ -25,9 +26,10 @@ export function ShelfContentsList({
   onReceive,
   onOpenRelocate,
 }: ShelfContentsListProps) {
+  const { t } = useTranslation();
   const scopeTitle = selectedRackId
-    ? `Artículos en Pasillo ${selectedAisleId} • Rack ${selectedRackId}`
-    : `Artículos en Pasillo ${selectedAisleId}`;
+    ? `${t.locations.shelfContentsTitle}: ${selectedAisleId} • ${selectedRackId}`
+    : `${t.locations.shelfContentsTitle}: ${selectedAisleId}`;
 
   return (
     <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
@@ -35,18 +37,18 @@ export function ShelfContentsList({
         <div>
           <h2 className="text-sm font-semibold text-slate-900">{scopeTitle}</h2>
           <p className="mt-0.5 text-xs text-slate-500">
-            Inventario físico asignado a esta posición geográfica
+            {t.locations.shelfContentsSubtitle}
           </p>
         </div>
         <span className="rounded-md bg-slate-100 px-2 py-0.5 text-xs font-semibold text-slate-700">
-          {products.length} productos
+          {products.length} {t.locations.productsCount}
         </span>
       </div>
 
       {products.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center text-xs text-slate-400">
           <PackageOpen size={24} className="mb-2 text-slate-300" />
-          No hay artículos registrados en esta sección del local.
+          {t.locations.emptyShelf}
         </div>
       ) : (
         <div className="divide-y divide-slate-100">
@@ -95,23 +97,23 @@ export function ShelfContentsList({
                   <button
                     onClick={() => onReceive(p.id)}
                     className="flex items-center gap-1 rounded-md bg-slate-900 px-2.5 py-1.5 text-xs font-medium text-white transition hover:bg-slate-800"
-                    title="Recibir stock en este lugar"
+                    title={t.locations.receiveBtn}
                   >
-                    <Plus size={13} /> Recibir
+                    <Plus size={13} /> {t.locations.receiveBtn}
                   </button>
 
                   <button
                     onClick={() => onOpenRelocate(p)}
                     className="flex items-center gap-1 rounded-md border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-50"
-                    title="Reubicar producto en otro pasillo o estante"
+                    title={t.locations.relocateBtn}
                   >
-                    <ArrowRightLeft size={13} /> Reubicar
+                    <ArrowRightLeft size={13} /> {t.locations.relocateBtn}
                   </button>
 
                   <button
                     onClick={() => onSelectProduct(p.id)}
                     className="rounded-md border border-slate-200 p-1.5 text-slate-500 transition hover:bg-slate-50 hover:text-slate-800"
-                    title="Ver ficha técnica"
+                    title={t.productDetail.drawerTitle}
                   >
                     <ExternalLink size={14} />
                   </button>

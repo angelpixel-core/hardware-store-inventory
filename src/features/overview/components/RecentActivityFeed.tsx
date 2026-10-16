@@ -1,10 +1,10 @@
 import { Clock, History } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import type { Product, StockMovement } from "../../../types/inventory";
 import {
   formatDate,
   movementClasses,
   movementDelta,
-  movementLabels,
 } from "../../../utils/formatters";
 
 export interface RecentActivityFeedProps {
@@ -18,6 +18,7 @@ export function RecentActivityFeed({
   products,
   onViewInventory,
 }: RecentActivityFeedProps) {
+  const { t } = useTranslation();
   const productMap = new Map(products.map((p) => [p.id, p]));
 
   return (
@@ -25,24 +26,24 @@ export function RecentActivityFeed({
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">
-            Transacciones Recientes del Kardex
+            {t.overview.activity.title}
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
-            Últimas operaciones registradas en el almacén
+            {t.overview.activity.subtitle}
           </p>
         </div>
         <button
           onClick={onViewInventory}
           className="flex items-center gap-1 text-xs font-medium text-slate-600 transition hover:text-slate-900"
         >
-          <History size={13} /> Ver historial →
+          <History size={13} /> {t.nav.inventory} →
         </button>
       </div>
 
       {movements.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-10 text-center text-xs text-slate-400">
           <Clock size={20} className="mb-2 text-slate-300" />
-          No hay movimientos recientes registrados.
+          {t.overview.activity.noActivity}
         </div>
       ) : (
         <div className="divide-y divide-slate-100">
@@ -63,7 +64,7 @@ export function RecentActivityFeed({
                         movementClasses[mov.type]
                       }`}
                     >
-                      {movementLabels[mov.type]}
+                      {t.movementTypes[mov.type]}
                     </span>
                     <span className="text-xs font-medium text-slate-900">
                       {product?.name ?? mov.productId}
@@ -88,7 +89,7 @@ export function RecentActivityFeed({
                       delta > 0 ? "text-emerald-600" : "text-slate-800"
                     }`}
                   >
-                    {deltaLabel} {product?.unit ?? "un"}
+                    {deltaLabel} {product?.unit ?? t.common.units}
                   </span>
                 </div>
               </div>

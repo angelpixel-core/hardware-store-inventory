@@ -7,11 +7,14 @@ import { ProductsView } from "../features/catalog";
 import { InventoryView } from "../features/inventory";
 import { ProductDrawer } from "../features/product-detail";
 import { ReceiveStockModal } from "../features/stock-intake";
+import { SettingsView } from "../features/settings";
 import { useInventoryState } from "../hooks";
 import { exportDatabaseBackup } from "../services/db";
+import { I18nProvider, useTranslation } from "../i18n";
 import type { Section } from "../types/navigation";
 
-export function App() {
+function AppContent() {
+  const { t } = useTranslation();
   const searchParams = useMemo(
     () => new URLSearchParams(window.location.search),
     [],
@@ -124,6 +127,16 @@ export function App() {
             onRelocateProduct={relocateProduct}
           />
         )}
+
+        {section === "settings" && (
+          <SettingsView
+            productsCount={products.length}
+            movementsCount={movements.length}
+            onExportBackup={() => {
+              exportDatabaseBackup();
+            }}
+          />
+        )}
       </main>
 
       {selectedProduct && (
@@ -150,4 +163,13 @@ export function App() {
   );
 }
 
+export function App() {
+  return (
+    <I18nProvider>
+      <AppContent />
+    </I18nProvider>
+  );
+}
+
 export default App;
+
