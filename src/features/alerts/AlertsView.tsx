@@ -1,3 +1,4 @@
+import { useTranslation } from "../../i18n";
 import {
   AlertsFiltersBar,
   AlertsSummaryCards,
@@ -12,6 +13,7 @@ export function AlertsView({
   onSelectProduct,
   onReceive,
 }: AlertsViewProps) {
+  const { t } = useTranslation();
   const {
     kpis,
     alerts,
@@ -39,10 +41,10 @@ export function AlertsView({
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-slate-900">
-          Centro de Alertas y Reabastecimiento
+          {t.alerts.title}
         </h1>
         <p className="mt-0.5 text-xs text-slate-500">
-          Detección automática de quiebres, niveles mínimos de seguridad y asistente de órdenes de compra.
+          {t.alerts.subtitle}
         </p>
       </div>
 

@@ -1,4 +1,5 @@
 import { FileSpreadsheet, Filter, Search, X } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import type { AlertFilterSeverity, AlertsKPIs } from "../types";
 
 export interface AlertsFiltersBarProps {
@@ -30,6 +31,8 @@ export function AlertsFiltersBar({
   onSelectAll,
   onClearSelection,
 }: AlertsFiltersBarProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
       {/* Upper row: Search, Category, and Action Button */}
@@ -45,7 +48,7 @@ export function AlertsFiltersBar({
               type="text"
               value={search}
               onChange={(e) => onSearchChange(e.target.value)}
-              placeholder="Buscar por nombre, SKU, marca o categoría..."
+              placeholder={t.alerts.filters.searchPlaceholder}
               className="w-full rounded-lg border border-slate-200 bg-slate-50/50 py-2 pl-9 pr-8 text-xs text-slate-900 placeholder-slate-400 focus:border-slate-400 focus:bg-white focus:outline-hidden"
             />
             {search && (
@@ -66,7 +69,7 @@ export function AlertsFiltersBar({
               onChange={(e) => onCategoryChange(e.target.value)}
               className="rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs font-medium text-slate-700 focus:outline-hidden"
             >
-              <option value="ALL">Todas las categorías</option>
+              <option value="ALL">{t.alerts.filters.allCategories}</option>
               {categories.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -83,7 +86,7 @@ export function AlertsFiltersBar({
               onClick={onClearSelection}
               className="text-xs font-medium text-slate-500 hover:text-slate-800"
             >
-              Limpiar ({selectedCount})
+              {t.alerts.filters.clearSelection} ({selectedCount})
             </button>
           )}
 
@@ -92,7 +95,10 @@ export function AlertsFiltersBar({
             className="flex items-center gap-2 rounded-lg bg-emerald-700 px-3.5 py-2 text-xs font-semibold text-white shadow-xs transition hover:bg-emerald-800"
           >
             <FileSpreadsheet size={15} />
-            Generar Orden de Compra {selectedCount > 0 ? `(${selectedCount})` : "General"}
+            {t.alerts.filters.draftPoBtn}{" "}
+            {selectedCount > 0
+              ? `(${selectedCount})`
+              : t.alerts.filters.draftPoGeneral}
           </button>
         </div>
       </div>
@@ -109,7 +115,7 @@ export function AlertsFiltersBar({
                 : "bg-slate-100 text-slate-600 hover:bg-slate-200"
             }`}
           >
-            Todas ({kpis.totalAlerts})
+            {t.alerts.filters.all} ({kpis.totalAlerts})
           </button>
 
           {/* Críticas */}
@@ -122,7 +128,7 @@ export function AlertsFiltersBar({
             }`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-rose-500" />
-            Quiebres ({kpis.criticalCount})
+            {t.alerts.filters.critical} ({kpis.criticalCount})
           </button>
 
           {/* Advertencias */}
@@ -135,7 +141,7 @@ export function AlertsFiltersBar({
             }`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-amber-500" />
-            Bajo Stock ({kpis.warningCount})
+            {t.alerts.filters.warning} ({kpis.warningCount})
           </button>
 
           {/* Sobrestock */}
@@ -148,7 +154,7 @@ export function AlertsFiltersBar({
             }`}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />
-            Sobrestock ({kpis.overstockCount})
+            {t.alerts.filters.overstock} ({kpis.overstockCount})
           </button>
         </div>
 
@@ -157,7 +163,7 @@ export function AlertsFiltersBar({
             onClick={onSelectAll}
             className="text-slate-600 underline hover:text-slate-900"
           >
-            Seleccionar todos para reorden
+            {t.alerts.filters.selectAllForReorder}
           </button>
         </div>
       </div>

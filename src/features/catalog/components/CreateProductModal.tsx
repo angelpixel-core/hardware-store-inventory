@@ -1,5 +1,6 @@
 import { PackagePlus, Sparkles, X } from "lucide-react";
 import { useState } from "react";
+import { useTranslation } from "../../../i18n";
 import type { CreateProductInput } from "../../../hooks/useInventoryState";
 
 export interface CreateProductModalProps {
@@ -25,6 +26,7 @@ export function CreateProductModal({
   onClose,
   onSubmit,
 }: CreateProductModalProps) {
+  const { t, formatCurrency } = useTranslation();
   const [name, setName] = useState("");
   const [brand, setBrand] = useState("");
   const [category, setCategory] = useState(CATEGORIES[0]);
@@ -81,6 +83,9 @@ export function CreateProductModal({
     onClose();
   }
 
+  const margin = price > 0 ? ((price - cost) / price) * 100 : 0;
+  const markup = cost > 0 ? ((price - cost) / cost) * 100 : 0;
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/40 p-4 backdrop-blur-xs">
       <div className="flex max-h-[90vh] w-full max-w-2xl flex-col rounded-2xl bg-white shadow-2xl">
@@ -92,10 +97,10 @@ export function CreateProductModal({
             </div>
             <div>
               <h2 className="text-sm font-semibold text-slate-900">
-                Alta de Producto en Catálogo
+                {t.createProduct.title}
               </h2>
               <p className="text-[11px] text-slate-500">
-                Ficha maestra de especificaciones técnicas, precios y ubicación
+                {t.createProduct.subtitle}
               </p>
             </div>
           </div>
@@ -112,63 +117,64 @@ export function CreateProductModal({
           {/* Identificación */}
           <div>
             <label className="block text-xs font-medium text-slate-700">
-              Nombre del Producto *
+              {t.createProduct.fields.name}
             </label>
             <input
               type="text"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Ej: Taladro Percutor Inalámbrico 18V"
+              placeholder={t.createProduct.fields.namePlaceholder}
               className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Marca / Fabricante
+                {t.createProduct.fields.brand}
               </label>
               <input
                 type="text"
+                required
                 value={brand}
                 onChange={(e) => setBrand(e.target.value)}
-                placeholder="Ej: Bosch, Stanley, Makita"
+                placeholder={t.createProduct.fields.brandPlaceholder}
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
               />
             </div>
 
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Categoría Comercial
+                {t.createProduct.fields.category}
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
               >
-                {CATEGORIES.map((c) => (
-                  <option key={c} value={c}>
-                    {c}
+                {CATEGORIES.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
                   </option>
                 ))}
               </select>
             </div>
           </div>
 
-          {/* SKU, Barcode & Unidad */}
-          <div className="grid grid-cols-3 gap-3">
+          {/* SKU & Código de barras */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <div className="flex items-center justify-between">
                 <label className="block text-xs font-medium text-slate-700">
-                  SKU *
+                  {t.createProduct.fields.sku}
                 </label>
                 <button
                   type="button"
                   onClick={generateSku}
-                  className="flex items-center gap-0.5 text-[10px] font-medium text-indigo-600 hover:text-indigo-800"
+                  className="flex items-center gap-1 text-[11px] font-medium text-indigo-600 hover:text-indigo-800"
                 >
-                  <Sparkles size={11} /> Generar
+                  <Sparkles size={11} /> Auto
                 </button>
               </div>
               <input
@@ -176,82 +182,116 @@ export function CreateProductModal({
                 required
                 value={sku}
                 onChange={(e) => setSku(e.target.value)}
-                placeholder="BOS-TAL-18V"
+                placeholder={t.createProduct.fields.skuPlaceholder}
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs uppercase font-mono text-slate-900 focus:border-slate-900 focus:outline-hidden"
               />
             </div>
 
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Código de Barras
+                {t.createProduct.fields.barcode}
               </label>
               <input
                 type="text"
                 value={barcode}
                 onChange={(e) => setBarcode(e.target.value)}
-                placeholder="779..."
+                placeholder={t.createProduct.fields.barcodePlaceholder}
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs font-mono text-slate-900 focus:border-slate-900 focus:outline-hidden"
               />
             </div>
+          </div>
 
-            <div>
-              <label className="block text-xs font-medium text-slate-700">
-                Unidad de Medida
-              </label>
-              <select
-                value={unit}
-                onChange={(e) => setUnit(e.target.value)}
-                className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-2.5 py-2 text-xs font-medium text-slate-900 focus:border-slate-900 focus:outline-hidden"
-              >
-                {UNITS.map((u) => (
-                  <option key={u} value={u}>
-                    {u}
-                  </option>
-                ))}
-              </select>
+          {/* Precios & Márgenes */}
+          <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3.5 space-y-3">
+            <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wider">
+              {t.productDetail.specsTitle}
+            </span>
+            <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+              <div>
+                <label className="block text-[11px] font-medium text-slate-600">
+                  {t.createProduct.fields.cost}
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                  value={cost || ""}
+                  onChange={(e) => setCost(parseFloat(e.target.value) || 0)}
+                  placeholder="0.00"
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-medium text-slate-600">
+                  {t.createProduct.fields.price}
+                </label>
+                <input
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  required
+                  value={price || ""}
+                  onChange={(e) => setPrice(parseFloat(e.target.value) || 0)}
+                  placeholder="0.00"
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                />
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-medium text-slate-600">
+                  {t.createProduct.fields.unit}
+                </label>
+                <select
+                  value={unit}
+                  onChange={(e) => setUnit(e.target.value)}
+                  className="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                >
+                  {UNITS.map((u) => (
+                    <option key={u} value={u}>
+                      {u}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            {/* Live Margin Calculation Indicator */}
+            <div className="flex items-center justify-between rounded-lg bg-white p-2.5 text-xs border border-slate-200">
+              <div className="flex items-center gap-3">
+                <span className="text-slate-500">{t.createProduct.marginPreview}</span>
+                <span
+                  className={`font-semibold ${
+                    margin >= 20 ? "text-emerald-700" : "text-amber-700"
+                  }`}
+                >
+                  {margin.toFixed(1)}%
+                </span>
+                <span className="text-slate-300">|</span>
+                <span className="text-slate-500">{t.createProduct.markupPreview}</span>
+                <span className="font-semibold text-slate-800">
+                  {markup.toFixed(1)}%
+                </span>
+              </div>
+              <span className="text-[11px] text-slate-400">
+                Ganancia/un: {formatCurrency(Math.max(0, price - cost))}
+              </span>
             </div>
           </div>
 
-          {/* Precios y Stock */}
-          <div className="grid grid-cols-4 gap-3 border-t border-slate-100 pt-3">
+          {/* Inventario & Umbrales */}
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Costo Unit. (ARS)
-              </label>
-              <input
-                type="number"
-                min="0"
-                value={cost || ""}
-                onChange={(e) => setCost(Number(e.target.value))}
-                placeholder="0"
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-slate-700">
-                PVP Venta (ARS) *
+                {t.createProduct.fields.stock}
               </label>
               <input
                 type="number"
                 min="0"
                 required
-                value={price || ""}
-                onChange={(e) => setPrice(Number(e.target.value))}
-                placeholder="0"
-                className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-medium text-slate-700">
-                Stock Inicial
-              </label>
-              <input
-                type="number"
-                min="0"
                 value={stock || ""}
-                onChange={(e) => setStock(Number(e.target.value))}
+                onChange={(e) => setStock(parseInt(e.target.value, 10) || 0)}
                 placeholder="0"
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
               />
@@ -259,60 +299,66 @@ export function CreateProductModal({
 
             <div>
               <label className="block text-xs font-medium text-slate-700">
-                Stock Mínimo
+                {t.createProduct.fields.minStock}
               </label>
               <input
                 type="number"
                 min="1"
-                value={minimumStock}
-                onChange={(e) => setMinimumStock(Number(e.target.value))}
+                required
+                value={minimumStock || ""}
+                onChange={(e) => setMinimumStock(parseInt(e.target.value, 10) || 1)}
+                placeholder="3"
                 className="mt-1 w-full rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
               />
             </div>
           </div>
 
           {/* Ubicación Física */}
-          <div className="border-t border-slate-100 pt-3">
-            <span className="block text-xs font-medium text-slate-700 mb-2">
-              Ubicación Física en Almacén
+          <div className="rounded-xl border border-slate-100 bg-slate-50/70 p-3.5 space-y-2">
+            <span className="text-[11px] font-semibold text-slate-700 uppercase tracking-wider">
+              {t.locations.title}
             </span>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-3 gap-2">
               <div>
-                <label className="block text-[11px] text-slate-500">Pasillo</label>
+                <label className="block text-[11px] text-slate-500">
+                  {t.createProduct.fields.aisle}
+                </label>
                 <select
                   value={aisle}
                   onChange={(e) => setAisle(e.target.value)}
                   className="mt-0.5 w-full rounded-lg border border-slate-200 bg-white px-2.5 py-1.5 text-xs text-slate-900 focus:border-slate-900 focus:outline-hidden"
                 >
-                  <option value="A1">A1 (Herramientas eléctricas)</option>
-                  <option value="A2">A2 (Herramientas manuales)</option>
-                  <option value="A3">A3 (Fijaciones y tornillos)</option>
-                  <option value="A4">A4 (Plomería)</option>
-                  <option value="A5">A5 (Electricidad)</option>
-                  <option value="A6">A6 (Pinturas)</option>
-                  <option value="A7">A7 (Construcción)</option>
+                  {["A1", "A2", "A3", "A4", "A5", "A6", "A7"].map((a) => (
+                    <option key={a} value={a}>
+                      Pasillo {a}
+                    </option>
+                  ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-500">Rack</label>
+                <label className="block text-[11px] text-slate-500">
+                  {t.createProduct.fields.shelf}
+                </label>
                 <input
                   type="text"
                   value={rack}
                   onChange={(e) => setRack(e.target.value)}
                   placeholder="R1"
-                  className="mt-0.5 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs uppercase text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                  className="mt-0.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs uppercase text-slate-900 focus:border-slate-900 focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-slate-500">Estante</label>
+                <label className="block text-[11px] text-slate-500">
+                  {t.createProduct.fields.level}
+                </label>
                 <input
                   type="text"
                   value={shelf}
                   onChange={(e) => setShelf(e.target.value)}
                   placeholder="S1"
-                  className="mt-0.5 w-full rounded-lg border border-slate-200 px-3 py-1.5 text-xs uppercase text-slate-900 focus:border-slate-900 focus:outline-hidden"
+                  className="mt-0.5 w-full rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs uppercase text-slate-900 focus:border-slate-900 focus:outline-hidden"
                 />
               </div>
             </div>
@@ -321,7 +367,7 @@ export function CreateProductModal({
           {/* Descripción */}
           <div>
             <label className="block text-xs font-medium text-slate-700">
-              Descripción o Especificación Técnica
+              {t.createProduct.fields.description}
             </label>
             <textarea
               rows={2}
@@ -339,13 +385,13 @@ export function CreateProductModal({
               onClick={onClose}
               className="rounded-lg border border-slate-200 px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50"
             >
-              Cancelar
+              {t.createProduct.cancelBtn}
             </button>
             <button
               type="submit"
               className="rounded-lg bg-slate-900 px-5 py-2 text-xs font-semibold text-white shadow-xs hover:bg-slate-800"
             >
-              Crear Producto
+              {t.createProduct.submitBtn}
             </button>
           </div>
         </form>

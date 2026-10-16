@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { StockBadge } from "../../../components/ui";
+import { useTranslation } from "../../../i18n";
 import { formatCurrency, locationLabel } from "../../../utils/formatters";
 import type { Product } from "../../../types/inventory";
 
@@ -14,10 +15,12 @@ export function ProductTable({
   onSelectProduct,
   onReceive,
 }: ProductTableProps) {
+  const { t } = useTranslation();
+
   if (products.length === 0) {
     return (
       <div className="rounded-xl border border-dashed border-slate-200 bg-white py-12 text-center text-xs text-slate-400">
-        No products match your search query.
+        {t.catalog.emptyState}
       </div>
     );
   }
@@ -27,13 +30,13 @@ export function ProductTable({
       <table className="w-full text-left text-xs">
         <thead className="border-b border-slate-100 bg-slate-50/75 text-[11px] font-medium text-slate-400 uppercase">
           <tr>
-            <th className="px-5 py-3">Product</th>
-            <th className="px-5 py-3">Category</th>
-            <th className="px-5 py-3">SKU</th>
-            <th className="px-5 py-3">Price</th>
-            <th className="px-5 py-3">Stock</th>
-            <th className="px-5 py-3">Location</th>
-            <th className="px-5 py-3 text-right">Actions</th>
+            <th className="px-5 py-3">{t.catalog.table.product}</th>
+            <th className="px-5 py-3">{t.catalog.table.categoryBrand}</th>
+            <th className="px-5 py-3">{t.common.sku}</th>
+            <th className="px-5 py-3">{t.catalog.table.price}</th>
+            <th className="px-5 py-3">{t.catalog.table.stock}</th>
+            <th className="px-5 py-3">{t.catalog.table.location}</th>
+            <th className="px-5 py-3 text-right">{t.catalog.table.actions}</th>
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100">
@@ -72,7 +75,7 @@ export function ProductTable({
                   }}
                   className="inline-flex items-center gap-1 rounded px-2 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-100"
                 >
-                  Receive <ArrowRight size={12} />
+                  {t.overview.urgent.receiveBtn} <ArrowRight size={12} />
                 </button>
               </td>
             </tr>

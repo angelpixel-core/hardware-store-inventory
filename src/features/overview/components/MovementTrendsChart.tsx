@@ -8,6 +8,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import { useTranslation } from "../../../i18n";
 import type { MovementTrendPoint } from "../types";
 
 export interface MovementTrendsChartProps {
@@ -19,15 +20,17 @@ export function MovementTrendsChart({
   data,
   onViewInventory,
 }: MovementTrendsChartProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">
-            Flujo de Movimientos Recientes
+            {t.overview.charts.flowTitle}
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
-            Volumen de unidades ingresadas vs. egresadas por fecha
+            {t.overview.charts.flowSubtitle}
           </p>
         </div>
         {onViewInventory && (
@@ -35,7 +38,7 @@ export function MovementTrendsChart({
             onClick={onViewInventory}
             className="text-xs font-medium text-slate-600 transition hover:text-slate-900"
           >
-            Ver Kardex →
+            {t.nav.inventory} →
           </button>
         )}
       </div>
@@ -43,7 +46,7 @@ export function MovementTrendsChart({
       <div className="h-64 w-full">
         {data.length === 0 ? (
           <div className="flex h-full items-center justify-center text-xs text-slate-400">
-            Sin movimientos registrados aún
+            {t.overview.activity.noActivity}
           </div>
         ) : (
           <ResponsiveContainer width="100%" height="100%">
@@ -76,19 +79,19 @@ export function MovementTrendsChart({
                 wrapperStyle={{ fontSize: "12px", paddingTop: "10px" }}
               />
               <Bar
-                name="Entradas (Compras/Recepción)"
+                name={t.overview.charts.inbound}
                 dataKey="purchases"
                 fill="#10b981"
                 radius={[4, 4, 0, 0]}
               />
               <Bar
-                name="Salidas (Ventas)"
+                name={t.overview.charts.outbound}
                 dataKey="sales"
                 fill="#3b82f6"
                 radius={[4, 4, 0, 0]}
               />
               <Bar
-                name="Ajustes de Stock"
+                name={t.movementTypes.ADJUSTMENT}
                 dataKey="adjustments"
                 fill="#f59e0b"
                 radius={[4, 4, 0, 0]}

@@ -1,4 +1,5 @@
 import { Download, Search } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import type { StockMovementType } from "../../../types/inventory";
 
 export type KardexFilterType = "ALL" | StockMovementType;
@@ -12,14 +13,6 @@ export interface KardexFiltersBarProps {
   totalFilteredCount: number;
 }
 
-const TYPE_OPTIONS: { id: KardexFilterType; label: string }[] = [
-  { id: "ALL", label: "Todos los movimientos" },
-  { id: "PURCHASE", label: "Compras / Entrada" },
-  { id: "SALE", label: "Ventas / Salida" },
-  { id: "ADJUSTMENT", label: "Ajustes / Mermas" },
-  { id: "RETURN", label: "Devoluciones" },
-];
-
 export function KardexFiltersBar({
   search,
   onSearchChange,
@@ -28,6 +21,16 @@ export function KardexFiltersBar({
   onExportCsv,
   totalFilteredCount,
 }: KardexFiltersBarProps) {
+  const { t } = useTranslation();
+
+  const typeOptions: { id: KardexFilterType; label: string }[] = [
+    { id: "ALL", label: t.inventory.filters.allTypes },
+    { id: "PURCHASE", label: t.movementTypes.PURCHASE },
+    { id: "SALE", label: t.movementTypes.SALE },
+    { id: "ADJUSTMENT", label: t.movementTypes.ADJUSTMENT },
+    { id: "RETURN", label: t.movementTypes.RETURN },
+  ];
+
   return (
     <div className="flex flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 shadow-xs sm:flex-row sm:items-center sm:justify-between">
       {/* Search Input */}
@@ -40,7 +43,7 @@ export function KardexFiltersBar({
           type="text"
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Buscar por SKU, producto o nota de kardex..."
+          placeholder={t.inventory.filters.searchPlaceholder}
           className="w-full rounded-lg border border-slate-200 py-1.5 pl-9 pr-3 text-xs text-slate-900 placeholder:text-slate-400 focus:border-slate-900 focus:outline-hidden"
         />
       </div>
@@ -48,7 +51,7 @@ export function KardexFiltersBar({
       {/* Type Filter Pills & Export Button */}
       <div className="flex flex-wrap items-center gap-2">
         <div className="flex flex-wrap items-center gap-1">
-          {TYPE_OPTIONS.map((opt) => (
+          {typeOptions.map((opt) => (
             <button
               key={opt.id}
               onClick={() => onTypeChange(opt.id)}
@@ -67,10 +70,10 @@ export function KardexFiltersBar({
           onClick={onExportCsv}
           disabled={totalFilteredCount === 0}
           className="flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-2xs transition hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-40"
-          title="Descargar libro mayor en formato CSV"
+          title={t.inventory.filters.exportCsvBtn}
         >
           <Download size={13} />
-          <span>Exportar CSV ({totalFilteredCount})</span>
+          <span>{t.inventory.filters.exportCsvBtn} ({totalFilteredCount})</span>
         </button>
       </div>
     </div>

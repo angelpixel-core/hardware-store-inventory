@@ -1,1 +1,8 @@
-export type Section = "overview" | "products" | "inventory" | "locations" | "alerts";
+export type Section =
+  | "overview"
+  | "products"
+  | "inventory"
+  | "locations"
+  | "alerts"
+  | "settings";
+

@@ -1,3 +1,4 @@
+import { useTranslation } from "../../i18n";
 import {
   LocationsSummaryCards,
   PickingSearchBar,
@@ -14,6 +15,7 @@ export function LocationsView({
   onReceive,
   onRelocateProduct,
 }: LocationsViewProps) {
+  const { t } = useTranslation();
   const {
     aisles,
     kpis,
@@ -39,10 +41,10 @@ export function LocationsView({
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-slate-900">
-          Mapeo Físico de Tienda y Pasillos
+          {t.locations.title}
         </h1>
         <p className="mt-0.5 text-xs text-slate-500">
-          Distribución espacial de estanterías, zonificación y modo picking de mostrador.
+          {t.locations.subtitle}
         </p>
       </div>
 

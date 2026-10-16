@@ -5,7 +5,9 @@ import {
   LayoutDashboard,
   MapPin,
   Package,
+  Settings,
 } from "lucide-react";
+import { useTranslation } from "../../i18n";
 import type { Section } from "../../types/navigation";
 
 export interface SidebarProps {
@@ -15,14 +17,17 @@ export interface SidebarProps {
 }
 
 export function Sidebar({ section, onChange, onExportBackup }: SidebarProps) {
-  const items: { id: Section; label: string; icon: typeof LayoutDashboard }[] =
-    [
-      { id: "overview", label: "Overview", icon: LayoutDashboard },
-      { id: "products", label: "Products", icon: Package },
-      { id: "inventory", label: "Inventory", icon: ClipboardList },
-      { id: "locations", label: "Locations", icon: MapPin },
-      { id: "alerts", label: "Alerts", icon: CircleAlert },
-    ];
+  const { t } = useTranslation();
+
+  const items: { id: Section; label: string; icon: typeof LayoutDashboard }[] = [
+    { id: "overview", label: t.nav.overview, icon: LayoutDashboard },
+    { id: "products", label: t.nav.products, icon: Package },
+    { id: "inventory", label: t.nav.inventory, icon: ClipboardList },
+    { id: "locations", label: t.nav.locations, icon: MapPin },
+    { id: "alerts", label: t.nav.alerts, icon: CircleAlert },
+    { id: "settings", label: t.nav.settings, icon: Settings },
+  ];
+
   return (
     <aside className="flex w-[232px] shrink-0 flex-col border-r border-slate-200 bg-white">
       <div className="flex h-[72px] items-center gap-3 border-b border-slate-100 px-6">
@@ -30,8 +35,8 @@ export function Sidebar({ section, onChange, onExportBackup }: SidebarProps) {
           <Package size={19} />
         </div>
         <div>
-          <div className="text-sm font-semibold">Inventory</div>
-          <div className="text-[11px] text-slate-400">Hardware Store</div>
+          <div className="text-sm font-semibold">{t.nav.appName}</div>
+          <div className="text-[11px] text-slate-400">{t.nav.appSubtitle}</div>
         </div>
       </div>
       <nav className="flex-1 px-3 py-5">
@@ -55,10 +60,10 @@ export function Sidebar({ section, onChange, onExportBackup }: SidebarProps) {
           <button
             onClick={onExportBackup}
             className="flex w-full items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
-            title="Descargar copia de seguridad del catálogo y kardex"
+            title={t.nav.backupDbTitle}
           >
             <Database size={15} className="text-slate-500" />
-            <span>Respaldar DB (.json)</span>
+            <span>{t.nav.backupDb}</span>
           </button>
         </div>
       )}

@@ -1,4 +1,5 @@
 import { Search } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 
 export interface CatalogSearchBarProps {
   value: string;
@@ -9,8 +10,11 @@ export interface CatalogSearchBarProps {
 export function CatalogSearchBar({
   value,
   onChange,
-  placeholder = "Search name, brand, category, SKU, barcode...",
+  placeholder,
 }: CatalogSearchBarProps) {
+  const { t } = useTranslation();
+  const activePlaceholder = placeholder || t.catalog.searchPlaceholder;
+
   return (
     <div className="relative mb-5 max-w-sm">
       <Search
@@ -19,7 +23,7 @@ export function CatalogSearchBar({
       />
       <input
         type="text"
-        placeholder={placeholder}
+        placeholder={activePlaceholder}
         value={value}
         onChange={(event) => onChange(event.target.value)}
         className="h-9 w-full rounded-lg border border-slate-200 bg-white pl-9 pr-3 text-xs outline-none focus:border-slate-400"

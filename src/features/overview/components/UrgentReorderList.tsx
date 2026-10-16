@@ -1,4 +1,5 @@
 import { CheckCircle2, MapPin, Plus } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import type { CriticalProduct } from "../types";
 
 export interface UrgentReorderListProps {
@@ -14,15 +15,17 @@ export function UrgentReorderList({
   onReceive,
   onViewAllAlerts,
 }: UrgentReorderListProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-xs">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h2 className="text-sm font-semibold text-slate-900">
-            Atención Inmediata de Stock
+            {t.overview.urgent.title}
           </h2>
           <p className="mt-0.5 text-xs text-slate-500">
-            Artículos agotados o por debajo del punto de reorden
+            {t.overview.urgent.subtitle}
           </p>
         </div>
         {onViewAllAlerts && (
@@ -30,7 +33,7 @@ export function UrgentReorderList({
             onClick={onViewAllAlerts}
             className="text-xs font-medium text-slate-600 transition hover:text-slate-900"
           >
-            Ver todas las alertas →
+            {t.nav.alerts} →
           </button>
         )}
       </div>
@@ -41,10 +44,10 @@ export function UrgentReorderList({
             <CheckCircle2 size={20} />
           </div>
           <span className="text-sm font-medium text-slate-800">
-            Niveles de stock óptimos
+            {t.stockStatus.normal}
           </span>
           <span className="mt-1 text-xs text-slate-400">
-            No hay productos agotados ni por debajo del umbral mínimo de seguridad.
+            {t.overview.urgent.noUrgent}
           </span>
         </div>
       ) : (
@@ -87,20 +90,20 @@ export function UrgentReorderList({
                     }`}
                   >
                     {item.status === "OUT_OF_STOCK"
-                      ? "Agotado (0 un)"
+                      ? `${t.stockStatus.outOfStock} (0 ${t.common.units})`
                       : `${item.stock} / ${item.minimumStock} min`}
                   </span>
                   <div className="mt-0.5 text-[10px] text-slate-400">
-                    Déficit: -{item.deficit} un.
+                    Déficit: -{item.deficit} {t.common.units}
                   </div>
                 </div>
 
                 <button
                   onClick={() => onReceive(item.id)}
                   className="flex items-center gap-1 rounded-lg bg-slate-900 px-2.5 py-1.5 text-xs font-medium text-white transition hover:bg-slate-800"
-                  title="Recibir stock para este producto"
+                  title={t.overview.urgent.receiveBtn}
                 >
-                  <Plus size={13} /> Recibir
+                  <Plus size={13} /> {t.overview.urgent.receiveBtn}
                 </button>
               </div>
             </div>

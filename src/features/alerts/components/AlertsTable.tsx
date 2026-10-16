@@ -6,6 +6,7 @@ import {
   PackageCheck,
   Plus,
 } from "lucide-react";
+import { useTranslation } from "../../../i18n";
 import { formatCurrency } from "../../../utils/formatters";
 import type { InventoryAlert } from "../types";
 
@@ -24,6 +25,8 @@ export function AlertsTable({
   onSelectProduct,
   onReceive,
 }: AlertsTableProps) {
+  const { t } = useTranslation();
+
   if (alerts.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center rounded-xl border border-slate-200 bg-white py-16 text-center shadow-xs">
@@ -31,10 +34,10 @@ export function AlertsTable({
           <PackageCheck size={24} />
         </div>
         <h3 className="text-sm font-semibold text-slate-800">
-          No se encontraron alertas en este criterio
+          {t.alerts.table.emptyTitle}
         </h3>
         <p className="mt-1 text-xs text-slate-500">
-          Todos los artículos bajo este filtro se encuentran en niveles adecuados de inventario.
+          {t.alerts.table.emptySubtitle}
         </p>
       </div>
     );
@@ -47,15 +50,15 @@ export function AlertsTable({
           <thead className="border-b border-slate-200 bg-slate-50/75 text-[11px] font-semibold text-slate-600">
             <tr>
               <th className="w-10 px-4 py-3 text-center">
-                <span className="sr-only">Seleccionar</span>
+                <span className="sr-only">{t.catalog.table.actions}</span>
               </th>
-              <th className="px-4 py-3">Severidad</th>
-              <th className="px-4 py-3">Producto / SKU</th>
-              <th className="px-4 py-3">Ubicación</th>
-              <th className="px-4 py-3 text-right">Existencias</th>
-              <th className="px-4 py-3 text-right">Déficit / Pedir</th>
-              <th className="px-4 py-3 text-right">Costo Estimado</th>
-              <th className="px-4 py-3 text-center">Acciones</th>
+              <th className="px-4 py-3">{t.alerts.table.severity}</th>
+              <th className="px-4 py-3">{t.alerts.table.product}</th>
+              <th className="px-4 py-3">{t.alerts.table.location}</th>
+              <th className="px-4 py-3 text-right">{t.alerts.table.currentStock}</th>
+              <th className="px-4 py-3 text-right">{t.alerts.table.suggestedOrder}</th>
+              <th className="px-4 py-3 text-right">{t.alerts.table.estimatedCost}</th>
+              <th className="px-4 py-3 text-center">{t.alerts.table.actions}</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100 text-slate-700">
@@ -86,17 +89,17 @@ export function AlertsTable({
                   <td className="px-4 py-3 whitespace-nowrap">
                     {alert.severity === "CRITICAL" && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-rose-50 px-2 py-0.5 text-[10px] font-semibold text-rose-700 ring-1 ring-inset ring-rose-200">
-                        <AlertOctagon size={11} /> Quiebre (0 un)
+                        <AlertOctagon size={11} /> {t.alerts.table.criticalBadge}
                       </span>
                     )}
                     {alert.severity === "WARNING" && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[10px] font-semibold text-amber-800 ring-1 ring-inset ring-amber-200">
-                        <AlertTriangle size={11} /> Bajo mínimo
+                        <AlertTriangle size={11} /> {t.alerts.table.warningBadge}
                       </span>
                     )}
                     {alert.severity === "OVERSTOCK" && (
                       <span className="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-semibold text-blue-700 ring-1 ring-inset ring-blue-200">
-                        <PackageCheck size={11} /> Sobrestock
+                        <PackageCheck size={11} /> {t.alerts.table.overstockBadge}
                       </span>
                     )}
                   </td>
@@ -156,7 +159,7 @@ export function AlertsTable({
                           {alert.product.unit}
                         </span>
                         <div className="text-[10px] text-slate-400">
-                          Meta: {alert.targetStock} un
+                          {t.alerts.table.targetMeta} {alert.targetStock} un
                         </div>
                       </div>
                     ) : (
@@ -172,11 +175,13 @@ export function AlertsTable({
                           {formatCurrency(alert.estimatedCost)}
                         </div>
                         <div className="text-[10px] text-slate-400">
-                          {formatCurrency(alert.unitCost)} c/u
+                          {formatCurrency(alert.unitCost)} {t.alerts.table.eachCost}
                         </div>
                       </div>
                     ) : (
-                      <span className="text-slate-400 text-[11px]">Inmovilizado</span>
+                      <span className="text-slate-400 text-[11px]">
+                        {t.alerts.table.immobilized}
+                      </span>
                     )}
                   </td>
 
@@ -186,14 +191,14 @@ export function AlertsTable({
                       <button
                         onClick={() => onReceive(alert.productId)}
                         className="flex items-center gap-1 rounded-md bg-slate-900 px-2.5 py-1 text-[11px] font-medium text-white transition hover:bg-slate-800"
-                        title="Registrar recepción de stock"
+                        title={t.alerts.table.receiveBtn}
                       >
-                        <Plus size={12} /> Recibir
+                        <Plus size={12} /> {t.alerts.table.receiveBtn}
                       </button>
                       <button
                         onClick={() => onSelectProduct(alert.productId)}
                         className="flex items-center gap-1 rounded-md border border-slate-200 px-2 py-1 text-[11px] font-medium text-slate-600 transition hover:bg-slate-50"
-                        title="Ver detalle del producto"
+                        title="Ver detalle"
                       >
                         <ExternalLink size={12} />
                       </button>
