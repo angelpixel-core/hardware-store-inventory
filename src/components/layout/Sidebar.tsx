@@ -1,19 +1,20 @@
 import {
   CircleAlert,
   ClipboardList,
+  Database,
   LayoutDashboard,
   MapPin,
   Package,
-  Settings,
 } from "lucide-react";
 import type { Section } from "../../types/navigation";
 
 export interface SidebarProps {
   section: Section;
   onChange: (section: Section) => void;
+  onExportBackup?: () => void;
 }
 
-export function Sidebar({ section, onChange }: SidebarProps) {
+export function Sidebar({ section, onChange, onExportBackup }: SidebarProps) {
   const items: { id: Section; label: string; icon: typeof LayoutDashboard }[] =
     [
       { id: "overview", label: "Overview", icon: LayoutDashboard },
@@ -49,12 +50,18 @@ export function Sidebar({ section, onChange }: SidebarProps) {
           </button>
         ))}
       </nav>
-      <div className="border-t border-slate-100 p-3">
-        <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-500 hover:bg-slate-50">
-          <Settings size={17} />
-          Settings
-        </button>
-      </div>
+      {onExportBackup && (
+        <div className="border-t border-slate-100 p-3">
+          <button
+            onClick={onExportBackup}
+            className="flex w-full items-center gap-2.5 rounded-lg border border-slate-200 bg-slate-50 px-3 py-2 text-xs font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+            title="Descargar copia de seguridad del catálogo y kardex"
+          >
+            <Database size={15} className="text-slate-500" />
+            <span>Respaldar DB (.json)</span>
+          </button>
+        </div>
+      )}
     </aside>
   );
 }
